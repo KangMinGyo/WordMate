@@ -18,21 +18,22 @@ class GroupListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .systemBackground
         setupCollectionView()
+        setupConstraints()
     }
     
     private func setupCollectionView() {
-        let itemWidth = (view.frame.width - 30) / 2
+        let itemWidth = (view.frame.width - 60) / 2
         
         // 1. UICollectionViewFlowLayout 설정
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumInteritemSpacing = 10  // 아이템 간 간격
-        layout.minimumLineSpacing = 10  // 줄 간 간격
+        layout.minimumLineSpacing = 20  // 줄 간 간격
         
         // 2. UICollectionView 초기화
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white  // 배경색 설정
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self  // 데이터 소스 설정
         collectionView.delegate = self  // delegate 설정
         
@@ -42,8 +43,15 @@ class GroupListViewController: UIViewController {
         // 4. UICollectionView를 뷰에 추가
         view.addSubview(collectionView)
     }
-
-
+    
+    private func setupConstraints() {
+        collectionView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
+        }
+    }
 }
 
 extension GroupListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -54,7 +62,7 @@ extension GroupListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-        cell.groupTitleLabel.text = "Title"
+        cell.groupTitleLabel.text = items[indexPath.row]
         return cell
     }
     
