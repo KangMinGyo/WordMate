@@ -13,6 +13,7 @@
 		8CB5B44B2CE367A10093C6C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */; };
 		8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4552CE47A180093C6C5 /* LearningViewController.swift */; };
 		8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */; };
+		8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		8CB5B44F2CE367A10093C6C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CB5B4552CE47A180093C6C5 /* LearningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewController.swift; sourceTree = "<group>"; };
 		8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */,
 				8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */,
 				8CB5B44F2CE367A10093C6C5 /* Info.plist */,
+				8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */,
 			);
 			path = WordMate;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
+				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
 			);
