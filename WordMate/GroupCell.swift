@@ -6,18 +6,17 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 class GroupCell: UICollectionViewCell {
     static let identifier = "GroupCell"
     
-    let groupTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Title"
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .white
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let groupTitleLabel = UILabel().then {
+        $0.text = "Title"
+        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.textColor = .white
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,11 +33,12 @@ class GroupCell: UICollectionViewCell {
         backgroundColor = .gray
         addSubview(groupTitleLabel)
     }
-
+    
     private func setupConstraints() {
-        NSLayoutConstraint.activate([
-            groupTitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            groupTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
+        groupTitleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
 }
+
