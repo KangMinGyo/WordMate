@@ -10,15 +10,28 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-                
-            window = UIWindow(windowScene: windowScene)
-            window?.rootViewController = ViewController()
-            window?.makeKeyAndVisible()
+        guard let scene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: scene)
+        
+        let groupListVC = GroupListViewController()
+        groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"), tag: 0)
+        
+        let learningVC = LearningViewController()
+        learningVC.tabBarItem = UITabBarItem(title: "학습", image: UIImage(systemName: "pencil.circle.fill"), tag: 1)
+        
+        let settingsVC = SettingsViewController()
+        settingsVC.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape.fill"), tag: 2)
+        
+        // UITabBarController 설정
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [groupListVC, learningVC, settingsVC]
+        
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
