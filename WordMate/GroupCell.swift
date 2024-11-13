@@ -21,16 +21,26 @@ class GroupCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupViews()
-        setupConstraints()
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupViews() {
-        backgroundColor = .gray
+    private func setupUI() {
+        setupCellStyle()
+        setupSubviews()
+        setupConstraints()
+    }
+    
+    private func setupCellStyle() {
+        backgroundColor = .systemGray3
+        layer.cornerRadius = 20
+        contentView.clipsToBounds = true
+    }
+    
+    private func setupSubviews() {
         addSubview(groupTitleLabel)
     }
     
