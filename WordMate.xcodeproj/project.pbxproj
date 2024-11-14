@@ -16,6 +16,7 @@
 		8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */; };
 		8CB5B4612CE4D7850093C6C5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4602CE4D7850093C6C5 /* Then */; };
 		8CB5B4642CE4D7CA0093C6C5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4632CE4D7CA0093C6C5 /* SnapKit */; };
+		8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8CB5B4552CE47A180093C6C5 /* LearningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewController.swift; sourceTree = "<group>"; };
 		8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4692CE5C8620093C6C5 /* GroupList */,
+				8CB5B46F2CE5CA620093C6C5 /* WordList */,
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
 				8CB5B46D2CE5C8980093C6C5 /* Settings */,
 			);
@@ -134,6 +137,22 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8CB5B46F2CE5CA620093C6C5 /* WordList */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4702CE5CA760093C6C5 /* View */,
+			);
+			path = WordList;
+			sourceTree = "<group>";
+		};
+		8CB5B4702CE5CA760093C6C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,6 +237,7 @@
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
+				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
