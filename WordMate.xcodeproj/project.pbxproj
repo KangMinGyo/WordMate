@@ -20,6 +20,7 @@
 		8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4742CE5CB0B0093C6C5 /* GroupListViewModel.swift */; };
 		8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4762CE5E2600093C6C5 /* WordCell.swift */; };
 		8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */; };
+		8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8CB5B4742CE5CB0B0093C6C5 /* GroupListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListViewModel.swift; sourceTree = "<group>"; };
 		8CB5B4762CE5E2600093C6C5 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 		8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4702CE5CA760093C6C5 /* View */,
+				8CB5B47C2CE6106F0093C6C5 /* ViewModel */,
 			);
 			path = WordList;
 			sourceTree = "<group>";
@@ -188,6 +191,14 @@
 				8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8CB5B47C2CE6106F0093C6C5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +288,7 @@
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
+				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

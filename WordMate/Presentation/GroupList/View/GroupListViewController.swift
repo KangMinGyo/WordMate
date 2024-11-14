@@ -77,6 +77,6 @@ extension GroupListViewController: UICollectionViewDataSource {
 
 extension GroupListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.handleNextVC(from: self, animated: true)
+        viewModel.goToWordListVC(from: self, animated: true)
     }
 }
