@@ -58,10 +58,7 @@ class WordListViewController: UIViewController {
     
     private func setupConstraints() {
         collectionView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
-            $0.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
 }

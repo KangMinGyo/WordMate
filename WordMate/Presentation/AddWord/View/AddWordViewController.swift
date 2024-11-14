@@ -55,9 +55,7 @@ class AddWordViewController: UIViewController {
 
     private func setupConstraints() {
         stackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            $0.leading.equalToSuperview().inset(20)
-            $0.trailing.equalToSuperview().inset(20)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(textFieldHeight * 4)
         }
     }
