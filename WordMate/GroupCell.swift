@@ -36,6 +36,10 @@ class GroupCell: UICollectionViewCell {
     
     private func setupCellStyle() {
         backgroundColor = .systemGray3
+        layer.shadowColor = UIColor.systemGray.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 5, height: 5)
         layer.cornerRadius = 20
         contentView.clipsToBounds = true
     }
