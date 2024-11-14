@@ -11,9 +11,16 @@ class GroupListViewController: UIViewController {
 
     var collectionView: UICollectionView!
     
-    // 데이터 배열
-    let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
-        
+    let viewModel: GroupListViewModel
+    
+    init(viewModel: GroupListViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,16 +62,21 @@ class GroupListViewController: UIViewController {
     }
 }
 
-extension GroupListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return viewModel.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-        cell.groupTitleLabel.text = items[indexPath.row]
+        cell.groupTitleLabel.text = viewModel.items[indexPath.row]
         return cell
     }
-    
+}
+
+extension GroupListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.handleNextVC(from: self, animated: true)
+    }
 }

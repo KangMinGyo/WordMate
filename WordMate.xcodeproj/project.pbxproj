@@ -17,6 +17,7 @@
 		8CB5B4612CE4D7850093C6C5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4602CE4D7850093C6C5 /* Then */; };
 		8CB5B4642CE4D7CA0093C6C5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4632CE4D7CA0093C6C5 /* SnapKit */; };
 		8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */; };
+		8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4742CE5CB0B0093C6C5 /* GroupListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
+		8CB5B4742CE5CB0B0093C6C5 /* GroupListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B46A2CE5C86C0093C6C5 /* View */,
+				8CB5B4732CE5CAED0093C6C5 /* ViewModel */,
 			);
 			path = GroupList;
 			sourceTree = "<group>";
@@ -155,6 +158,14 @@
 				8CB5B4712CE5CA920093C6C5 /* WordListViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8CB5B4732CE5CAED0093C6C5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4742CE5CB0B0093C6C5 /* GroupListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */,
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
