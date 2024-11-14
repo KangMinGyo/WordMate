@@ -62,16 +62,80 @@
 		8CB5B4402CE3679D0093C6C5 /* WordMate */ = {
 			isa = PBXGroup;
 			children = (
-				8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */,
-				8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */,
-				8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */,
-				8CB5B4552CE47A180093C6C5 /* LearningViewController.swift */,
-				8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */,
+				8CB5B4672CE5C82D0093C6C5 /* Application */,
+				8CB5B4682CE5C8520093C6C5 /* Presentation */,
 				8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */,
 				8CB5B44F2CE367A10093C6C5 /* Info.plist */,
-				8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */,
 			);
 			path = WordMate;
+			sourceTree = "<group>";
+		};
+		8CB5B4672CE5C82D0093C6C5 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */,
+				8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		8CB5B4682CE5C8520093C6C5 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4692CE5C8620093C6C5 /* GroupList */,
+				8CB5B46B2CE5C8750093C6C5 /* Learning */,
+				8CB5B46D2CE5C8980093C6C5 /* Settings */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		8CB5B4692CE5C8620093C6C5 /* GroupList */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B46A2CE5C86C0093C6C5 /* View */,
+			);
+			path = GroupList;
+			sourceTree = "<group>";
+		};
+		8CB5B46A2CE5C86C0093C6C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */,
+				8CB5B4592CE48DB10093C6C5 /* GroupCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8CB5B46B2CE5C8750093C6C5 /* Learning */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B46C2CE5C8900093C6C5 /* View */,
+			);
+			path = Learning;
+			sourceTree = "<group>";
+		};
+		8CB5B46C2CE5C8900093C6C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4552CE47A180093C6C5 /* LearningViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8CB5B46D2CE5C8980093C6C5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B46E2CE5C8A50093C6C5 /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8CB5B46E2CE5C8A50093C6C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4572CE47A290093C6C5 /* SettingsViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
