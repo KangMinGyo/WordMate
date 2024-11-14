@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let groupListVC = GroupListViewController()
+        let groupListVC = UINavigationController(rootViewController: GroupListViewController())
         groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"), tag: 0)
         
         let learningVC = LearningViewController()

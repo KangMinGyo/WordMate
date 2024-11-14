@@ -17,7 +17,7 @@ class GroupListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationItem.title = "단어 그룹"
         view.backgroundColor = .systemBackground
         setupCollectionView()
         setupConstraints()
@@ -28,7 +28,7 @@ class GroupListViewController: UIViewController {
         
         // 1. UICollectionViewFlowLayout 설정
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumInteritemSpacing = 10  // 아이템 간 간격
         layout.minimumLineSpacing = 20  // 줄 간 간격
