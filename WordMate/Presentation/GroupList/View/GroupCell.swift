@@ -13,7 +13,6 @@ class GroupCell: UICollectionViewCell {
     static let identifier = "GroupCell"
     
     let groupTitleLabel = UILabel().then {
-        $0.text = "Title"
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .white
     }
