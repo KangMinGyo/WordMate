@@ -43,10 +43,20 @@ class AddWordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
+        setupNaviBar()
         setupSubviews()
         setupConstraints()
+    }
+    
+    func setupNaviBar() {
+        title = "단어"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+    }
+    
+    @objc func saveButtonTapped() {
+        print("SAVE")
     }
     
     private func setupSubviews() {
