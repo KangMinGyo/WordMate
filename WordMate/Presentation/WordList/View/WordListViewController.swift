@@ -9,32 +9,55 @@ import UIKit
 
 class WordListViewController: UIViewController {
 
-   var tableView: UITableView!
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupTableView()
+        setupCollectionView()
+        setupConstraints()
     }
     
-    private func setupTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        tableView.dataSource = self
-//        tableView.delegate = self
-        tableView.register(WordCell.self, forCellReuseIdentifier: "WordCell")
-        view.addSubview(tableView)
+    private func setupCollectionView() {
+        let itemWidth = (view.frame.width - 40)
+        
+        // 1. UICollectionViewFlowLayout 설정
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
+        layout.itemSize = CGSize(width: itemWidth, height: 100)
+        layout.minimumLineSpacing = 20  // 줄 간 간격
+        
+        // 2. UICollectionView 초기화
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+//        collectionView.delegate = self
+        
+        // 3. 셀 등록
+        collectionView.register(WordCell.self, forCellWithReuseIdentifier: "WordCell")
+        
+        // 4. UICollectionView를 뷰에 추가
+        view.addSubview(collectionView)
     }
-
+    
+    private func setupConstraints() {
+        collectionView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+    }
 }
 
-extension WordListViewController: UITableViewDataSource {
+extension WordListViewController: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WordCell", for: indexPath) as! WordCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WordCell", for: indexPath) as! WordCell
+        cell.wordLabel.text = "Apple"
         return cell
     }
     
