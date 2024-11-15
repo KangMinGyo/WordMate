@@ -9,21 +9,27 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    private let settingLabel = UILabel().then {
+        $0.text = "설정"
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        setupSubviews()
+        setupConstraints()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupSubviews() {
+        view.addSubview(settingLabel)
     }
-    */
 
+    private func setupConstraints() {
+        settingLabel.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+        }
+    }
 }
