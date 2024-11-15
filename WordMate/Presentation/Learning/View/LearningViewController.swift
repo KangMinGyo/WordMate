@@ -6,24 +6,78 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 class LearningViewController: UIViewController {
+    
+    private let learningLabel = UILabel().then {
+        $0.text = "학습"
+        $0.textAlignment = .center
+        $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+    }
+    
+    private lazy var game1Button = UIButton().then {
+        $0.setTitle("플래시카드", for: .normal)
+        $0.backgroundColor = .systemGray3
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 25
+    }
+    
+    private lazy var game2Button = UIButton().then {
+        $0.setTitle("사지선다", for: .normal)
+        $0.backgroundColor = .systemGray3
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 25
+    }
+    
+    private lazy var game3Button = UIButton().then {
+        $0.setTitle("받아쓰기", for: .normal)
+        $0.backgroundColor = .systemGray3
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 25
+    }
+    
+    private lazy var game4Button = UIButton().then {
+        $0.setTitle("깜빡이", for: .normal)
+        $0.backgroundColor = .systemGray3
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 25
+    }
+    
+    private lazy var stackView = UIStackView(arrangedSubviews: [
+        game1Button, game2Button, game3Button, game4Button]).then {
+            $0.axis = .vertical
+            $0.spacing = 15
+            $0.distribution = .fillEqually
+            $0.alignment = .fill
+        }
+    
+    private let buttonHeight: CGFloat = 100
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        setupSubviews()
+        setupConstraints()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupSubviews() {
+        view.addSubview(learningLabel)
+        view.addSubview(stackView)
     }
-    */
+
+    private func setupConstraints() {
+        learningLabel.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+        }
+        
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(learningLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(buttonHeight * 4)
+        }
+    }
 
 }
