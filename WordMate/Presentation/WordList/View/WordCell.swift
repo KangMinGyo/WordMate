@@ -12,10 +12,37 @@ import SnapKit
 class WordCell: UICollectionViewCell {
     
     let wordLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        $0.textColor = .black
+    }
+    
+    let pronunciationLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.textColor = .gray
+    }
+    
+    let meaningLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .black
     }
-
+    
+    let descriptionLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.textColor = .black
+    }
+    
+    private lazy var bookmarkButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "star"), for: .normal)
+        $0.frame.size = CGSize(width: 50, height: 50)
+        $0.tintColor = .gray  // 아이콘 색상 변경
+    }
+    
+    private lazy var speakerButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
+        $0.frame.size = CGSize(width: 50, height: 50)
+        $0.tintColor = .gray  // 아이콘 색상 변경
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -44,6 +71,9 @@ class WordCell: UICollectionViewCell {
     
     private func setupSubviews() {
         addSubview(wordLabel)
+        addSubview(pronunciationLabel)
+        addSubview(bookmarkButton)
+        addSubview(speakerButton)
     }
     
     private func setupConstraints() {
@@ -51,6 +81,18 @@ class WordCell: UICollectionViewCell {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
+        
+        pronunciationLabel.snp.makeConstraints {
+            $0.top.equalTo(wordLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
+        bookmarkButton.snp.makeConstraints {
+            $0.top.trailing.equalTo(safeAreaLayoutGuide).inset(15)
+        }
+        
+        speakerButton.snp.makeConstraints {
+            $0.bottom.leading.equalTo(safeAreaLayoutGuide).inset(10)
+        }
     }
-
 }

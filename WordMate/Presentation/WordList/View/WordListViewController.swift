@@ -76,6 +76,7 @@ extension WordListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WordCell", for: indexPath) as! WordCell
         cell.wordLabel.text = "Apple"
+        cell.pronunciationLabel.text = "[애펄]"
         return cell
     }
     
