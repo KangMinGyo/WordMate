@@ -21,6 +21,7 @@
 		8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4762CE5E2600093C6C5 /* WordCell.swift */; };
 		8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */; };
 		8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */; };
+		8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		8CB5B4762CE5E2600093C6C5 /* WordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordCell.swift; sourceTree = "<group>"; };
 		8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewModel.swift; sourceTree = "<group>"; };
+		8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4692CE5C8620093C6C5 /* GroupList */,
+				8CB5B4812CE716EE0093C6C5 /* AddGroup */,
 				8CB5B46F2CE5CA620093C6C5 /* WordList */,
 				8CB5B4782CE5F59E0093C6C5 /* AddWord */,
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
@@ -201,6 +204,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		8CB5B4812CE716EE0093C6C5 /* AddGroup */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4822CE717090093C6C5 /* View */,
+			);
+			path = AddGroup;
+			sourceTree = "<group>";
+		};
+		8CB5B4822CE717090093C6C5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,6 +301,7 @@
 				8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */,
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
+				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,

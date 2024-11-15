@@ -26,8 +26,18 @@ class GroupListViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "단어 그룹"
         view.backgroundColor = .systemBackground
+        setupNaviBar()
         setupCollectionView()
         setupConstraints()
+    }
+    
+    func setupNaviBar() {
+//        title = viewModel.title
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+    }
+    
+    @objc func addButtonTapped() {
+        viewModel.goToAddGroupVC(from: self, animated: true)
     }
     
     private func setupCollectionView() {
