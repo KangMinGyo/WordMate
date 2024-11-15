@@ -14,34 +14,46 @@ class LearningViewController: UIViewController {
     private let learningLabel = UILabel().then {
         $0.text = "학습"
         $0.textAlignment = .center
-        $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
     private lazy var game1Button = UIButton().then {
         $0.setTitle("플래시카드", for: .normal)
         $0.backgroundColor = .systemGray3
-        $0.layer.masksToBounds = true
+        $0.layer.shadowColor = UIColor.systemGray.cgColor
+        $0.layer.shadowOpacity = 0.5
+        $0.layer.shadowRadius = 5
+        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         $0.layer.cornerRadius = 25
     }
     
     private lazy var game2Button = UIButton().then {
         $0.setTitle("사지선다", for: .normal)
         $0.backgroundColor = .systemGray3
-        $0.layer.masksToBounds = true
+        $0.layer.shadowColor = UIColor.systemGray.cgColor
+        $0.layer.shadowOpacity = 0.5
+        $0.layer.shadowRadius = 5
+        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         $0.layer.cornerRadius = 25
     }
     
     private lazy var game3Button = UIButton().then {
         $0.setTitle("받아쓰기", for: .normal)
         $0.backgroundColor = .systemGray3
-        $0.layer.masksToBounds = true
+        $0.layer.shadowColor = UIColor.systemGray.cgColor
+        $0.layer.shadowOpacity = 0.5
+        $0.layer.shadowRadius = 5
+        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         $0.layer.cornerRadius = 25
     }
     
     private lazy var game4Button = UIButton().then {
         $0.setTitle("깜빡이", for: .normal)
         $0.backgroundColor = .systemGray3
-        $0.layer.masksToBounds = true
+        $0.layer.shadowColor = UIColor.systemGray.cgColor
+        $0.layer.shadowOpacity = 0.5
+        $0.layer.shadowRadius = 5
+        $0.layer.shadowOffset = CGSize(width: 1, height: 1)
         $0.layer.cornerRadius = 25
     }
     
