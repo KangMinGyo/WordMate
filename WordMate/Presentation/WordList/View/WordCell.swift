@@ -12,7 +12,7 @@ import SnapKit
 class WordCell: UICollectionViewCell {
     
     let wordLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         $0.textColor = .black
     }
     
@@ -22,13 +22,13 @@ class WordCell: UICollectionViewCell {
     }
     
     let meaningLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.font = UIFont.systemFont(ofSize: 17)
         $0.textColor = .black
     }
     
     let descriptionLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 18)
-        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 17)
+        $0.textColor = .gray
     }
     
     private lazy var bookmarkButton = UIButton().then {
@@ -42,11 +42,12 @@ class WordCell: UICollectionViewCell {
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         setupUI()
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +73,8 @@ class WordCell: UICollectionViewCell {
     private func setupSubviews() {
         addSubview(wordLabel)
         addSubview(pronunciationLabel)
+        addSubview(meaningLabel)
+        addSubview(descriptionLabel)
         addSubview(bookmarkButton)
         addSubview(speakerButton)
     }
@@ -87,6 +90,16 @@ class WordCell: UICollectionViewCell {
             $0.centerX.equalToSuperview()
         }
         
+        meaningLabel.snp.makeConstraints {
+            $0.top.equalTo(pronunciationLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(meaningLabel.snp.bottom).offset(5)
+            $0.centerX.equalToSuperview()
+        }
+        
         bookmarkButton.snp.makeConstraints {
             $0.top.trailing.equalTo(safeAreaLayoutGuide).inset(15)
         }
@@ -94,5 +107,12 @@ class WordCell: UICollectionViewCell {
         speakerButton.snp.makeConstraints {
             $0.bottom.leading.equalTo(safeAreaLayoutGuide).inset(10)
         }
+    }
+    
+    func configure() {
+        wordLabel.text = "Apple"
+        pronunciationLabel.text = "[애펄]"
+        meaningLabel.text = "사과"
+        descriptionLabel.text = "맛있는 사과"
     }
 }
