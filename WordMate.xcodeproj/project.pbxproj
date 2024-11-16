@@ -22,6 +22,8 @@
 		8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */; };
 		8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */; };
 		8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */; };
+		8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */; };
+		8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		8CB5B47A2CE5F5C10093C6C5 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
 		8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewModel.swift; sourceTree = "<group>"; };
 		8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
+		8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyWord.swift; sourceTree = "<group>"; };
+		8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 			children = (
 				8CB5B4672CE5C82D0093C6C5 /* Application */,
 				8CB5B4682CE5C8520093C6C5 /* Presentation */,
+				8CB5B4872CE8E1090093C6C5 /* Models */,
 				8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */,
 				8CB5B44F2CE367A10093C6C5 /* Info.plist */,
 			);
@@ -220,6 +225,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8CB5B4872CE8E1090093C6C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */,
+				8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -297,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,
 				8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */,
 				8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */,
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
@@ -308,6 +323,7 @@
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
+				8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */,
 				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
