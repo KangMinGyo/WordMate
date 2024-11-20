@@ -24,6 +24,7 @@
 		8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */; };
 		8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */; };
 		8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */; };
+		8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		8CB5B4832CE7171B0093C6C5 /* AddGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 		8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyWord.swift; sourceTree = "<group>"; };
 		8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyGroup.swift; sourceTree = "<group>"; };
+		8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4792CE5F5AC0093C6C5 /* View */,
+				8CB5B48C2CEDFD100093C6C5 /* ViewModel */,
 			);
 			path = AddWord;
 			sourceTree = "<group>";
@@ -232,6 +235,14 @@
 				8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8CB5B48C2CEDFD100093C6C5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +336,7 @@
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
 				8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */,
 				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
+				8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
