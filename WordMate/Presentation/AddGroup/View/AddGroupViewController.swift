@@ -22,6 +22,8 @@ class AddGroupViewController: UIViewController {
         $0.layer.cornerRadius = 20
         $0.clipsToBounds = true
     }
+    
+    private let viewModel = AddGroupViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +40,9 @@ class AddGroupViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        print("SAVE")
+        guard let name = groupTextField.text else { return }
+        viewModel.makeNewGroup(name: name)
+        viewModel.goBackToPreviousVC(from: self, animated: true)
     }
     
     private func setupSubviews() {

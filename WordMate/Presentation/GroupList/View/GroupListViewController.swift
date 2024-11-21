@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroupListViewController: UIViewController {
 
@@ -24,6 +25,8 @@ class GroupListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
+
         navigationItem.title = "단어 그룹"
         view.backgroundColor = .systemBackground
         setupNaviBar()

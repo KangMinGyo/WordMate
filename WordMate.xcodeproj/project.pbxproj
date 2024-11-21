@@ -25,9 +25,25 @@
 		8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */; };
 		8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */; };
 		8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */; };
-		8CB5B4922CEEF63A0093C6C5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4912CEEF63A0093C6C5 /* RealmSwift */; };
 		8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */; };
+		8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4962CEF58DD0093C6C5 /* AddGroupViewModel.swift */; };
+		8CDF32132CEF627200B9536D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8CDF32122CEF627200B9536D /* RealmSwift */; };
+		8CDF32142CEF680600B9536D /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 8CDF32122CEF627200B9536D /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8CDF32152CEF680600B9536D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8CDF32142CEF680600B9536D /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +65,7 @@
 		8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyGroup.swift; sourceTree = "<group>"; };
 		8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewModel.swift; sourceTree = "<group>"; };
 		8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		8CB5B4962CEF58DD0093C6C5 /* AddGroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CB5B4922CEEF63A0093C6C5 /* RealmSwift in Frameworks */,
+				8CDF32132CEF627200B9536D /* RealmSwift in Frameworks */,
 				8CB5B4612CE4D7850093C6C5 /* Then in Frameworks */,
 				8CB5B4642CE4D7CA0093C6C5 /* SnapKit in Frameworks */,
 			);
@@ -220,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4822CE717090093C6C5 /* View */,
+				8CB5B4952CEF58C80093C6C5 /* ViewModel */,
 			);
 			path = AddGroup;
 			sourceTree = "<group>";
@@ -250,6 +268,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		8CB5B4952CEF58C80093C6C5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4962CEF58DD0093C6C5 /* AddGroupViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -260,6 +286,7 @@
 				8CB5B43A2CE3679D0093C6C5 /* Sources */,
 				8CB5B43B2CE3679D0093C6C5 /* Frameworks */,
 				8CB5B43C2CE3679D0093C6C5 /* Resources */,
+				8CDF32152CEF680600B9536D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -269,7 +296,7 @@
 			packageProductDependencies = (
 				8CB5B4602CE4D7850093C6C5 /* Then */,
 				8CB5B4632CE4D7CA0093C6C5 /* SnapKit */,
-				8CB5B4912CEEF63A0093C6C5 /* RealmSwift */,
+				8CDF32122CEF627200B9536D /* RealmSwift */,
 			);
 			productName = WordMate;
 			productReference = 8CB5B43E2CE3679D0093C6C5 /* WordMate.app */;
@@ -302,7 +329,7 @@
 			packageReferences = (
 				8CB5B45F2CE4D7850093C6C5 /* XCRemoteSwiftPackageReference "Then" */,
 				8CB5B4622CE4D7CA0093C6C5 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				8CDF32112CEF627200B9536D /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 8CB5B43F2CE3679D0093C6C5 /* Products */;
 			projectDirPath = "";
@@ -341,6 +368,7 @@
 				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
+				8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
 				8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */,
 				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
@@ -572,12 +600,12 @@
 				minimumVersion = 5.0.1;
 			};
 		};
-		8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		8CDF32112CEF627200B9536D /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.54.1;
+				minimumVersion = 10.49.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -593,9 +621,9 @@
 			package = 8CB5B4622CE4D7CA0093C6C5 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		8CB5B4912CEEF63A0093C6C5 /* RealmSwift */ = {
+		8CDF32122CEF627200B9536D /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = 8CDF32112CEF627200B9536D /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

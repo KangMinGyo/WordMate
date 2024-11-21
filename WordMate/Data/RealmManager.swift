@@ -10,6 +10,8 @@ import RealmSwift
 
 class RealmManager {
     static let shared = RealmManager()
+    private init() {}
+    
     let realm = try! Realm()
     
     func add<T: Object>(_ object: T) {
