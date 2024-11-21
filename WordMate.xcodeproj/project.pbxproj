@@ -25,6 +25,7 @@
 		8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */; };
 		8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */; };
 		8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */; };
+		8CB5B4922CEEF63A0093C6C5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4912CEEF63A0093C6C5 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB5B4922CEEF63A0093C6C5 /* RealmSwift in Frameworks */,
 				8CB5B4612CE4D7850093C6C5 /* Then in Frameworks */,
 				8CB5B4642CE4D7CA0093C6C5 /* SnapKit in Frameworks */,
 			);
@@ -264,6 +266,7 @@
 			packageProductDependencies = (
 				8CB5B4602CE4D7850093C6C5 /* Then */,
 				8CB5B4632CE4D7CA0093C6C5 /* SnapKit */,
+				8CB5B4912CEEF63A0093C6C5 /* RealmSwift */,
 			);
 			productName = WordMate;
 			productReference = 8CB5B43E2CE3679D0093C6C5 /* WordMate.app */;
@@ -296,6 +299,7 @@
 			packageReferences = (
 				8CB5B45F2CE4D7850093C6C5 /* XCRemoteSwiftPackageReference "Then" */,
 				8CB5B4622CE4D7CA0093C6C5 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 8CB5B43F2CE3679D0093C6C5 /* Products */;
 			projectDirPath = "";
@@ -564,6 +568,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.54.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -576,6 +588,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8CB5B4622CE4D7CA0093C6C5 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		8CB5B4912CEEF63A0093C6C5 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8CB5B4902CEEF63A0093C6C5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
