@@ -26,6 +26,7 @@
 		8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */; };
 		8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */; };
 		8CB5B4922CEEF63A0093C6C5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB5B4912CEEF63A0093C6C5 /* RealmSwift */; };
+		8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyWord.swift; sourceTree = "<group>"; };
 		8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyGroup.swift; sourceTree = "<group>"; };
 		8CB5B48D2CEDFD2F0093C6C5 /* AddWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewModel.swift; sourceTree = "<group>"; };
+		8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +86,7 @@
 			children = (
 				8CB5B4672CE5C82D0093C6C5 /* Application */,
 				8CB5B4682CE5C8520093C6C5 /* Presentation */,
-				8CB5B4872CE8E1090093C6C5 /* Models */,
+				8CB5B4872CE8E1090093C6C5 /* Data */,
 				8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */,
 				8CB5B44F2CE367A10093C6C5 /* Info.plist */,
 			);
@@ -230,13 +232,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8CB5B4872CE8E1090093C6C5 /* Models */ = {
+		8CB5B4872CE8E1090093C6C5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */,
 				8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */,
+				8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */,
 			);
-			path = Models;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		8CB5B48C2CEDFD100093C6C5 /* ViewModel */ = {
@@ -335,6 +338,7 @@
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
+				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
