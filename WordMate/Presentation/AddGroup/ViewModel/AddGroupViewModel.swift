@@ -9,21 +9,19 @@ import UIKit
 import RealmSwift
 
 class AddGroupViewModel {
-    let realm = try! Realm()
+    private let realmManager: RealmManagerProtocol
+    
+    init(realmManager: RealmManagerProtocol) {
+        self.realmManager = realmManager
+    }
 
     func makeNewGroup(name: String) {
         let group = VocabularyGroup()
         group.name = name
         group.language = "English"
         
-        do {
-            try realm.write {
-                realm.add(group)
-            }
-            print("Group saved successfully")
-        } catch {
-            print("Error saving group: \(error)")
-        }
+        realmManager.addObject(group)
+        print("Group saved successfully")
     }
     
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {

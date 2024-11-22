@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class GroupListViewModel {
+    private let realmManager: RealmManagerProtocol
     
     var groups: Results<VocabularyGroup>? {
         didSet {
@@ -18,9 +19,12 @@ class GroupListViewModel {
     
     var onGroupsUpdated: ((Results<VocabularyGroup>?) -> Void)?
     
+    init(realmManager: RealmManagerProtocol) {
+        self.realmManager = realmManager
+    }
+    
     func fetchGroups() {
-        let realm = try! Realm()
-        groups = realm.objects(VocabularyGroup.self)
+        groups = realmManager.fetchObjects(VocabularyGroup.self)
     }
 
     func goToAddGroupVC(from viewController: UIViewController, animated: Bool) {

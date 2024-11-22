@@ -5,22 +5,35 @@
 //  Created by KangMingyo on 11/21/24.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
-class RealmManager {
+protocol RealmManagerProtocol {
+    func fetchObjects<T: Object>(_ object: T.Type) -> Results<T>
+    func addObject<T: Object>(_ object: T)
+    func deleteObject<T: Object>(_ object: T)
+}
+
+final class RealmManager: RealmManagerProtocol {
     static let shared = RealmManager()
-    private init() {}
+    private let realm: Realm
     
-    let realm = try! Realm()
+    init() {
+        self.realm = try! Realm()
+    }
     
-    func add<T: Object>(_ object: T) {
-        do {
-            try realm.write {
-                realm.add(object)
-            }
-        } catch {
-            print("Failed to add: \(error.localizedDescription)")
+    func fetchObjects<T: Object>(_ object: T.Type) -> Results<T> {
+        return realm.objects(object)
+    }
+    
+    func addObject<T: Object>(_ object: T) {
+        try? realm.write {
+            realm.add(object)
         }
     }
+    
+    func deleteObject<T: Object>(_ object: T) {
+        print("삭제")
+    }
+
 }

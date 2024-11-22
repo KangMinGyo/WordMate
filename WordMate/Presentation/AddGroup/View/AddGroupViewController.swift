@@ -23,7 +23,7 @@ class AddGroupViewController: UIViewController {
         $0.clipsToBounds = true
     }
     
-    private let viewModel = AddGroupViewModel()
+    private let viewModel = AddGroupViewModel(realmManager: RealmManager())
 
     override func viewDidLoad() {
         super.viewDidLoad()
