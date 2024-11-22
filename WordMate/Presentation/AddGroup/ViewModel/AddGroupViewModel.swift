@@ -24,8 +24,6 @@ class AddGroupViewModel {
         } catch {
             print("Error saving group: \(error)")
         }
-        let groups = realm.objects(VocabularyGroup.self)
-        print(groups)
     }
     
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {

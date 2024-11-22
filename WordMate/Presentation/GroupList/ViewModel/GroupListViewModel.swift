@@ -6,12 +6,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroupListViewModel {
     
-    // 데이터 배열
-    let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    var groups: Results<VocabularyGroup>? {
+        didSet {
+            onGroupsUpdated?(groups)
+        }
+    }
     
+    var onGroupsUpdated: ((Results<VocabularyGroup>?) -> Void)?
+    
+    func fetchGroups() {
+        let realm = try! Realm()
+        groups = realm.objects(VocabularyGroup.self)
+    }
+
     func goToAddGroupVC(from viewController: UIViewController, animated: Bool) {
         let addGroupVC = AddGroupViewController()
         viewController.navigationController?.pushViewController(addGroupVC, animated: animated)

@@ -25,13 +25,25 @@ class GroupListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("## realm file dir -> \(Realm.Configuration.defaultConfiguration.fileURL!)")
-
         navigationItem.title = "단어 그룹"
         view.backgroundColor = .systemBackground
+        
         setupNaviBar()
         setupCollectionView()
         setupConstraints()
+        bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetchGroups()
+    }
+    
+    private func bindViewModel() {
+        viewModel.onGroupsUpdated = { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     func setupNaviBar() {
@@ -75,12 +87,14 @@ class GroupListViewController: UIViewController {
 extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.items.count
+        return viewModel.groups?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-        cell.groupTitleLabel.text = viewModel.items[indexPath.row]
+        
+//        let groupVM = ViewModel.
+        cell.groupTitleLabel.text = viewModel.groups?[indexPath.row].name
         return cell
     }
 }
