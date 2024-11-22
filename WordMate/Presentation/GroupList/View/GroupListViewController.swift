@@ -47,7 +47,6 @@ class GroupListViewController: UIViewController {
     }
     
     func setupNaviBar() {
-//        title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     
@@ -92,8 +91,7 @@ extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-        
-//        let groupVM = ViewModel.
+
         cell.groupTitleLabel.text = viewModel.groups?[indexPath.row].name
         return cell
     }

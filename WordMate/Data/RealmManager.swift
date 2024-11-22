@@ -14,6 +14,7 @@ protocol RealmManagerProtocol {
     func addObject<T: Object>(_ object: T)
 //    func deleteObject()
     func deleteObject<T: Object>(_ object: T)
+    func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
 }
 
 final class RealmManager: RealmManagerProtocol {
@@ -36,6 +37,13 @@ final class RealmManager: RealmManagerProtocol {
     func addObject<T: Object>(_ object: T) {
         try? realm.write {
             realm.add(object)
+        }
+    }
+    
+    func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U) {
+        try? realm.write {
+            group.words.append(word)
+            realm.add(group, update: .modified)
         }
     }
     

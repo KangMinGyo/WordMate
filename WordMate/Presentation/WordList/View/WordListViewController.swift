@@ -30,6 +30,18 @@ class WordListViewController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.fetchWords()
+    }
+    
+    private func bindViewModel() {
+        viewModel.onWordsUpdated = { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
     func setupNaviBar() {
         title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -70,11 +82,14 @@ class WordListViewController: UIViewController {
 extension WordListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.words?.count ?? 0
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WordCell", for: indexPath) as! WordCell
+        cell.wordLabel.text = viewModel.words?[indexPath.row].name
+//        guard let wordVM = viewModel.words[indexPath.item] else { return }
+//        cell.viewModel = wordVM
         return cell
     }
     

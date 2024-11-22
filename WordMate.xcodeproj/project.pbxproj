@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E64C2CF0A96C00757359 /* WordViewModel.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C78E64C2CF0A96C00757359 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B47D2CE610910093C6C5 /* WordListViewModel.swift */,
+				8C78E64C2CF0A96C00757359 /* WordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */,
 				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,
 				8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */,
 				8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */,

@@ -11,6 +11,12 @@ import SnapKit
 
 class WordCell: UICollectionViewCell {
     
+    var viewModel: WordViewModel! {
+        didSet {
+            configureUI()
+        }
+    }
+    
     let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         $0.textColor = .black
@@ -47,7 +53,6 @@ class WordCell: UICollectionViewCell {
         super.init(frame: frame)
 
         setupUI()
-        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -109,10 +114,10 @@ class WordCell: UICollectionViewCell {
         }
     }
     
-    func configure() {
-        wordLabel.text = "Apple"
-        pronunciationLabel.text = "[애펄]"
-        meaningLabel.text = "사과"
-        descriptionLabel.text = "맛있는 사과"
+    func configureUI() {
+        wordLabel.text = viewModel.name
+        pronunciationLabel.text = viewModel.pronunciation
+        meaningLabel.text = viewModel.meaning
+        descriptionLabel.text = viewModel.descriptionText
     }
 }

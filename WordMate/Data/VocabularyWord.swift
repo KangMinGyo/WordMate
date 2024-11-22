@@ -10,7 +10,7 @@ import RealmSwift
 
 class VocabularyWord: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var word: String
+    @Persisted var name: String
     @Persisted var pronunciation: String?
     @Persisted var meaning: String
     @Persisted var descriptionText: String?
@@ -20,9 +20,9 @@ class VocabularyWord: Object {
         super.init()
     }
 
-    convenience init(word: String, pronunciation: String? = nil, meaning: String, descriptionText: String? = nil, isLiked: Bool = false) {
+    convenience init(name: String, pronunciation: String? = nil, meaning: String, descriptionText: String? = nil, isLiked: Bool = false) {
         self.init()
-        self.word = word
+        self.name = name
         self.pronunciation = pronunciation
         self.meaning = meaning
         self.descriptionText = descriptionText
