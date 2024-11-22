@@ -86,13 +86,13 @@ class GroupListViewController: UIViewController {
 extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.groups?.count ?? 0
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-
-        cell.groupTitleLabel.text = viewModel.groups?[indexPath.row].name
+        let group = viewModel.groups?[indexPath.row]
+        cell.group = group
         return cell
     }
 }

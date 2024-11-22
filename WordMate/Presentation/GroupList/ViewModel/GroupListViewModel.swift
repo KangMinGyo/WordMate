@@ -23,6 +23,10 @@ class GroupListViewModel {
         self.realmManager = realmManager
     }
     
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return self.groups?.count ?? 0
+    }
+    
     func fetchGroups() {
         groups = realmManager.fetchObjects(VocabularyGroup.self)
     }

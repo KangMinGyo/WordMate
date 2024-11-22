@@ -12,6 +12,13 @@ import SnapKit
 class GroupCell: UICollectionViewCell {
     static let identifier = "GroupCell"
     
+    var group: VocabularyGroup? {
+        didSet {
+            guard var group = group else { return }
+            groupTitleLabel.text = group.name
+        }
+    }
+    
     let groupTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .white
