@@ -10,7 +10,9 @@ import RealmSwift
 
 protocol RealmManagerProtocol {
     func fetchObjects<T: Object>(_ object: T.Type) -> Results<T>
+    func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T?
     func addObject<T: Object>(_ object: T)
+//    func deleteObject()
     func deleteObject<T: Object>(_ object: T)
 }
 
@@ -26,6 +28,11 @@ final class RealmManager: RealmManagerProtocol {
         return realm.objects(object)
     }
     
+    func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T? {
+        let realm = try! Realm()
+        return realm.object(ofType: type, forPrimaryKey: id)
+    }
+    
     func addObject<T: Object>(_ object: T) {
         try? realm.write {
             realm.add(object)
@@ -34,6 +41,12 @@ final class RealmManager: RealmManagerProtocol {
     
     func deleteObject<T: Object>(_ object: T) {
         print("삭제")
+    }
+    
+    func deleteObject() {
+        try? realm.write {
+            realm.deleteAll()
+        }
     }
 
 }

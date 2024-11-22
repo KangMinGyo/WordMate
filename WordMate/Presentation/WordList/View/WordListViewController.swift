@@ -31,7 +31,7 @@ class WordListViewController: UIViewController {
     }
     
     func setupNaviBar() {
-//        title = viewModel.title
+        title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
     }
     
@@ -70,7 +70,7 @@ class WordListViewController: UIViewController {
 extension WordListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.words?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -32,8 +32,9 @@ class GroupListViewModel {
         viewController.navigationController?.pushViewController(addGroupVC, animated: animated)
     }
     
-    func goToWordListVC(from viewController: UIViewController, animated: Bool) {
-        let wordListVC = WordListViewController(viewModel: WordListViewModel())
+    func goToWordListVC(from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
+        let wordListViewModel = WordListViewModel(group: group, realmManager: RealmManager())
+        let wordListVC = WordListViewController(viewModel: wordListViewModel)
         viewController.navigationController?.pushViewController(wordListVC, animated: animated)
     }
 }
