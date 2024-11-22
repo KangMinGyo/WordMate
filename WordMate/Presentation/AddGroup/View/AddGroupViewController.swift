@@ -11,6 +11,8 @@ import SnapKit
 
 class AddGroupViewController: UIViewController {
     
+    private let viewModel = AddGroupViewModel(realmManager: RealmManager())
+    
     private let groupLabel = UILabel().then {
         $0.text = "그룹 이름"
         $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -22,8 +24,6 @@ class AddGroupViewController: UIViewController {
         $0.layer.cornerRadius = 20
         $0.clipsToBounds = true
     }
-    
-    private let viewModel = AddGroupViewModel(realmManager: RealmManager())
 
     override func viewDidLoad() {
         super.viewDidLoad()

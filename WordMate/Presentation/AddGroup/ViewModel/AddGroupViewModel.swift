@@ -15,10 +15,10 @@ class AddGroupViewModel {
         self.realmManager = realmManager
     }
 
-    func makeNewGroup(name: String) {
+    func makeNewGroup(name: String, language: String = "English") {
         let group = VocabularyGroup()
         group.name = name
-        group.language = "English"
+        group.language = language
         
         realmManager.addObject(group)
         print("Group saved successfully")
