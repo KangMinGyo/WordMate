@@ -8,13 +8,19 @@
 import UIKit
 
 class AddWordViewModel {
+    private let group: VocabularyGroup
     private let realmManager: RealmManagerProtocol
     
-    init(realmManager: RealmManagerProtocol) {
+    init(group: VocabularyGroup, realmManager: RealmManagerProtocol) {
+        self.group = group
         self.realmManager = realmManager
     }
     
-    func makeNewWord(group: VocabularyGroup, name: String, pronunciation: String?, meaning: String, descriptionText: String?, isLiked: Bool) {
+    var currentGroup: VocabularyGroup {
+        return group
+    }
+    
+    func makeNewWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?, isLiked: Bool) {
         let word = VocabularyWord()
         word.name = name
         word.pronunciation = pronunciation

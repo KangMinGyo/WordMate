@@ -10,6 +10,8 @@ import Then
 import SnapKit
 
 class AddWordViewController: UIViewController {
+    
+    private let viewModel: AddWordViewModel
 
     private lazy var wordTextField = UITextField().then {
         $0.placeholder = "단어"
@@ -41,6 +43,15 @@ class AddWordViewController: UIViewController {
     
     private let textFieldHeight: CGFloat = 60
     
+    init(group: VocabularyGroup, realmManager: RealmManagerProtocol) {
+        self.viewModel = AddWordViewModel(group: group, realmManager: realmManager)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,7 +67,12 @@ class AddWordViewController: UIViewController {
     }
     
     @objc func saveButtonTapped() {
-        print("SAVE")
+        guard let name = wordTextField.text else { return }
+        let pronunciation = pronunciationTextField.text ?? nil
+        guard let meaning = meaningTextField.text else { return }
+        let description = descriptionTextField.text ?? nil
+        
+        viewModel.makeNewWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description, isLiked: false)
     }
     
     private func setupSubviews() {

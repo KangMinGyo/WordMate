@@ -11,6 +11,7 @@ class WordListViewController: UIViewController {
 
     var collectionView: UICollectionView!
     
+    //MARK: - ViewModel
     let viewModel: WordListViewModel
     
     init(viewModel: WordListViewModel) {
@@ -22,6 +23,7 @@ class WordListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -48,7 +50,7 @@ class WordListViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        viewModel.goToAddWordVC(from: self, animated: true)
+        viewModel.goToAddWordVC(from: self, group: viewModel.currentGroup, animated: true)
     }
     
     private func setupCollectionView() {

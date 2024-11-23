@@ -25,6 +25,10 @@ class WordListViewModel {
         self.realmManager = realmManager
     }
     
+    var currentGroup: VocabularyGroup {
+        return group
+    }
+    
     var title: String {
         return group.name
     }
@@ -45,12 +49,10 @@ class WordListViewModel {
         } else {
             words = nil
         }
-        print("words: \(words?.first?.name)")
-        // *그룹 -> 단어장에서 단어가 저장이 안됨
     }
     
-    func goToAddWordVC(from viewController: UIViewController, animated: Bool) {
-        let addWordVC = AddWordViewController()
+    func goToAddWordVC(from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
+        let addWordVC = AddWordViewController(group: group, realmManager: RealmManager())
         viewController.navigationController?.pushViewController(addWordVC, animated: animated)
     }
 }

@@ -14,7 +14,7 @@ class GroupCell: UICollectionViewCell {
     
     var group: VocabularyGroup? {
         didSet {
-            guard var group = group else { return }
+            guard let group = group else { return }
             groupTitleLabel.text = group.name
         }
     }
