@@ -14,6 +14,8 @@ class WordListViewController: UIViewController {
     //MARK: - ViewModel
     let viewModel: WordListViewModel
     
+    
+    // MARK: - Initializers
     init(viewModel: WordListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,7 +25,7 @@ class WordListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - LifeCycle
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
          
@@ -37,6 +39,7 @@ class WordListViewController: UIViewController {
         viewModel.fetchWords()
     }
     
+    // MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.onWordsUpdated = { [weak self] _ in
             DispatchQueue.main.async {
@@ -45,6 +48,7 @@ class WordListViewController: UIViewController {
         }
     }
     
+    // MARK: - Setup Methods
     func setupNaviBar() {
         title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
@@ -66,7 +70,7 @@ class WordListViewController: UIViewController {
         // 2. UICollectionView 초기화
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
-//        collectionView.delegate = self
+        collectionView.delegate = self
         
         // 3. 셀 등록
         collectionView.register(WordCell.self, forCellWithReuseIdentifier: "WordCell")
@@ -82,6 +86,7 @@ class WordListViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension WordListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,6 +100,19 @@ extension WordListViewController: UICollectionViewDataSource {
         cell.viewModel = wordVM
         return cell
     }
-    
 }
 
+extension WordListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? WordCell {
+            cell.isExpanded.toggle()
+            collectionView.performBatchUpdates(nil, completion: nil)
+        }
+    }
+}
+extension WordListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = (collectionView.cellForItem(at: indexPath) as? WordCell)?.isExpanded == true ? 200 : 100
+        return CGSize(width: Int(collectionView.frame.width) - 40, height: height)
+    }
+}

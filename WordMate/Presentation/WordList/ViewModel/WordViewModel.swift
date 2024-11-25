@@ -30,9 +30,3 @@ class WordViewModel {
         return word.descriptionText ?? ""
     }
 }
-
-//@Persisted var name: String
-//@Persisted var pronunciation: String?
-//@Persisted var meaning: String
-//@Persisted var descriptionText: String?
-//@Persisted var isLiked: Bool = false

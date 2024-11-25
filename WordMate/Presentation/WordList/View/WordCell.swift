@@ -17,6 +17,12 @@ class WordCell: UICollectionViewCell {
         }
     }
     
+    var isExpanded: Bool = false {
+        didSet {
+            updateUIForExpansion()
+        }
+    }
+    
     let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         $0.textColor = .black
@@ -62,6 +68,7 @@ class WordCell: UICollectionViewCell {
         setupCellStyle()
         setupSubviews()
         setupConstraints()
+        updateUIForExpansion()
     }
     
     private func setupCellStyle() {
@@ -118,5 +125,10 @@ class WordCell: UICollectionViewCell {
         pronunciationLabel.text = viewModel?.pronunciation
         meaningLabel.text = viewModel?.meaning
         descriptionLabel.text = viewModel?.descriptionText
+    }
+    
+    func updateUIForExpansion() {
+        meaningLabel.isHidden = !isExpanded
+        descriptionLabel.isHidden = !isExpanded
     }
 }
