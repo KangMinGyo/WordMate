@@ -30,6 +30,7 @@ class WordListViewController: UIViewController {
         setupNaviBar()
         setupCollectionView()
         setupConstraints()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,9 +90,9 @@ extension WordListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WordCell", for: indexPath) as! WordCell
-        cell.wordLabel.text = viewModel.words?[indexPath.row].name
-//        guard let wordVM = viewModel.words[indexPath.item] else { return }
-//        cell.viewModel = wordVM
+        
+        let wordVM = viewModel.memberViewModelAtIndex(indexPath.row)
+        cell.viewModel = wordVM
         return cell
     }
     

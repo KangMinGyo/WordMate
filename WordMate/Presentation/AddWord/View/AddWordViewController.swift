@@ -73,6 +73,15 @@ class AddWordViewController: UIViewController {
         let description = descriptionTextField.text ?? nil
         
         viewModel.makeNewWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description, isLiked: false)
+        
+        resetTextField()
+    }
+    
+    private func resetTextField() {
+        wordTextField.text = ""
+        pronunciationTextField.text = ""
+        meaningTextField.text = ""
+        descriptionTextField.text = ""
     }
     
     private func setupSubviews() {

@@ -11,7 +11,7 @@ import SnapKit
 
 class WordCell: UICollectionViewCell {
     
-    var viewModel: WordViewModel! {
+    var viewModel: WordViewModel? {
         didSet {
             configureUI()
         }
@@ -51,7 +51,6 @@ class WordCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         setupUI()
     }
     
@@ -115,9 +114,9 @@ class WordCell: UICollectionViewCell {
     }
     
     func configureUI() {
-        wordLabel.text = viewModel.name
-        pronunciationLabel.text = viewModel.pronunciation
-        meaningLabel.text = viewModel.meaning
-        descriptionLabel.text = viewModel.descriptionText
+        wordLabel.text = viewModel?.name
+        pronunciationLabel.text = viewModel?.pronunciation
+        meaningLabel.text = viewModel?.meaning
+        descriptionLabel.text = viewModel?.descriptionText
     }
 }
