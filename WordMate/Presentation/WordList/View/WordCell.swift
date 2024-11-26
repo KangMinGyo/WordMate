@@ -23,6 +23,8 @@ class WordCell: UICollectionViewCell {
         }
     }
     
+    let speechService = SpeechService()
+    
     let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
         $0.textColor = .black
@@ -53,6 +55,7 @@ class WordCell: UICollectionViewCell {
         $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
 
     override init(frame: CGRect) {
@@ -130,5 +133,11 @@ class WordCell: UICollectionViewCell {
     func updateUIForExpansion() {
         meaningLabel.isHidden = !isExpanded
         descriptionLabel.isHidden = !isExpanded
+    }
+    
+    @objc func speakerButtonTapped() {
+        guard let text = viewModel?.name else { return }
+        print(text)
+        speechService.speak(text)
     }
 }
