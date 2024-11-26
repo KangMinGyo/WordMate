@@ -95,8 +95,8 @@ class WordCell: UICollectionViewCell {
     
     private func setupConstraints() {
         wordLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
         }
         
         pronunciationLabel.snp.makeConstraints {
