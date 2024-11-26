@@ -112,7 +112,20 @@ extension WordListViewController: UICollectionViewDelegate {
 }
 extension WordListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = (collectionView.cellForItem(at: indexPath) as? WordCell)?.isExpanded == true ? 150 : 100
+        guard let cell = collectionView.cellForItem(at: indexPath) as? WordCell else {
+            return CGSize(width: collectionView.frame.width - 40, height: 100)
+        }
+        
+        var height = cell.isExpanded == true ? 120 : 100
+        
+        if let pronunciationText = cell.pronunciationLabel.text, !pronunciationText.isEmpty {
+            height += 20
+        }
+        
+        if !cell.descriptionLabel.isHidden {
+            height += 30
+        }
+        
         return CGSize(width: Int(collectionView.frame.width) - 40, height: height)
     }
 }

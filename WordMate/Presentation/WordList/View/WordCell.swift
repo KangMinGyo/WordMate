@@ -36,7 +36,7 @@ class WordCell: UICollectionViewCell {
     }
     
     let meaningLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 17)
+        $0.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         $0.textColor = .black
     }
     
@@ -95,7 +95,7 @@ class WordCell: UICollectionViewCell {
     
     private func setupConstraints() {
         wordLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(30)
+            $0.top.equalToSuperview().offset(35)
             $0.centerX.equalToSuperview()
         }
         
@@ -132,12 +132,15 @@ class WordCell: UICollectionViewCell {
     
     func updateUIForExpansion() {
         meaningLabel.isHidden = !isExpanded
-        descriptionLabel.isHidden = !isExpanded
+        if let descriptionText = descriptionLabel.text, descriptionText.isEmpty {
+            descriptionLabel.isHidden = true
+        } else {
+            descriptionLabel.isHidden = !isExpanded
+        }
     }
     
     @objc func speakerButtonTapped() {
         guard let text = viewModel?.name else { return }
-        print(text)
         speechService.speak(text)
     }
 }
