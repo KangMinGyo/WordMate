@@ -9,9 +9,11 @@ import Foundation
 
 class WordViewModel {
     private let word: VocabularyWord
+    private let realmManager: RealmManagerProtocol
     
-    init(word: VocabularyWord) {
+    init(word: VocabularyWord, realmManager: RealmManagerProtocol) {
         self.word = word
+        self.realmManager = realmManager
     }
     
     var name: String {
@@ -28,5 +30,15 @@ class WordViewModel {
     
     var descriptionText: String {
         return word.descriptionText ?? ""
+    }
+    
+    var isLiked: Bool {
+        return word.isLiked
+    }
+    
+    func updateIsLiked() {
+        let newIsLiked = !isLiked
+        realmManager.updateIsLiked(for: word, to: newIsLiked)
+        print("newIsLiked : \(newIsLiked)")
     }
 }

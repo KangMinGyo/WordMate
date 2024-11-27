@@ -15,6 +15,7 @@ protocol RealmManagerProtocol {
 //    func deleteObject()
     func deleteObject<T: Object>(_ object: T)
     func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
+    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool)
 }
 
 final class RealmManager: RealmManagerProtocol {
@@ -44,6 +45,12 @@ final class RealmManager: RealmManagerProtocol {
         try? realm.write {
             group.words.append(word)
             realm.add(group, update: .modified)
+        }
+    }
+    
+    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool) {
+        try! realm.write {
+            word.isLiked = isLiked
         }
     }
     
