@@ -8,6 +8,7 @@
 import Foundation
 import AVFoundation
 
+// MARK: - Protocol
 protocol SpeechServiceDelegate: AnyObject {
     func speechDidStart()
     func speechDidFinish()
@@ -33,13 +34,12 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         try? AVAudioSession.sharedInstance().setCategory(.playback, options: .allowBluetooth)
     }
     
+    // MARK: - AVSpeechSynthesizerDelegate
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         delegate?.speechDidStart()
-        print("Start")
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         delegate?.speechDidFinish()
-        print("Finish")
     }
 }
