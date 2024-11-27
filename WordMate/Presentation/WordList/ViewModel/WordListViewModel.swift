@@ -39,7 +39,7 @@ class WordListViewModel {
     
     func memberViewModelAtIndex(_ index: Int) -> WordViewModel {
         let word = self.words?[index]
-        return WordViewModel(word: word!)
+        return WordViewModel(word: word!, realmManager: RealmManager())
     }
     
     func fetchWords() {

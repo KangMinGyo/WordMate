@@ -14,6 +14,9 @@ class WordCell: UICollectionViewCell {
     var viewModel: WordViewModel? {
         didSet {
             configureUI()
+            if let isLiked = viewModel?.isLiked {
+                updateBookmarkButtonAppearance(isLiked: isLiked)
+            }
         }
     }
     
@@ -147,10 +150,19 @@ class WordCell: UICollectionViewCell {
     }
     
     @objc func bookmarkButtonTapped() {
-        print("bookmarkButtonTapped")
+        viewModel?.updateIsLiked()
+        if let isLiked = viewModel?.isLiked {
+            updateBookmarkButtonAppearance(isLiked: isLiked)
+        }
+    }
+    
+    private func updateBookmarkButtonAppearance(isLiked: Bool) {
+        bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+        bookmarkButton.tintColor = isLiked ? .yellow : .gray
     }
 }
 
+// MARK: - Delegate Methods
 extension WordCell: SpeechServiceDelegate {
     func speechDidStart() {
         DispatchQueue.main.async {
