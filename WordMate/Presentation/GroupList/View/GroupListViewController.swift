@@ -48,6 +48,7 @@ class GroupListViewController: UIViewController {
     
     func setupNaviBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
     @objc func addButtonTapped() {

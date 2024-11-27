@@ -37,6 +37,8 @@ class AddGroupViewController: UIViewController {
     func setupNaviBar() {
         title = "그룹"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .primaryOrange
     }
     
     @objc func saveButtonTapped() {

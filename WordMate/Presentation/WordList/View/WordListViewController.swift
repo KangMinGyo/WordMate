@@ -52,6 +52,7 @@ class WordListViewController: UIViewController {
     func setupNaviBar() {
         title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
     @objc func addButtonTapped() {

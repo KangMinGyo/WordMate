@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         let groupListVC = UINavigationController(rootViewController: GroupListViewController(viewModel: GroupListViewModel(realmManager: RealmManager())))
-        groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"), tag: 0)
+        groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"),tag: 0)
         
         let learningVC = LearningViewController()
         learningVC.tabBarItem = UITabBarItem(title: "학습", image: UIImage(systemName: "pencil.circle.fill"), tag: 1)
@@ -29,6 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // UITabBarController 설정
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [groupListVC, learningVC, settingsVC]
+        tabBarController.tabBar.tintColor = .primaryOrange
+        tabBarController.tabBar.unselectedItemTintColor = .gray
         
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()

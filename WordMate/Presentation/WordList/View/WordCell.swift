@@ -29,22 +29,22 @@ class WordCell: UICollectionViewCell {
     let speechService = SpeechService()
     
     let wordLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         $0.textColor = .black
     }
     
     let pronunciationLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.font = UIFont.systemFont(ofSize: 14)
         $0.textColor = .gray
     }
     
     let meaningLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        $0.textColor = .black
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = .primaryOrange
     }
     
     let descriptionLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 17)
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         $0.textColor = .gray
     }
     
@@ -100,7 +100,7 @@ class WordCell: UICollectionViewCell {
     
     private func setupConstraints() {
         wordLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(35)
+            $0.top.equalToSuperview().offset(40)
             $0.centerX.equalToSuperview()
         }
         
@@ -158,7 +158,7 @@ class WordCell: UICollectionViewCell {
     
     private func updateBookmarkButtonAppearance(isLiked: Bool) {
         bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
-        bookmarkButton.tintColor = isLiked ? .yellow : .gray
+        bookmarkButton.tintColor = isLiked ? .primaryOrange : .gray
     }
 }
 
@@ -166,7 +166,7 @@ class WordCell: UICollectionViewCell {
 extension WordCell: SpeechServiceDelegate {
     func speechDidStart() {
         DispatchQueue.main.async {
-            self.speakerButton.tintColor = .green2
+            self.speakerButton.tintColor = .primaryOrange
         }
     }
     

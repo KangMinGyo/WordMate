@@ -64,6 +64,8 @@ class AddWordViewController: UIViewController {
     func setupNaviBar() {
         title = "단어"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .primaryOrange
     }
     
     @objc func saveButtonTapped() {
