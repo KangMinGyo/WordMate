@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class GroupListViewModel {
+    // MARK: - Properties
     private let realmManager: RealmManagerProtocol
     
     var groups: Results<VocabularyGroup>? {
@@ -19,10 +20,12 @@ class GroupListViewModel {
     
     var onGroupsUpdated: ((Results<VocabularyGroup>?) -> Void)?
     
+    // MARK: - Initializer
     init(realmManager: RealmManagerProtocol) {
         self.realmManager = realmManager
     }
     
+    // MARK: - Data Handling
     func numberOfRowsInSection(_ section: Int) -> Int {
         return self.groups?.count ?? 0
     }
@@ -31,6 +34,7 @@ class GroupListViewModel {
         groups = realmManager.fetchObjects(VocabularyGroup.self)
     }
 
+    // MARK: - Navigation
     func goToAddGroupVC(from viewController: UIViewController, animated: Bool) {
         let addGroupVC = AddGroupViewController()
         viewController.navigationController?.pushViewController(addGroupVC, animated: animated)

@@ -10,10 +10,12 @@ import RealmSwift
 
 class GroupListViewController: UIViewController {
 
+    // MARK: - Properties
     var collectionView: UICollectionView!
-    
     let viewModel: GroupListViewModel
     
+    
+    // MARK: - Initializer
     init(viewModel: GroupListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -23,6 +25,8 @@ class GroupListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "단어 그룹"
@@ -38,6 +42,8 @@ class GroupListViewController: UIViewController {
         viewModel.fetchGroups()
     }
     
+    
+    // MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.onGroupsUpdated = { [weak self] _ in
             DispatchQueue.main.async {
@@ -46,6 +52,8 @@ class GroupListViewController: UIViewController {
         }
     }
     
+    
+    // MARK: - Navigation Bar Setup
     func setupNaviBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .black
@@ -55,6 +63,8 @@ class GroupListViewController: UIViewController {
         viewModel.goToAddGroupVC(from: self, animated: true)
     }
     
+    
+    // MARK: - CollectionView Setup
     private func setupCollectionView() {
         let itemWidth = (view.frame.width - 60) / 2
         
@@ -77,6 +87,7 @@ class GroupListViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
+    // MARK: - Constraints Setup
     private func setupConstraints() {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -84,8 +95,8 @@ class GroupListViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension GroupListViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section)
     }
@@ -98,6 +109,7 @@ extension GroupListViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension GroupListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedGroup = viewModel.groups?[indexPath.item] else { return }

@@ -10,6 +10,7 @@ import Then
 import SnapKit
 
 class GroupCell: UICollectionViewCell {
+    // MARK: - Properties
     static let identifier = "GroupCell"
     
     var group: VocabularyGroup? {
@@ -24,6 +25,7 @@ class GroupCell: UICollectionViewCell {
         $0.textColor = .white
     }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
 
