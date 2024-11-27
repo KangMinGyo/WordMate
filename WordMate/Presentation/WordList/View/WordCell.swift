@@ -49,6 +49,7 @@ class WordCell: UICollectionViewCell {
         $0.setImage(UIImage(systemName: "star"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
     private lazy var speakerButton = UIButton().then {
@@ -68,6 +69,7 @@ class WordCell: UICollectionViewCell {
     }
     
     private func setupUI() {
+        speechService.delegate = self
         setupCellStyle()
         setupSubviews()
         setupConstraints()
@@ -142,5 +144,23 @@ class WordCell: UICollectionViewCell {
     @objc func speakerButtonTapped() {
         guard let text = viewModel?.name else { return }
         speechService.speak(text)
+    }
+    
+    @objc func bookmarkButtonTapped() {
+        print("bookmarkButtonTapped")
+    }
+}
+
+extension WordCell: SpeechServiceDelegate {
+    func speechDidStart() {
+        DispatchQueue.main.async {
+            self.speakerButton.tintColor = .green2
+        }
+    }
+    
+    func speechDidFinish() {
+        DispatchQueue.main.async {
+            self.speakerButton.tintColor = .gray
+        }
     }
 }

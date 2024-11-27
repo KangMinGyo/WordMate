@@ -8,8 +8,13 @@
 import Foundation
 import AVFoundation
 
+protocol SpeechServiceDelegate: AnyObject {
+    func speechDidStart()
+    func speechDidFinish()
+}
+
 class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
-    
+    weak var delegate: SpeechServiceDelegate?
     private let synthesizer = AVSpeechSynthesizer()
     
     override init() {
@@ -26,5 +31,15 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         utterance.rate = 0.5 // 읽기 속도
         synthesizer.speak(utterance)
         try? AVAudioSession.sharedInstance().setCategory(.playback, options: .allowBluetooth)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        delegate?.speechDidStart()
+        print("Start")
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        delegate?.speechDidFinish()
+        print("Finish")
     }
 }
