@@ -21,34 +21,26 @@ class GameSettingsPopupView: UIView {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         $0.textColor = .black
     }
-
-    private lazy var groupSelectionButton = UIButton().then {
-        $0.setTitle("학습할 그룹 선택", for: .normal)
-        $0.setImage(UIImage(systemName: "greaterthan"), for: .normal)
-        $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(), for: .touchUpInside)
-    }
-
-    private lazy var wordSelectionTypeButton = UIButton().then {
-        $0.setTitle("출제할 문제 선택", for: .normal)
-        $0.setImage(UIImage(systemName: "greaterthan"), for: .normal)
-        $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(), for: .touchUpInside)
-    }
-
-    private lazy var wordOrderButton = UIButton().then {
-        $0.setTitle("문제 순서", for: .normal)
-        $0.setImage(UIImage(systemName: "greaterthan"), for: .normal)
-        $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(), for: .touchUpInside)
-    }
     
-    private lazy var wordCountButton = UIButton().then {
-        $0.setTitle("문제 개수", for: .normal)
-        $0.setImage(UIImage(systemName: "greaterthan"), for: .normal)
-        $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(), for: .touchUpInside)
+    private func customButton(title: String) -> UIButton {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.plain()
+        config.title = title
+        config.image = UIImage(systemName: "arrowtriangle.forward.fill")
+        config.imagePadding = 10
+        config.baseForegroundColor = .black
+        config.cornerStyle = .medium
+        
+        button.configuration = config
+        button.contentHorizontalAlignment = .leading
+        return button
     }
+
+    private lazy var groupSelectionButton = customButton(title: "그룹선택")
+    private lazy var wordSelectionTypeButton = customButton(title: "문제 선택")
+    private lazy var wordOrderButton = customButton(title: "문제 순서")
+    private lazy var wordCountButton = customButton(title: "문제 개수")
     
     private lazy var stackView = UIStackView(arrangedSubviews: [
         groupSelectionButton, wordSelectionTypeButton, wordOrderButton, wordCountButton]).then {
