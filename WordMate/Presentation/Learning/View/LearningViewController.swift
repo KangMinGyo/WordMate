@@ -78,6 +78,24 @@ class LearningViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupSubviews()
         setupConstraints()
+        addTarget()
+    }
+    
+    @objc func flashButtonTapped() {
+        let popupViewController = GameSettingsPopupViewController(title: "플래시카드")
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
+    }
+    
+    @objc func choicesButtonTapped() {
+        let popupViewController = GameSettingsPopupViewController(title: "사지선다")
+        popupViewController.modalPresentationStyle = .overFullScreen
+        self.present(popupViewController, animated: false)
+    }
+    
+    private func addTarget() {
+        flashCardButton.addTarget(self, action: #selector(flashButtonTapped), for: .touchUpInside)
+        choicesButton.addTarget(self, action: #selector(choicesButtonTapped), for: .touchUpInside)
     }
     
     private func setupSubviews() {
@@ -96,5 +114,4 @@ class LearningViewController: UIViewController {
             $0.height.equalTo(buttonHeight * 4)
         }
     }
-
 }
