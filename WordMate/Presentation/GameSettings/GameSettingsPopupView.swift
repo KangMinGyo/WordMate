@@ -18,7 +18,7 @@ class GameSettingsPopupView: UIView {
     }
     
     private let titleLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         $0.textColor = .black
     }
     
@@ -49,6 +49,25 @@ class GameSettingsPopupView: UIView {
             $0.distribution = .fillEqually
         }
     
+    private lazy var cancelButton = UIButton().then {
+        $0.setTitle("취소", for: .normal)
+        $0.backgroundColor = .gray
+        $0.layer.cornerRadius = 20
+    }
+    
+    private lazy var startButton = UIButton().then {
+        $0.setTitle("시작", for: .normal)
+        $0.backgroundColor = .primaryOrange
+        $0.layer.cornerRadius = 20
+    }
+    
+    private lazy var controlButtonsStackView = UIStackView(arrangedSubviews: [
+        cancelButton, startButton]).then {
+            $0.axis = .horizontal
+            $0.spacing = 20
+            $0.distribution = .fillEqually
+        }
+    
     init(title: String) {
         titleLabel.text = title
         super.init(frame: .zero)
@@ -66,6 +85,7 @@ class GameSettingsPopupView: UIView {
         addSubview(popupView)
         popupView.addSubview(titleLabel)
         popupView.addSubview(stackView)
+        popupView.addSubview(controlButtonsStackView)
     }
 
     private func setupConstraints() {
@@ -81,7 +101,13 @@ class GameSettingsPopupView: UIView {
         stackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(popupView).inset(20)
+        }
+        
+        controlButtonsStackView.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(popupView).inset(20)
             $0.bottom.equalTo(popupView).offset(-20)
+            $0.height.equalTo(50)
         }
     }
 }
