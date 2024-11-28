@@ -17,53 +17,56 @@ class LearningViewController: UIViewController {
         $0.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
-    private func customButton(title: String, image: UIImage?) -> UIButton {
-        return UIButton().then {
-            $0.setTitle(title, for: .normal)
-            $0.setImage(image, for: .normal)
-            $0.backgroundColor = .systemGray6
-            $0.layer.shadowColor = UIColor.systemGray.cgColor
-            $0.layer.shadowOpacity = 0.5
-            $0.layer.shadowRadius = 5
-            $0.layer.shadowOffset = CGSize(width: 1, height: 1)
-            $0.layer.cornerRadius = 25
-        }
+    private func customButton(title: String, subtitle: String, image: UIImage?) -> UIButton {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.title = title
+        config.subtitle = subtitle
+        config.image = image
+        config.imagePadding = 10
+        config.baseForegroundColor = .primaryOrange
+        config.baseBackgroundColor = .systemGray6
+        config.cornerStyle = .medium
+        
+        button.configuration = config
+        
+        button.layer.shadowColor = UIColor.systemGray.cgColor
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowRadius = 5
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        return button
     }
     
-    private lazy var flashCardButton: UIButton = {
-        return customButton(title: "플래시카드", image: .flashCardImage)
-    }()
+    private lazy var flashCardButton = customButton(
+        title: "플래시카드",
+        subtitle: "카드를 넘기면서 외워보세요!",
+        image: UIImage(systemName: "square.stack")
+    )
     
-    private lazy var choicesButton: UIButton = {
-        return customButton(title: "사지선다", image: .gridImage)
-    }()
+    private lazy var choicesButton = customButton(
+        title: "사지선다",
+        subtitle: "보기에서 정답을 골라보세요!",
+        image: UIImage(systemName: "square.grid.2x2")
+    )
     
-    private lazy var dictationButton: UIButton = {
-        return customButton(title: "받아쓰기", image: .dictationImage)
-    }()
+    private lazy var dictationButton = customButton(
+        title: "받아쓰기",
+        subtitle: "단어의 철자를 받아써보세요!",
+        image: UIImage(systemName: "square.and.pencil")
+    )
     
-    private lazy var loopButton: UIButton = {
-        return customButton(title: "반복하기", image: .loopImage)
-    }()
-    
-    private lazy var firstStackView = UIStackView(arrangedSubviews: [
-        flashCardButton, choicesButton]).then {
-            $0.axis = .horizontal
-            $0.spacing = 15
-            $0.distribution = .fillEqually
-        }
-    
-    private lazy var secondStackView = UIStackView(arrangedSubviews: [
-        dictationButton, loopButton]).then {
-            $0.axis = .horizontal
-            $0.spacing = 15
-            $0.distribution = .fillEqually
-        }
-    
+    private lazy var loopButton = customButton(
+        title: "반복하기",
+        subtitle: "반복하며 단어를 외워보세요!",
+        image: UIImage(systemName: "repeat")
+    )
+
     private lazy var stackView = UIStackView(arrangedSubviews: [
-        firstStackView, secondStackView]).then {
+        flashCardButton, choicesButton, dictationButton, loopButton]).then {
             $0.axis = .vertical
-            $0.spacing = 15
+            $0.spacing = 20
             $0.distribution = .fillEqually
         }
     
