@@ -11,12 +11,6 @@ import SnapKit
 
 class LearningViewController: UIViewController {
     
-    private let learningLabel = UILabel().then {
-        $0.text = "학습"
-        $0.textAlignment = .center
-        $0.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-    }
-    
     private func customButton(title: String, subtitle: String, image: UIImage?) -> UIButton {
         let button = UIButton()
         
@@ -89,6 +83,7 @@ class LearningViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "학습"
         view.backgroundColor = .systemBackground
         setupSubviews()
         setupConstraints()
@@ -109,18 +104,12 @@ class LearningViewController: UIViewController {
     }
     
     private func setupSubviews() {
-        view.addSubview(learningLabel)
         view.addSubview(stackView)
     }
 
     private func setupConstraints() {
-        learningLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
-        }
-        
         stackView.snp.makeConstraints {
-            $0.top.equalTo(learningLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(buttonHeight * 4)
         }
     }

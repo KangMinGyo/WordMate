@@ -60,6 +60,7 @@ class GameSettingsPopupView: UIView {
         $0.setTitle("시작", for: .normal)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
+        $0.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
     
     private lazy var controlButtonsStackView = UIStackView(arrangedSubviews: [
@@ -70,6 +71,7 @@ class GameSettingsPopupView: UIView {
         }
     
     var cancelAction: (() -> Void)?
+    var startAction: (() -> Void)?
     
     init(title: String) {
         titleLabel.text = title
@@ -86,6 +88,10 @@ class GameSettingsPopupView: UIView {
     
     @objc private func cancelButtonTapped() {
         cancelAction?()
+    }
+    
+    @objc private func startButtonTapped() {
+        startAction?()
     }
     
     private func setupSubviews() {

@@ -9,8 +9,8 @@ import UIKit
 
 class LearningViewModel {
     func goToGameSettingVC(from viewController: UIViewController, title: String) {
-        let popupViewController = GameSettingsPopupViewController(title: title)
-        popupViewController.modalPresentationStyle = .overFullScreen
-        viewController.present(popupViewController, animated: false)
+        let popupVC = GameSettingsPopupViewController(viewModel: GameSettingsPopupViewModel(), title: title)
+        popupVC.modalPresentationStyle = .overFullScreen
+        viewController.present(popupVC, animated: false)
     }
 }

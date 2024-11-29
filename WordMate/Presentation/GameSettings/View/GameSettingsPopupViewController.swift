@@ -11,7 +11,13 @@ class GameSettingsPopupViewController: UIViewController {
     
     private let popupView: GameSettingsPopupView
     
-    init(title: String) {
+    //MARK: - ViewModel
+    let viewModel: GameSettingsPopupViewModel
+    
+    
+    // MARK: - Initializers
+    init(viewModel: GameSettingsPopupViewModel, title: String) {
+        self.viewModel = viewModel
         self.popupView = GameSettingsPopupView(title: title)
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,6 +37,11 @@ class GameSettingsPopupViewController: UIViewController {
         popupView.cancelAction = { [weak self] in
             self?.handleCancel()
         }
+        
+        popupView.startAction = { [weak self] in
+            self?.handleStart()
+        }
+        
         view.addSubview(popupView)
     }
 
@@ -42,5 +53,15 @@ class GameSettingsPopupViewController: UIViewController {
     
     private func handleCancel() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func handleStart() {
+        print("start")
+        guard let pvc = self.presentingViewController else { return }
+        
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.viewModel.MultipleChoiceVC(from: pvc, animated: true)
+        }
     }
 }
