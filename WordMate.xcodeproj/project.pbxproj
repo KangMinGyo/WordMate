@@ -13,6 +13,7 @@
 		8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */; };
 		8C78E65C2CF87FDE00757359 /* GameSettingsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */; };
 		8C78E65F2CF999E000757359 /* LearningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E65E2CF999E000757359 /* LearningViewModel.swift */; };
+		8C78E6642CF99F4300757359 /* GameSettingsPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6632CF99F4300757359 /* GameSettingsPopupViewModel.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -58,6 +59,7 @@
 		8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPopupView.swift; sourceTree = "<group>"; };
 		8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPopupViewController.swift; sourceTree = "<group>"; };
 		8C78E65E2CF999E000757359 /* LearningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewModel.swift; sourceTree = "<group>"; };
+		8C78E6632CF99F4300757359 /* GameSettingsPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPopupViewModel.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,8 +115,8 @@
 		8C78E6562CF8512E00757359 /* GameSettings */ = {
 			isa = PBXGroup;
 			children = (
-				8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */,
-				8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */,
+				8C78E6612CF99F2500757359 /* View */,
+				8C78E6602CF99F1F00757359 /* ViewModel */,
 			);
 			path = GameSettings;
 			sourceTree = "<group>";
@@ -125,6 +127,23 @@
 				8C78E65E2CF999E000757359 /* LearningViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8C78E6602CF99F1F00757359 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6632CF99F4300757359 /* GameSettingsPopupViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8C78E6612CF99F2500757359 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */,
+				8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		8CB5B4352CE3679D0093C6C5 = {
@@ -410,6 +429,7 @@
 				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,
 				8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */,
 				8CB5B4752CE5CB0B0093C6C5 /* GroupListViewModel.swift in Sources */,
+				8C78E6642CF99F4300757359 /* GameSettingsPopupViewModel.swift in Sources */,
 				8C78E65C2CF87FDE00757359 /* GameSettingsPopupViewController.swift in Sources */,
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
