@@ -49,10 +49,11 @@ class GameSettingsPopupView: UIView {
             $0.distribution = .fillEqually
         }
     
-    private lazy var cancelButton = UIButton().then {
+    lazy var cancelButton = UIButton().then {
         $0.setTitle("취소", for: .normal)
         $0.backgroundColor = .gray
         $0.layer.cornerRadius = 20
+        $0.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
     }
     
     private lazy var startButton = UIButton().then {
@@ -68,6 +69,8 @@ class GameSettingsPopupView: UIView {
             $0.distribution = .fillEqually
         }
     
+    var cancelAction: (() -> Void)?
+    
     init(title: String) {
         titleLabel.text = title
         super.init(frame: .zero)
@@ -79,6 +82,10 @@ class GameSettingsPopupView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func cancelButtonTapped() {
+        cancelAction?()
     }
     
     private func setupSubviews() {

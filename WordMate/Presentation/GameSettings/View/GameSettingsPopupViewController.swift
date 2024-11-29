@@ -26,8 +26,11 @@ class GameSettingsPopupViewController: UIViewController {
         setupSubviews()
         setupConstraints()
     }
-
+    
     private func setupSubviews() {
+        popupView.cancelAction = { [weak self] in
+            self?.handleCancel()
+        }
         view.addSubview(popupView)
     }
 
@@ -35,5 +38,9 @@ class GameSettingsPopupViewController: UIViewController {
         popupView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    private func handleCancel() {
+        dismiss(animated: true, completion: nil)
     }
 }
