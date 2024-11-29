@@ -14,6 +14,7 @@
 		8C78E65C2CF87FDE00757359 /* GameSettingsPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */; };
 		8C78E65F2CF999E000757359 /* LearningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E65E2CF999E000757359 /* LearningViewModel.swift */; };
 		8C78E6642CF99F4300757359 /* GameSettingsPopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6632CF99F4300757359 /* GameSettingsPopupViewModel.swift */; };
+		8C78E6682CF9D43800757359 /* MultipleChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6672CF9D43800757359 /* MultipleChoiceViewController.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -60,6 +61,7 @@
 		8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPopupViewController.swift; sourceTree = "<group>"; };
 		8C78E65E2CF999E000757359 /* LearningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewModel.swift; sourceTree = "<group>"; };
 		8C78E6632CF99F4300757359 /* GameSettingsPopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsPopupViewModel.swift; sourceTree = "<group>"; };
+		8C78E6672CF9D43800757359 /* MultipleChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceViewController.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8C78E6652CF9D3AF00757359 /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6662CF9D3C200757359 /* MultipleChoice */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		8C78E6662CF9D3C200757359 /* MultipleChoice */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6672CF9D43800757359 /* MultipleChoiceViewController.swift */,
+			);
+			path = MultipleChoice;
+			sourceTree = "<group>";
+		};
 		8CB5B4352CE3679D0093C6C5 = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +212,7 @@
 				8CB5B4782CE5F59E0093C6C5 /* AddWord */,
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
 				8C78E6562CF8512E00757359 /* GameSettings */,
+				8C78E6652CF9D3AF00757359 /* Games */,
 				8CB5B46D2CE5C8980093C6C5 /* Settings */,
 			);
 			path = Presentation;
@@ -444,6 +463,7 @@
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
+				8C78E6682CF9D43800757359 /* MultipleChoiceViewController.swift in Sources */,
 				8CB5B48B2CE8E2CE0093C6C5 /* VocabularyGroup.swift in Sources */,
 				8C78E6522CF58E7100757359 /* SpeechService.swift in Sources */,
 				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
