@@ -71,6 +71,20 @@ class LearningViewController: UIViewController {
         }
     
     private let buttonHeight: CGFloat = 100
+    
+    //MARK: - ViewModel
+    let viewModel: LearningViewModel
+    
+    
+    // MARK: - Initializers
+    init(viewModel: LearningViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,15 +96,11 @@ class LearningViewController: UIViewController {
     }
     
     @objc func flashButtonTapped() {
-        let popupViewController = GameSettingsPopupViewController(title: "플래시카드")
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+        viewModel.goToGameSettingVC(from: self, title: "플래시카드")
     }
     
     @objc func choicesButtonTapped() {
-        let popupViewController = GameSettingsPopupViewController(title: "사지선다")
-        popupViewController.modalPresentationStyle = .overFullScreen
-        self.present(popupViewController, animated: false)
+        viewModel.goToGameSettingVC(from: self, title: "사지선다")
     }
     
     private func addTarget() {

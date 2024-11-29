@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let groupListVC = UINavigationController(rootViewController: GroupListViewController(viewModel: GroupListViewModel(realmManager: RealmManager())))
         groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"),tag: 0)
         
-        let learningVC = LearningViewController()
+        let learningVC = LearningViewController(viewModel: LearningViewModel())
         learningVC.tabBarItem = UITabBarItem(title: "학습", image: UIImage(systemName: "pencil.circle.fill"), tag: 1)
         
         let settingsVC = SettingsViewController()
