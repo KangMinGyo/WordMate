@@ -9,6 +9,8 @@ import UIKit
 
 class MultipleChoiceViewController: UIViewController {
     
+    private let gameStatusView = GameStatusView()
+    
     private let wordLabelView = UIView().then {
         $0.backgroundColor = .systemGray6
         $0.layer.cornerRadius = 20
@@ -76,15 +78,22 @@ class MultipleChoiceViewController: UIViewController {
     }
         
     private func setupSubviews() {
+        view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
         wordLabelView.addSubview(wordLabel)
         view.addSubview(stackView)
     }
 
     private func setupConstraints() {
-        wordLabelView.snp.makeConstraints {
+        gameStatusView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(400)
+            $0.height.equalTo(60)
+        }
+        
+        wordLabelView.snp.makeConstraints {
+            $0.top.equalTo(gameStatusView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(300)
         }
         
         wordLabel.snp.makeConstraints {
@@ -96,6 +105,5 @@ class MultipleChoiceViewController: UIViewController {
             $0.top.equalTo(wordLabelView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
-        
     }
 }
