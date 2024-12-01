@@ -52,6 +52,12 @@ class MultipleChoiceViewController: UIViewController {
             $0.distribution = .fillEqually
         }
 
+    private let skipButton = UIButton().then {
+        $0.setTitle("잘 모르겠어요", for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        $0.setTitleColor(.gray, for: .normal)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -82,6 +88,7 @@ class MultipleChoiceViewController: UIViewController {
         view.addSubview(wordLabelView)
         wordLabelView.addSubview(wordLabel)
         view.addSubview(stackView)
+        view.addSubview(skipButton)
     }
 
     private func setupConstraints() {
@@ -103,6 +110,11 @@ class MultipleChoiceViewController: UIViewController {
         
         stackView.snp.makeConstraints {
             $0.top.equalTo(wordLabelView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+        
+        skipButton.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
     }
