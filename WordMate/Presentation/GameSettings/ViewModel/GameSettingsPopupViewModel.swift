@@ -8,9 +8,32 @@
 import UIKit
 
 class GameSettingsPopupViewModel {
+    
+    private var allWords: [VocabularyWord] = []
+    private var gameSettings: GameSettings?
 
-    func MultipleChoiceVC(from viewController: UIViewController, animated: Bool) {
-        let multipleChoiceVC = MultipleChoiceViewController()
+    func configureGame(words: [VocabularyWord], settings: GameSettings) {
+        self.allWords = words
+        self.gameSettings = settings
+    }
+    
+    func configureWords() -> [VocabularyWord] {
+        guard let setting = gameSettings else { return [] }
+        var filterWords = allWords
+        
+        if setting.includeBookmarkWords {
+            filterWords = filterWords.filter { $0.isLiked }
+        }
+        
+        if setting.questionOrder == .random {
+            filterWords.shuffle()
+        }
+        
+        return filterWords
+    }
+    
+    func goToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameDatas: gameDatas))
         multipleChoiceVC.modalPresentationStyle = .overFullScreen
         viewController.present(multipleChoiceVC, animated: animated, completion: nil)
     }

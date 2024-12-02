@@ -8,5 +8,13 @@
 import Foundation
 
 class MultipleChoiceViewModel {
+    private let gameDatas: [VocabularyWord]
     
+    init(gameDatas: [VocabularyWord]) {
+        self.gameDatas = gameDatas
+    }
+    
+    func printGameDatas() {
+        print(gameDatas)
+    }
 }

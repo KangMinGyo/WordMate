@@ -67,6 +67,19 @@ class MultipleChoiceViewController: UIViewController {
     
     let speechService = SpeechService()
     
+    //MARK: - ViewModel
+    let viewModel: MultipleChoiceViewModel
+    
+    // MARK: - Initializers
+    init(viewModel: MultipleChoiceViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,6 +87,7 @@ class MultipleChoiceViewController: UIViewController {
         setupButtons()
         setupSubviews()
         setupConstraints()
+        viewModel.printGameDatas()
     }
     
     private func setupButtons() {

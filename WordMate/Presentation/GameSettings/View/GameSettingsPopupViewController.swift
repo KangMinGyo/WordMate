@@ -11,9 +11,16 @@ class GameSettingsPopupViewController: UIViewController {
     
     private let popupView: GameSettingsPopupView
     
+    let words: [VocabularyWord] = [
+        VocabularyWord(name: "Apple1", meaning: "사과1"),
+        VocabularyWord(name: "Apple2", meaning: "사과2"),
+        VocabularyWord(name: "Apple3", meaning: "사과3"),
+        VocabularyWord(name: "Apple4", meaning: "사과4"),
+        VocabularyWord(name: "Apple5", meaning: "사과5"),
+    ]
+    
     //MARK: - ViewModel
     let viewModel: GameSettingsPopupViewModel
-    
     
     // MARK: - Initializers
     init(viewModel: GameSettingsPopupViewModel, title: String) {
@@ -56,12 +63,22 @@ class GameSettingsPopupViewController: UIViewController {
     }
     
     private func handleStart() {
-        print("start")
-        guard let pvc = self.presentingViewController else { return }
+        print("Start")
+        // GameSettings 생성
+        let settings = GameSettings(
+            includeBookmarkWords: false,
+            questionOrder: .sequential,
+            questionCount: 10
+        )
         
+        // 게임 데이터 구성
+        viewModel.configureGame(words: words, settings: settings)
+        let gameData = viewModel.configureWords()
+        
+        // dismiss 후 화면 전환
+        guard let presentingVC = self.presentingViewController else { return }
         dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.MultipleChoiceVC(from: pvc, animated: true)
+            self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
         }
     }
 }
