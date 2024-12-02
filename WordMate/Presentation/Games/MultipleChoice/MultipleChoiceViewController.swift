@@ -21,6 +21,13 @@ class MultipleChoiceViewController: UIViewController {
         $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
     }
     
+    private lazy var speakerButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
+        $0.frame.size = CGSize(width: 50, height: 50)
+        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
+    }
+    
     private let choice1Button = UIButton().then {
         $0.tintColor = .white
         $0.backgroundColor = .primaryOrange
@@ -58,6 +65,8 @@ class MultipleChoiceViewController: UIViewController {
         $0.setTitleColor(.gray, for: .normal)
     }
     
+    let speechService = SpeechService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,17 +77,27 @@ class MultipleChoiceViewController: UIViewController {
     }
     
     private func setupButtons() {
-        // 버튼 공통 설정
         let buttons = [choice1Button, choice2Button, choice3Button, choice4Button]
         
         for (index, button) in buttons.enumerated() {
             button.setTitle("Choice \(index + 1)", for: .normal)
-            button.addTarget(self, action: #selector(handleButtonTap(_:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(choiceButtonTapped(_:)), for: .touchUpInside)
             button.tag = index
         }
+        
+        gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func handleButtonTap(_ sender: UIButton) {
+    @objc func speakerButtonTapped() {
+        guard let text = wordLabel.text else { return }
+        speechService.speak(text)
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func choiceButtonTapped(_ sender: UIButton) {
         let selectedIndex = sender.tag
         print("Selected choice: \(selectedIndex + 1)")
     }
@@ -87,6 +106,7 @@ class MultipleChoiceViewController: UIViewController {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
         wordLabelView.addSubview(wordLabel)
+        wordLabelView.addSubview(speakerButton)
         view.addSubview(stackView)
         view.addSubview(skipButton)
     }
@@ -106,6 +126,10 @@ class MultipleChoiceViewController: UIViewController {
         wordLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
+        }
+        
+        speakerButton.snp.makeConstraints {
+            $0.leading.bottom.equalToSuperview().inset(20)
         }
         
         stackView.snp.makeConstraints {

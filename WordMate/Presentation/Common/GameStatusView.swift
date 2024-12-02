@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 class GameStatusView: UIView {
-    private lazy var backButton = UIButton().then {
+    lazy var backButton = UIButton().then {
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
@@ -18,7 +18,7 @@ class GameStatusView: UIView {
     
     private lazy var indicatorLabel = UILabel().then {
         $0.text = "0/20"
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     }
     
     // 진행 바
