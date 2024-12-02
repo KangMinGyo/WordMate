@@ -18,6 +18,8 @@
 		8C78E66B2CFB314300757359 /* GameStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E66A2CFB314200757359 /* GameStatusView.swift */; };
 		8C78E66F2CFD78B700757359 /* MultipleChoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E66E2CFD78B700757359 /* MultipleChoiceViewModel.swift */; };
 		8C78E6712CFD7FAF00757359 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6702CFD7FAF00757359 /* GameSettings.swift */; };
+		8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6722CFDFA0800757359 /* GroupSelectionViewController.swift */; };
+		8C78E6752CFDFC4E00757359 /* GroupSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6742CFDFC4E00757359 /* GroupSelectionCell.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -68,6 +70,8 @@
 		8C78E66A2CFB314200757359 /* GameStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatusView.swift; sourceTree = "<group>"; };
 		8C78E66E2CFD78B700757359 /* MultipleChoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceViewModel.swift; sourceTree = "<group>"; };
 		8C78E6702CFD7FAF00757359 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		8C78E6722CFDFA0800757359 /* GroupSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectionViewController.swift; sourceTree = "<group>"; };
+		8C78E6742CFDFC4E00757359 /* GroupSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSelectionCell.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 			children = (
 				8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */,
 				8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */,
+				8C78E6722CFDFA0800757359 /* GroupSelectionViewController.swift */,
+				8C78E6742CFDFC4E00757359 /* GroupSelectionCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				8C78E6662CF9D3C200757359 /* MultipleChoice */,
+				8C78E6692CFB2E6500757359 /* Common */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -237,7 +244,6 @@
 		8CB5B4682CE5C8520093C6C5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				8C78E6692CFB2E6500757359 /* Common */,
 				8CB5B4692CE5C8620093C6C5 /* GroupList */,
 				8CB5B4812CE716EE0093C6C5 /* AddGroup */,
 				8CB5B46F2CE5CA620093C6C5 /* WordList */,
@@ -486,6 +492,7 @@
 				8C78E65C2CF87FDE00757359 /* GameSettingsPopupViewController.swift in Sources */,
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
+				8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */,
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */,
 				8C78E6552CF766AA00757359 /* UIImage+Extension.swift in Sources */,
@@ -494,6 +501,7 @@
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
 				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
+				8C78E6752CFDFC4E00757359 /* GroupSelectionCell.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,

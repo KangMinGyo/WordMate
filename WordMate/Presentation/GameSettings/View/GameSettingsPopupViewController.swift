@@ -63,7 +63,6 @@ class GameSettingsPopupViewController: UIViewController {
     }
     
     private func handleStart() {
-        print("Start")
         // GameSettings 생성
         let settings = GameSettings(
             includeBookmarkWords: false,
