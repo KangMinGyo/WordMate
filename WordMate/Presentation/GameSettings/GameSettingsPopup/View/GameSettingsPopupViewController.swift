@@ -31,6 +31,7 @@ class GameSettingsPopupViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
+        popupView.wordCountButton.addTarget(self, action: #selector(countButtonTapped), for: .touchUpInside)
     }
     
     @objc func groupSelectionButtonTapped() {
@@ -42,6 +43,14 @@ class GameSettingsPopupViewController: UIViewController {
                 print("선택된 그룹: \(group.name)")
             } else {
                 print("그룹 선택 x")
+            }
+        }
+    }
+    
+    @objc func countButtonTapped() {
+        viewModel.showQuestionCountVC(from: self, animated: true) { count in
+            if let count = count {
+                self.popupView.wordCountButton.setTitle("\(count)", for: .normal)
             }
         }
     }

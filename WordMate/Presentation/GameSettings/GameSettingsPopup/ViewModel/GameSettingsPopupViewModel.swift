@@ -51,6 +51,26 @@ class GameSettingsPopupViewModel {
         viewController.present(groupSelectionVC, animated: animated, completion: nil)
     }
     
+    func showQuestionCountVC(from viewController: UIViewController, animated: Bool, onCountConfirmed: @escaping(Int?) -> Void) {
+        let questionCountViewModel = QuestionCountViewModel()
+        let questionCountVC = QuestionCountViewController(viewModel: questionCountViewModel)
+        questionCountVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = questionCountVC.sheetPresentationController {
+            sheet.detents = [
+                .custom(resolver: { context in
+                    return 220
+                })
+            ]
+        }
+        
+        questionCountViewModel.onCountConfirmed = { count in
+            onCountConfirmed(count)
+        }
+        
+        viewController.present(questionCountVC, animated: animated, completion: nil)
+    }
+    
     func goToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
         let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameDatas: gameDatas))
         multipleChoiceVC.modalPresentationStyle = .overFullScreen

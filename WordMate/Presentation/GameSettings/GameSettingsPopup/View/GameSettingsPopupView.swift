@@ -40,7 +40,7 @@ class GameSettingsPopupView: UIView {
     lazy var groupSelectionButton = customButton(title: "그룹선택")
     private lazy var wordSelectionTypeButton = customButton(title: "문제 선택")
     private lazy var wordOrderButton = customButton(title: "문제 순서")
-    private lazy var wordCountButton = customButton(title: "문제 개수")
+    lazy var wordCountButton = customButton(title: "문제 개수")
     
     private lazy var stackView = UIStackView(arrangedSubviews: [
         groupSelectionButton, wordSelectionTypeButton, wordOrderButton, wordCountButton]).then {
