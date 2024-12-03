@@ -11,14 +11,6 @@ class GameSettingsPopupViewController: UIViewController {
     
     private let popupView: GameSettingsPopupView
     
-    let words: [VocabularyWord] = [
-        VocabularyWord(name: "Apple1", meaning: "사과1"),
-        VocabularyWord(name: "Apple2", meaning: "사과2"),
-        VocabularyWord(name: "Apple3", meaning: "사과3"),
-        VocabularyWord(name: "Apple4", meaning: "사과4"),
-        VocabularyWord(name: "Apple5", meaning: "사과5"),
-    ]
-    
     //MARK: - ViewModel
     let viewModel: GameSettingsPopupViewModel
     
@@ -38,6 +30,20 @@ class GameSettingsPopupViewController: UIViewController {
         view.backgroundColor = .clear
         setupSubviews()
         setupConstraints()
+        popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func groupSelectionButtonTapped() {
+        viewModel.showGroupSelectionVC(from: self, animated: true) { selectedGroup in
+            if let group = selectedGroup {
+                self.popupView.groupSelectionButton.setTitle("\(group.name)", for: .normal)
+                let wordsArray = Array(group.words)
+                self.viewModel.configureWords(words: wordsArray)
+                print("선택된 그룹: \(group.name)")
+            } else {
+                print("그룹 선택 x")
+            }
+        }
     }
     
     private func setupSubviews() {
@@ -66,13 +72,13 @@ class GameSettingsPopupViewController: UIViewController {
         // GameSettings 생성
         let settings = GameSettings(
             includeBookmarkWords: false,
-            questionOrder: .sequential,
-            questionCount: 10
+            questionOrder: .random,
+            questionCount: 5
         )
         
         // 게임 데이터 구성
-        viewModel.configureGame(words: words, settings: settings)
-        let gameData = viewModel.configureWords()
+        viewModel.configureGame(settings: settings)
+        let gameData = viewModel.filterWords()
         
         // dismiss 후 화면 전환
         guard let presentingVC = self.presentingViewController else { return }

@@ -37,7 +37,7 @@ class GameSettingsPopupView: UIView {
         return button
     }
 
-    private lazy var groupSelectionButton = customButton(title: "그룹선택")
+    lazy var groupSelectionButton = customButton(title: "그룹선택")
     private lazy var wordSelectionTypeButton = customButton(title: "문제 선택")
     private lazy var wordOrderButton = customButton(title: "문제 순서")
     private lazy var wordCountButton = customButton(title: "문제 개수")

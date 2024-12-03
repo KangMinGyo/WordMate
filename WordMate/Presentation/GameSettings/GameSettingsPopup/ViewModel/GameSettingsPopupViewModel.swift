@@ -11,13 +11,16 @@ class GameSettingsPopupViewModel {
     
     private var allWords: [VocabularyWord] = []
     private var gameSettings: GameSettings?
-
-    func configureGame(words: [VocabularyWord], settings: GameSettings) {
+    
+    func configureWords(words: [VocabularyWord]) {
         self.allWords = words
+    }
+
+    func configureGame(settings: GameSettings) {
         self.gameSettings = settings
     }
     
-    func configureWords() -> [VocabularyWord] {
+    func filterWords() -> [VocabularyWord] {
         guard let setting = gameSettings else { return [] }
         var filterWords = allWords
         
@@ -30,6 +33,22 @@ class GameSettingsPopupViewModel {
         }
         
         return filterWords
+    }
+    
+    func showGroupSelectionVC(from viewController: UIViewController, animated: Bool, onGroupSelected: @escaping (VocabularyGroup?) -> Void) {
+        let groupSelectionViewModel = GroupSelectionViewModel(realmManager: RealmManager())
+        let groupSelectionVC = GroupSelectionViewController(viewModel: groupSelectionViewModel)
+        groupSelectionVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = groupSelectionVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        groupSelectionViewModel.onGroupSelected = { selectedGroup in
+            onGroupSelected(selectedGroup)
+        }
+        
+        viewController.present(groupSelectionVC, animated: animated, completion: nil)
     }
     
     func goToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {

@@ -9,12 +9,23 @@ import UIKit
 
 class GroupSelectionCell: UITableViewCell {
     
-    let groupTitleLabel = UILabel().then {
+    var group: VocabularyGroup? {
+        didSet {
+            guard let group = group else { return }
+            groupTitleLabel.text = group.name
+        }
+    }
+    
+    var groupTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
+        $0.textColor = .black
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
+        setupSubviews()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -27,7 +38,7 @@ class GroupSelectionCell: UITableViewCell {
     
     private func setupConstraints() {
         groupTitleLabel.snp.makeConstraints {
-            $0.leading.equalTo(safeAreaLayoutGuide).inset(20)
+            $0.leading.equalTo(safeAreaLayoutGuide)
             $0.centerY.equalToSuperview()
         }
     }
