@@ -60,7 +60,7 @@ class QuestionCountViewController: UIViewController {
 
         view.backgroundColor = .systemBackground
         setupBinding()
-        setupActions()
+        setupButtonActions()
         setupSubviews()
         setupConstraints()
     }
@@ -81,7 +81,7 @@ class QuestionCountViewController: UIViewController {
         }
     }
     
-    private func setupActions() {
+    private func setupButtonActions() {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)

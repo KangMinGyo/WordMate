@@ -51,6 +51,28 @@ class GameSettingsPopupViewModel {
         viewController.present(groupSelectionVC, animated: animated, completion: nil)
     }
     
+    func showQuestionSelectionVC(from viewController: UIViewController, animated: Bool, onQuestionSelected: @escaping(Bool?) -> Void) {
+        let questionSelectionViewModel = QuestionSelectionViewModel()
+        
+        questionSelectionViewModel.onQuestionSelected = { isFavorite in
+            if let isFavorite = isFavorite {
+                onQuestionSelected(isFavorite)
+            }
+        }
+        
+        let questionSelectionVC = QuestionSelectionViewController(viewModel: questionSelectionViewModel)
+        questionSelectionVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = questionSelectionVC.sheetPresentationController {
+            sheet.detents = [
+                .custom(resolver: { context in
+                    return 200
+                })
+            ]
+        }
+        viewController.present(questionSelectionVC, animated: animated, completion: nil)
+    }
+    
     func showQuestionCountVC(from viewController: UIViewController, animated: Bool, onCountConfirmed: @escaping(Int?) -> Void) {
         let questionCountViewModel = QuestionCountViewModel()
         let questionCountVC = QuestionCountViewController(viewModel: questionCountViewModel)

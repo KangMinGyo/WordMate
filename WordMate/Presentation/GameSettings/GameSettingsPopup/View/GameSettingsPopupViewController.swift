@@ -31,6 +31,7 @@ class GameSettingsPopupViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
+        popupView.wordSelectionTypeButton.addTarget(self, action: #selector(wordSelectionButtonTapped), for: .touchUpInside)
         popupView.wordCountButton.addTarget(self, action: #selector(countButtonTapped), for: .touchUpInside)
     }
     
@@ -43,6 +44,15 @@ class GameSettingsPopupViewController: UIViewController {
                 print("선택된 그룹: \(group.name)")
             } else {
                 print("그룹 선택 x")
+            }
+        }
+    }
+    
+    @objc func wordSelectionButtonTapped() {
+        viewModel.showQuestionSelectionVC(from: self, animated: true) { isFavorite in
+            if let isFavorite = isFavorite {
+                let title = isFavorite ? "즐겨찾기 한 단어" : "모든 단어"
+                self.popupView.wordSelectionTypeButton.setTitle("\(title)", for: .normal)
             }
         }
     }

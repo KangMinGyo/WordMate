@@ -1,35 +1,36 @@
 //
-//  GroupSelectionViewController.swift
+//  QuestionSelectionViewController.swift
 //  WordMate
 //
-//  Created by KangMingyo on 12/2/24.
+//  Created by KangMingyo on 12/3/24.
 //
 
 import UIKit
+import Then
+import SnapKit
 
-class GroupSelectionViewController: UIViewController {
+class QuestionSelectionViewController: UIViewController {
     
-    let viewModel: GroupSelectionViewModel
+    let viewModel: QuestionSelectionViewModel
 
     // MARK: - Properties
     private let titleLabel = UILabel().then {
-        $0.text = "학습할 그룹을 선택해주세요"
+        $0.text = "학습할 단어를 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .primaryOrange
     }
     
     private let tableView = UITableView()
     
-    private let selectionButton = UIButton().then {
-        $0.setTitle("선택 완료", for: .normal)
+    private let confirmButton = UIButton().then {
+        $0.setTitle("확인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(selectionButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Initializer
-    init(viewModel: GroupSelectionViewModel) {
+    init(viewModel: QuestionSelectionViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,24 +42,33 @@ class GroupSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        viewModel.fetchGroups()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(GroupSelectionCell.self, forCellReuseIdentifier: "GroupSelectionCell")
+        setupTableView()
+        setupButtonActions()
         setupSubviews()
         setupConstraints()
     }
     
-    @objc func selectionButtonTapped() {
-        viewModel.onGroupSelected?(viewModel.selectedGroup)
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.isScrollEnabled = false
+        tableView.register(QuestionSelectionCell.self, forCellReuseIdentifier: "QuestionSelectionCell")
+    }
+    
+    private func setupButtonActions() {
+        confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func confirmButtonTapped() {
+        let currentSelection = viewModel.currentSelection()
+        viewModel.onQuestionSelected?(currentSelection)
         dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
         view.addSubview(titleLabel)
         view.addSubview(tableView)
-        view.addSubview(selectionButton)
+        view.addSubview(confirmButton)
     }
     
     private func setupConstraints() {
@@ -67,35 +77,38 @@ class GroupSelectionViewController: UIViewController {
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        selectionButton.snp.makeConstraints {
+        confirmButton.snp.makeConstraints {
             $0.top.equalTo(tableView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.height.equalTo(40)
         }
     }
 }
 
-extension GroupSelectionViewController: UITableViewDataSource {
+extension QuestionSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupSelectionCell", for: indexPath) as! GroupSelectionCell
-        let group = viewModel.groups?[indexPath.row]
-        cell.group = group
+        let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionSelectionCell", for: indexPath) as! QuestionSelectionCell
+        cell.selectionStyle = .none
+        cell.selectLabel.text = viewModel.options(indexPath)
+        let isSelected = viewModel.isSelected(indexPath)
+        cell.updateSelectionState(isSelected: isSelected)
         return cell
     }
- 
 }
 
-extension GroupSelectionViewController: UITableViewDelegate {
+extension QuestionSelectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.selectedGroup = viewModel.groups?[indexPath.row]
+        viewModel.selectOption(indexPath)
+        tableView.reloadData()
     }
 }
+
