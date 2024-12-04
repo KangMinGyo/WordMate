@@ -73,6 +73,28 @@ class GameSettingsPopupViewModel {
         viewController.present(questionSelectionVC, animated: animated, completion: nil)
     }
     
+    func showQuestionOrderVC(from viewController: UIViewController, animated: Bool, onQuestionOrderSelected: @escaping(QuestionOrder?) -> Void) {
+        let questionOrderViewModel = QuestionOrderViewModel()
+        
+        questionOrderViewModel.onQuestionOrderSelected = { order in
+            if let order = order {
+                onQuestionOrderSelected(order)
+            }
+        }
+        
+        let questionOrderVC = QuestionOrderViewController(viewModel: questionOrderViewModel)
+        questionOrderVC.modalPresentationStyle = .pageSheet
+        
+        if let sheet = questionOrderVC.sheetPresentationController {
+            sheet.detents = [
+                .custom(resolver: { context in
+                    return 250
+                })
+            ]
+        }
+        viewController.present(questionOrderVC, animated: animated, completion: nil)
+    }
+    
     func showQuestionCountVC(from viewController: UIViewController, animated: Bool, onCountConfirmed: @escaping(Int?) -> Void) {
         let questionCountViewModel = QuestionCountViewModel()
         let questionCountVC = QuestionCountViewController(viewModel: questionCountViewModel)

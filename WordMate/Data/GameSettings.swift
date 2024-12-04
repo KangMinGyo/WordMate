@@ -13,7 +13,8 @@ struct GameSettings {
     let questionCount: Int
 }
 
-enum QuestionOrder {
-    case sequential
-    case random
+enum QuestionOrder: String {
+    case sequential = "순서대로"
+    case random = "랜덤"
+    case reverse = "거꾸로"
 }

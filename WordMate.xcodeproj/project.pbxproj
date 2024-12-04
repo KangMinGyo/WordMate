@@ -26,6 +26,9 @@
 		8C78E6852CFF49AB00757359 /* QuestionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6842CFF49AB00757359 /* QuestionSelectionViewController.swift */; };
 		8C78E6892CFF57A700757359 /* QuestionSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6882CFF57A700757359 /* QuestionSelectionCell.swift */; };
 		8C78E68B2D0016C000757359 /* QuestionSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E68A2D0016C000757359 /* QuestionSelectionViewModel.swift */; };
+		8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E68F2D0035BD00757359 /* QuestionOrderCell.swift */; };
+		8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6912D0035D000757359 /* QuestionOrderViewController.swift */; };
+		8C78E6942D0038F600757359 /* QuestionOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6932D0038F600757359 /* QuestionOrderViewModel.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -84,6 +87,9 @@
 		8C78E6842CFF49AB00757359 /* QuestionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSelectionViewController.swift; sourceTree = "<group>"; };
 		8C78E6882CFF57A700757359 /* QuestionSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSelectionCell.swift; sourceTree = "<group>"; };
 		8C78E68A2D0016C000757359 /* QuestionSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSelectionViewModel.swift; sourceTree = "<group>"; };
+		8C78E68F2D0035BD00757359 /* QuestionOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderCell.swift; sourceTree = "<group>"; };
+		8C78E6912D0035D000757359 /* QuestionOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderViewController.swift; sourceTree = "<group>"; };
+		8C78E6932D0038F600757359 /* QuestionOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderViewModel.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 				8C78E6762CFDFEAB00757359 /* GameSettingsPopup */,
 				8C78E6792CFDFEDA00757359 /* GroupSelection */,
 				8C78E6832CFF495400757359 /* QuestionSelection */,
+				8C78E68C2D00357100757359 /* QuestionOrder */,
 				8C78E67C2CFF0B1600757359 /* QuestionCount */,
 			);
 			path = GameSettings;
@@ -296,6 +303,32 @@
 			children = (
 				8C78E6842CFF49AB00757359 /* QuestionSelectionViewController.swift */,
 				8C78E6882CFF57A700757359 /* QuestionSelectionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8C78E68C2D00357100757359 /* QuestionOrder */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E68E2D00359800757359 /* View */,
+				8C78E68D2D00359100757359 /* ViewModel */,
+			);
+			path = QuestionOrder;
+			sourceTree = "<group>";
+		};
+		8C78E68D2D00359100757359 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6932D0038F600757359 /* QuestionOrderViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8C78E68E2D00359800757359 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6912D0035D000757359 /* QuestionOrderViewController.swift */,
+				8C78E68F2D0035BD00757359 /* QuestionOrderCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -582,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C78E67B2CFDFFF100757359 /* GroupSelectionViewModel.swift in Sources */,
+				8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */,
 				8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */,
 				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,
 				8C78E66B2CFB314300757359 /* GameStatusView.swift in Sources */,
@@ -593,6 +627,7 @@
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */,
+				8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */,
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */,
 				8C78E6552CF766AA00757359 /* UIImage+Extension.swift in Sources */,
@@ -601,6 +636,7 @@
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
+				8C78E6942D0038F600757359 /* QuestionOrderViewModel.swift in Sources */,
 				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
 				8C78E6752CFDFC4E00757359 /* GroupSelectionCell.swift in Sources */,

@@ -32,6 +32,7 @@ class GameSettingsPopupViewController: UIViewController {
         setupConstraints()
         popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
         popupView.wordSelectionTypeButton.addTarget(self, action: #selector(wordSelectionButtonTapped), for: .touchUpInside)
+        popupView.wordOrderButton.addTarget(self, action: #selector(wordOrderButtonTapped), for: .touchUpInside)
         popupView.wordCountButton.addTarget(self, action: #selector(countButtonTapped), for: .touchUpInside)
     }
     
@@ -56,6 +57,16 @@ class GameSettingsPopupViewController: UIViewController {
             }
         }
     }
+    
+    @objc func wordOrderButtonTapped() {
+        viewModel.showQuestionOrderVC(from: self, animated: true) { order in
+            if let order = order {
+                let title = order.rawValue
+                self.popupView.wordOrderButton.setTitle("\(title)", for: .normal)
+            }
+        }
+    }
+    
     
     @objc func countButtonTapped() {
         viewModel.showQuestionCountVC(from: self, animated: true) { count in
