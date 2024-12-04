@@ -10,18 +10,42 @@ import UIKit
 class GameSettingsPopupViewModel {
     
     private var allWords: [VocabularyWord] = []
+    private var includeBookmarkWords: Bool = false
+    private var questionOrder: QuestionOrder = .sequential
+    private var questionCount: Int = 20
     private var gameSettings: GameSettings?
     
     func configureWords(words: [VocabularyWord]) {
         self.allWords = words
     }
-
+    
     func configureGame(settings: GameSettings) {
         self.gameSettings = settings
     }
     
+    func updateBookmarkSetting(_ isFavorite: Bool) {
+        self.includeBookmarkWords = isFavorite
+    }
+    
+    func updateQuestionOrder(_ order: QuestionOrder) {
+        self.questionOrder = order
+    }
+    
+    func updateQuestionCount(_ count: Int) {
+        self.questionCount = count
+    }
+    
+    func configureGameSettings() -> GameSettings {
+        return GameSettings(
+            includeBookmarkWords: includeBookmarkWords,
+            questionOrder: questionOrder,
+            questionCount: questionCount
+        )
+    }
+    
     func filterWords() -> [VocabularyWord] {
         guard let setting = gameSettings else { return [] }
+        print("ViewModel Game Setting : \(setting)")
         var filterWords = allWords
         
         if setting.includeBookmarkWords {
@@ -30,6 +54,13 @@ class GameSettingsPopupViewModel {
         
         if setting.questionOrder == .random {
             filterWords.shuffle()
+        } else if setting.questionOrder == .reverse {
+            filterWords.reverse()
+        }
+        
+        let count = setting.questionCount
+        if filterWords.count > count {
+            filterWords = Array(filterWords.prefix(count))
         }
         
         return filterWords
@@ -57,6 +88,7 @@ class GameSettingsPopupViewModel {
         questionSelectionViewModel.onQuestionSelected = { isFavorite in
             if let isFavorite = isFavorite {
                 onQuestionSelected(isFavorite)
+                self.updateBookmarkSetting(isFavorite)
             }
         }
         
@@ -79,6 +111,7 @@ class GameSettingsPopupViewModel {
         questionOrderViewModel.onQuestionOrderSelected = { order in
             if let order = order {
                 onQuestionOrderSelected(order)
+                self.updateQuestionOrder(order)
             }
         }
         
@@ -110,6 +143,7 @@ class GameSettingsPopupViewModel {
         
         questionCountViewModel.onCountConfirmed = { count in
             onCountConfirmed(count)
+            self.updateQuestionCount(count)
         }
         
         viewController.present(questionCountVC, animated: animated, completion: nil)

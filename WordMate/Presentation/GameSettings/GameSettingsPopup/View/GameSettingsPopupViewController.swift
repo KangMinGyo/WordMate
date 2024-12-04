@@ -100,14 +100,10 @@ class GameSettingsPopupViewController: UIViewController {
     
     private func handleStart() {
         // GameSettings 생성
-        let settings = GameSettings(
-            includeBookmarkWords: false,
-            questionOrder: .random,
-            questionCount: 5
-        )
+        let settings = viewModel.configureGameSettings()
+        viewModel.configureGame(settings: settings)
         
         // 게임 데이터 구성
-        viewModel.configureGame(settings: settings)
         let gameData = viewModel.filterWords()
         
         // dismiss 후 화면 전환
