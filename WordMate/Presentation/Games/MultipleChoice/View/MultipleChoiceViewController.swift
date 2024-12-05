@@ -88,6 +88,7 @@ class MultipleChoiceViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         viewModel.printGameDatas()
+        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
     }
     
     private func setupButtons() {

@@ -16,7 +16,7 @@ class GameStatusView: UIView {
         $0.tintColor = .gray  // 아이콘 색상 변경
     }
     
-    private lazy var indicatorLabel = UILabel().then {
+    lazy var indicatorLabel = UILabel().then {
         $0.text = "0/20"
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     }
