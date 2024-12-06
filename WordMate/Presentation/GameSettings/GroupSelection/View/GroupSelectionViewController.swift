@@ -43,9 +43,7 @@ class GroupSelectionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         viewModel.fetchGroups()
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(GroupSelectionCell.self, forCellReuseIdentifier: "GroupSelectionCell")
+        setupTableView()
         setupSubviews()
         setupConstraints()
     }
@@ -53,6 +51,12 @@ class GroupSelectionViewController: UIViewController {
     @objc func selectionButtonTapped() {
         viewModel.onGroupSelected?(viewModel.selectedGroup)
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(GroupSelectionCell.self, forCellReuseIdentifier: "GroupSelectionCell")
     }
     
     private func setupSubviews() {
