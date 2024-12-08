@@ -22,7 +22,7 @@ class MultipleChoiceViewController: UIViewController {
     
     private let wordLabel = UILabel().then {
         $0.text = "Word"
-        $0.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
     }
     
     private lazy var speakerButton = UIButton().then {
@@ -34,24 +34,28 @@ class MultipleChoiceViewController: UIViewController {
     
     private let choice1Button = UIButton().then {
         $0.tintColor = .white
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
     }
     
     private let choice2Button = UIButton().then {
         $0.tintColor = .white
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
     }
     
     private let choice3Button = UIButton().then {
         $0.tintColor = .white
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
     }
     
     private let choice4Button = UIButton().then {
         $0.tintColor = .white
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
     }
@@ -93,8 +97,17 @@ class MultipleChoiceViewController: UIViewController {
         setupButtons()
         setupSubviews()
         setupConstraints()
-        wordSetting()
+        setupGame()
+    }
+    
+    private func setupGame() {
+        viewModel.currentIndex += 1
+        setupIndicator()
+        setupWord()
         setupOptions()
+    }
+    
+    private func setupIndicator() {
         gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
     }
     
@@ -102,7 +115,6 @@ class MultipleChoiceViewController: UIViewController {
         let buttons = [choice1Button, choice2Button, choice3Button, choice4Button]
         
         for (index, button) in buttons.enumerated() {
-            button.setTitle("Choice \(index + 1)", for: .normal)
             button.addTarget(self, action: #selector(choiceButtonTapped(_:)), for: .touchUpInside)
             button.tag = index
         }
@@ -119,7 +131,7 @@ class MultipleChoiceViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func wordSetting() {
+    private func setupWord() {
         wordLabel.text = viewModel.currentWord.name
     }
     
@@ -141,6 +153,8 @@ class MultipleChoiceViewController: UIViewController {
         } else {
             print("오답")
         }
+
+        setupGame()
     }
         
     private func setupSubviews() {

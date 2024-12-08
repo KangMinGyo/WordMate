@@ -13,7 +13,7 @@ class MultipleChoiceViewModel {
     var currentIndex = 0
     var totalWords: Int {
         get {
-            return gameDatas.count + 1
+            return gameDatas.count
         }
     }
     
