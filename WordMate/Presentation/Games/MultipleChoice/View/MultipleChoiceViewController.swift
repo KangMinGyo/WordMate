@@ -9,6 +9,10 @@ import UIKit
 
 class MultipleChoiceViewController: UIViewController {
     
+    let viewModel: MultipleChoiceViewModel
+    let speechService = SpeechService()
+    private var options: [MultipleChoiceOption] = []
+    
     private let gameStatusView = GameStatusView()
     
     private let wordLabelView = UIView().then {
@@ -52,6 +56,13 @@ class MultipleChoiceViewController: UIViewController {
         $0.layer.cornerRadius = 20
     }
     
+    private lazy var optionButtons: [UIButton] = [
+        choice1Button,
+        choice2Button,
+        choice3Button,
+        choice4Button
+    ]
+    
     private lazy var stackView = UIStackView(arrangedSubviews: [
         choice1Button, choice2Button, choice3Button, choice4Button]).then {
             $0.axis = .vertical
@@ -64,11 +75,6 @@ class MultipleChoiceViewController: UIViewController {
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         $0.setTitleColor(.gray, for: .normal)
     }
-    
-    let speechService = SpeechService()
-    
-    //MARK: - ViewModel
-    let viewModel: MultipleChoiceViewModel
     
     // MARK: - Initializers
     init(viewModel: MultipleChoiceViewModel) {
@@ -88,6 +94,7 @@ class MultipleChoiceViewController: UIViewController {
         setupSubviews()
         setupConstraints()
         wordSetting()
+        setupOptions()
         gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
     }
     
@@ -113,12 +120,27 @@ class MultipleChoiceViewController: UIViewController {
     }
     
     private func wordSetting() {
-        wordLabel.text = viewModel.currentWord
+        wordLabel.text = viewModel.currentWord.name
+    }
+    
+    private func setupOptions() {
+        options = viewModel.generateOptions()
+        
+        for (index, button) in optionButtons.enumerated() {
+            guard index < options.count else { return }
+            button.setTitle(options[index].meaning, for: .normal)
+        }
     }
     
     @objc private func choiceButtonTapped(_ sender: UIButton) {
-        let selectedIndex = sender.tag
-        print("Selected choice: \(selectedIndex + 1)")
+        let index = sender.tag
+        let selectedOption = options[index]
+        
+        if selectedOption.isCorrct {
+            print("정답")
+        } else {
+            print("오답")
+        }
     }
         
     private func setupSubviews() {
