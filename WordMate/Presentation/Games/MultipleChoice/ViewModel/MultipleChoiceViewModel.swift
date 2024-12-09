@@ -29,12 +29,12 @@ class MultipleChoiceViewModel {
         var options = [MultipleChoiceOption]()
         
         // 정답
-        options.append(MultipleChoiceOption(meaning: currentWord.meaning, isCorrct: true))
+        options.append(MultipleChoiceOption(meaning: currentWord.meaning, isCorrect: true))
         
         // 오답
         let incorrectWords = gameDatas.filter { $0.name != currentWord.name }.shuffled().prefix(3)
         for word in incorrectWords {
-            options.append(MultipleChoiceOption(meaning: word.meaning, isCorrct: false))
+            options.append(MultipleChoiceOption(meaning: word.meaning, isCorrect: false))
         }
         return options.shuffled()
     }

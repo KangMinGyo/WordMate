@@ -22,7 +22,7 @@ class GameStatusView: UIView {
     }
     
     // 진행 바
-    private lazy var progressBar = UIProgressView().then {
+    lazy var progressBar = UIProgressView().then {
         $0.trackTintColor = .lightGray // 배경 색상
         $0.progressTintColor = .primaryOrange // 진행 색상
         $0.progress = 0.1

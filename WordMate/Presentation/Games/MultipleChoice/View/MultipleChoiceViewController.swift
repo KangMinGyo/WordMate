@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MultipleChoiceViewController: UIViewController {
+final class MultipleChoiceViewController: UIViewController {
     
     let viewModel: MultipleChoiceViewModel
     let speechService = SpeechService()
@@ -18,6 +18,10 @@ class MultipleChoiceViewController: UIViewController {
     private let wordLabelView = UIView().then {
         $0.backgroundColor = .systemGray6
         $0.layer.cornerRadius = 20
+    }
+    
+    private let feedbackLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 15, weight: .bold)
     }
     
     private let wordLabel = UILabel().then {
@@ -109,6 +113,7 @@ class MultipleChoiceViewController: UIViewController {
     
     private func setupIndicator() {
         gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
+        gameStatusView.progressBar.progress = Float(viewModel.currentIndex) / Float(viewModel.totalWords)
     }
     
     private func setupButtons() {
@@ -148,18 +153,26 @@ class MultipleChoiceViewController: UIViewController {
         let index = sender.tag
         let selectedOption = options[index]
         
-        if selectedOption.isCorrct {
-            print("정답")
-        } else {
-            print("오답")
+        goToNextWord(isCorrect: selectedOption.isCorrect)
+    }
+    
+    private func goToNextWord(isCorrect: Bool) {
+        let feedbackMessage = isCorrect ? "정답 🎉" : "오답 💪"
+        let feedbackColor: UIColor = isCorrect ? .systemGreen : .systemRed
+        feedbackLabel.isHidden = false
+        feedbackLabel.text = feedbackMessage
+        feedbackLabel.textColor = feedbackColor
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.feedbackLabel.isHidden = true
+            self.setupGame()
         }
-
-        setupGame()
     }
         
     private func setupSubviews() {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
+        wordLabelView.addSubview(feedbackLabel)
         wordLabelView.addSubview(wordLabel)
         wordLabelView.addSubview(speakerButton)
         view.addSubview(stackView)
@@ -176,6 +189,10 @@ class MultipleChoiceViewController: UIViewController {
             $0.top.equalTo(gameStatusView.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(300)
+        }
+        
+        feedbackLabel.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(20)
         }
         
         wordLabel.snp.makeConstraints {

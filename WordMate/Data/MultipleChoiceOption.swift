@@ -9,5 +9,5 @@ import Foundation
 
 struct MultipleChoiceOption {
     let meaning: String
-    let isCorrct: Bool
+    let isCorrect: Bool
 }
