@@ -32,6 +32,8 @@
 		8C78E6962D05D95E00757359 /* MultipleChoiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6952D05D95E00757359 /* MultipleChoiceOption.swift */; };
 		8C78E69A2D06C2CD00757359 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6992D06C2CD00757359 /* Question.swift */; };
 		8C78E69C2D06C3BA00757359 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E69B2D06C3BA00757359 /* GameResult.swift */; };
+		8C78E6A12D06C46100757359 /* GameResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6A02D06C46100757359 /* GameResultViewController.swift */; };
+		8C78E6A32D0739AA00757359 /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6A22D0739AA00757359 /* CircularProgress.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -96,6 +98,8 @@
 		8C78E6952D05D95E00757359 /* MultipleChoiceOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOption.swift; sourceTree = "<group>"; };
 		8C78E6992D06C2CD00757359 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		8C78E69B2D06C3BA00757359 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		8C78E6A02D06C46100757359 /* GameResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResultViewController.swift; sourceTree = "<group>"; };
+		8C78E6A22D0739AA00757359 /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -339,6 +343,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8C78E69D2D06C40B00757359 /* GameResult */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E69F2D06C43900757359 /* View */,
+				8C78E69E2D06C43400757359 /* ViewModel */,
+			);
+			path = GameResult;
+			sourceTree = "<group>";
+		};
+		8C78E69E2D06C43400757359 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8C78E69F2D06C43900757359 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C78E6A02D06C46100757359 /* GameResultViewController.swift */,
+				8C78E6A22D0739AA00757359 /* CircularProgress.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8CB5B4352CE3679D0093C6C5 = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +417,7 @@
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
 				8C78E6562CF8512E00757359 /* GameSettings */,
 				8C78E6652CF9D3AF00757359 /* Games */,
+				8C78E69D2D06C40B00757359 /* GameResult */,
 				8CB5B46D2CE5C8980093C6C5 /* Settings */,
 			);
 			path = Presentation;
@@ -648,6 +678,7 @@
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
+				8C78E6A12D06C46100757359 /* GameResultViewController.swift in Sources */,
 				8C78E6942D0038F600757359 /* QuestionOrderViewModel.swift in Sources */,
 				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
 				8CB5B45A2CE48DB10093C6C5 /* GroupCell.swift in Sources */,
@@ -665,6 +696,7 @@
 				8CB5B47E2CE610910093C6C5 /* WordListViewModel.swift in Sources */,
 				8CB5B48E2CEDFD2F0093C6C5 /* AddWordViewModel.swift in Sources */,
 				8C78E65F2CF999E000757359 /* LearningViewModel.swift in Sources */,
+				8C78E6A32D0739AA00757359 /* CircularProgress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

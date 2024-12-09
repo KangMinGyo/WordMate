@@ -5,7 +5,7 @@
 //  Created by KangMingyo on 12/2/24.
 //
 
-import Foundation
+import UIKit
 
 class MultipleChoiceViewModel {
     private let gameDatas: [VocabularyWord]
@@ -37,5 +37,11 @@ class MultipleChoiceViewModel {
             options.append(MultipleChoiceOption(meaning: word.meaning, isCorrect: false))
         }
         return options.shuffled()
+    }
+    
+    func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
+        let gameResultVC = GameResultViewController()
+        gameResultVC.modalPresentationStyle = .overFullScreen
+        viewController.present(gameResultVC, animated: animated, completion: nil)
     }
 }

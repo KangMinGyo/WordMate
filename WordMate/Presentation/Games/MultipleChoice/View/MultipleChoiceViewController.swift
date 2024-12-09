@@ -105,15 +105,14 @@ final class MultipleChoiceViewController: UIViewController {
     }
     
     private func setupGame() {
-        viewModel.currentIndex += 1
         setupIndicator()
         setupWord()
         setupOptions()
     }
     
     private func setupIndicator() {
-        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
-        gameStatusView.progressBar.progress = Float(viewModel.currentIndex) / Float(viewModel.totalWords)
+        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
+        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
     }
     
     private func setupButtons() {
@@ -165,7 +164,14 @@ final class MultipleChoiceViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.feedbackLabel.isHidden = true
-            self.setupGame()
+            self.viewModel.currentIndex += 1
+            
+            // 게임 종료 여부 확인 후 진행
+            if self.viewModel.currentIndex >= self.viewModel.totalWords {
+                self.viewModel.goToGameResultVC(from: self, animated: true)
+            } else {
+                self.setupGame()
+            }
         }
     }
         
