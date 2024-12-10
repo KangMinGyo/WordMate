@@ -25,4 +25,13 @@ class GameResultViewModel {
     var totalQuestions: Int {
         questions.count
     }
+    
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return questions.count
+    }
+    
+    func memberViewModelAtIndex(_ index: Int) -> ResultViewModel {
+        let question = questions[index]
+        return ResultViewModel(question: question, realmManager: RealmManager())
+    }
 }

@@ -51,6 +51,12 @@ class GameResultViewController: UIViewController {
             $0.distribution = .fillEqually
         }
     
+    private let grayLineView = UIView().then {
+        $0.backgroundColor = .systemGray6
+    }
+    
+    var collectionView: UICollectionView!
+    
     // MARK: - Initializers
     init(viewModel: GameResultViewModel) {
         self.viewModel = viewModel
@@ -67,6 +73,7 @@ class GameResultViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         setupResult()
+        setupcollectionView()
         setupSubviews()
         setupConstraints()
     }
@@ -86,12 +93,34 @@ class GameResultViewController: UIViewController {
         wrongLabel.text = "❌ 오답: \(viewModel.wrongAnswers)"
     }
     
+    private func setupcollectionView() {
+        let itemWidth = (view.frame.width - 40)
+        
+        // 1. UICollectionViewFlowLayout 설정
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
+        layout.itemSize = CGSize(width: itemWidth, height: 120)
+        layout.minimumLineSpacing = 10  // 줄 간 간격
+        
+        // 2. UICollectionView 초기화
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        
+        // 3. 셀 등록
+        collectionView.register(ResultCell.self, forCellWithReuseIdentifier: "ResultCell")
+        
+        // 4. UICollectionView를 뷰에 추가
+        view.addSubview(collectionView)
+    }
+    
     private func setupSubviews() {
         view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(circularProgress)
         circularProgress.addSubview(centerLabel)
         view.addSubview(stackView)
+        view.addSubview(grayLineView)
+        view.addSubview(collectionView)
     }
 
     private func setupConstraints() {
@@ -120,5 +149,31 @@ class GameResultViewController: UIViewController {
             $0.top.equalTo(circularProgress.snp.bottom).offset(20)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).inset(40)
         }
+        
+        grayLineView.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(1)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(grayLineView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview().inset(20)
+        }
+    }
+}
+
+extension GameResultViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfRowsInSection(section)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ResultCell", for: indexPath) as! ResultCell
+        let resultVM = viewModel.memberViewModelAtIndex(indexPath.row)
+        cell.viewModel = resultVM
+        return cell
     }
 }
