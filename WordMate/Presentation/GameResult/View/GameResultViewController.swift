@@ -8,30 +8,29 @@
 import UIKit
 
 class GameResultViewController: UIViewController {
+    
+    private let circularProgress = CircularProgress(frame: CGRect(x: 10.0, y: 30.0, width: 100.0, height: 100.0)).then {
+        $0.progressColor = .systemGray
+        $0.trackColor = .primaryOrange
+        $0.tag = 101
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        
-        let circularProgress = CircularProgress(frame: CGRect(x: 10.0, y: 30.0, width: 100.0, height: 100.0))
-        circularProgress.progressColor = UIColor(red: 52.0/255.0, green: 141.0/255.0, blue: 252.0/255.0, alpha: 1.0)
-        circularProgress.trackColor = UIColor(red: 52.0/255.0, green: 141.0/255.0, blue: 252.0/255.0, alpha: 0.6)
-        circularProgress.tag = 101
         circularProgress.center = self.view.center
-        self.view.addSubview(circularProgress)
-        
-        //animate progress
-//        self.perform(#selector(animateProgress), with: nil, afterDelay: 0.3)
+        setupSubviews()
     }
-    
-//    @objc func animateProgress() {
-//        let cp = self.view.viewWithTag(101) as! CircularProgress
-//        cp.setProgressWithAnimation(duration: 1.0, value: 0.8)
-//    }
-//    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    private func setupSubviews() {
+        view.addSubview(circularProgress)
+    }
+
+    private func setupConstraints() {}
 }

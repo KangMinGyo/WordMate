@@ -151,16 +151,19 @@ final class MultipleChoiceViewController: UIViewController {
     @objc private func choiceButtonTapped(_ sender: UIButton) {
         let index = sender.tag
         let selectedOption = options[index]
+        guard let answer = sender.titleLabel?.text else { return }
         
-        goToNextWord(isCorrect: selectedOption.isCorrect)
+        goToNextWord(isCorrect: selectedOption.isCorrect, userAnswer: answer)
     }
     
-    private func goToNextWord(isCorrect: Bool) {
+    private func goToNextWord(isCorrect: Bool, userAnswer: String) {
         let feedbackMessage = isCorrect ? "정답 🎉" : "오답 💪"
         let feedbackColor: UIColor = isCorrect ? .systemGreen : .systemRed
         feedbackLabel.isHidden = false
         feedbackLabel.text = feedbackMessage
         feedbackLabel.textColor = feedbackColor
+        
+        viewModel.appendUserResponse(isCorrect: isCorrect, userAnswer: userAnswer)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.feedbackLabel.isHidden = true
@@ -168,6 +171,7 @@ final class MultipleChoiceViewController: UIViewController {
             
             // 게임 종료 여부 확인 후 진행
             if self.viewModel.currentIndex >= self.viewModel.totalWords {
+                self.viewModel.printUserResponses()
                 self.viewModel.goToGameResultVC(from: self, animated: true)
             } else {
                 self.setupGame()

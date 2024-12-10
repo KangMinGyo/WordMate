@@ -8,8 +8,7 @@
 import Foundation
 
 struct Question {
-    let word: String
-    let meaning: String
+    let word: VocabularyWord
     let isCorrect: Bool
     let userAnswer: String
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class MultipleChoiceViewModel {
     private let gameDatas: [VocabularyWord]
+    private var userResponses = [Question]()
 
     var currentIndex = 0
     var totalWords: Int {
@@ -28,15 +29,23 @@ class MultipleChoiceViewModel {
     func generateOptions() -> [MultipleChoiceOption] {
         var options = [MultipleChoiceOption]()
         
-        // 정답
+        // 정답 생성
         options.append(MultipleChoiceOption(meaning: currentWord.meaning, isCorrect: true))
         
-        // 오답
+        // 오답 생성
         let incorrectWords = gameDatas.filter { $0.name != currentWord.name }.shuffled().prefix(3)
         for word in incorrectWords {
             options.append(MultipleChoiceOption(meaning: word.meaning, isCorrect: false))
         }
         return options.shuffled()
+    }
+    
+    func appendUserResponse(isCorrect: Bool, userAnswer: String) {
+        userResponses.append(Question(word: currentWord, isCorrect: isCorrect, userAnswer: userAnswer))
+    }
+    
+    func printUserResponses() {
+        print("userResponses: \(userResponses)")
     }
     
     func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
