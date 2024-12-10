@@ -49,7 +49,7 @@ class MultipleChoiceViewModel {
     }
     
     func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
-        let gameResultVC = GameResultViewController()
+        let gameResultVC = GameResultViewController(viewModel: GameResultViewModel(questions: userResponses))
         gameResultVC.modalPresentationStyle = .overFullScreen
         viewController.present(gameResultVC, animated: animated, completion: nil)
     }

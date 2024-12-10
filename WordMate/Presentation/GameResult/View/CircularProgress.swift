@@ -9,8 +9,8 @@ import UIKit
 
 class CircularProgress: UIView {
     
-    fileprivate var progressLayer = CAShapeLayer()
-    fileprivate var tracklayer = CAShapeLayer()
+    var progressLayer = CAShapeLayer()
+    var tracklayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

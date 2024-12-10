@@ -1,14 +1,18 @@
 //
-//  GameResult.swift
+//  GameResultViewModel.swift
 //  WordMate
 //
-//  Created by KangMingyo on 12/9/24.
+//  Created by KangMingyo on 12/10/24.
 //
 
 import Foundation
 
-struct GameResult {
-    let questions: [Question]
+class GameResultViewModel {
+    private let questions: [Question]
+    
+    init(questions: [Question]) {
+        self.questions = questions
+    }
     
     var correctAnswers: Int {
         questions.filter { $0.isCorrect }.count
