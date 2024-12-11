@@ -51,6 +51,11 @@ class MultipleChoiceViewModel {
     func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
         let gameResultVC = GameResultViewController(viewModel: GameResultViewModel(questions: userResponses))
         gameResultVC.modalPresentationStyle = .overFullScreen
-        viewController.present(gameResultVC, animated: animated, completion: nil)
+        
+        // dismiss 후 화면 전환
+        guard let presentingVC = viewController.presentingViewController else { return }
+        viewController.dismiss(animated: true) {
+            presentingVC.present(gameResultVC, animated: true)
+        }
     }
 }

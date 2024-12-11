@@ -15,6 +15,7 @@ class GameResultViewController: UIViewController {
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     lazy var titleLabel = UILabel().then {
@@ -111,6 +112,10 @@ class GameResultViewController: UIViewController {
         
         // 4. UICollectionView를 뷰에 추가
         view.addSubview(collectionView)
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
