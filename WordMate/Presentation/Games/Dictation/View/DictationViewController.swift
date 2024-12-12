@@ -28,9 +28,25 @@ class DictationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        view.backgroundColor = .systemBackground
+        setupGame()
         setupSubviews()
         setupConstraints()
+    }
+    
+    private func setupGame() {
+        setupIndicator()
+        setupWord()
+    }
+    
+    private func setupIndicator() {
+        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
+        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
+    }
+    
+    private func setupWord() {
+        wordLabelView.wordLabel.text = viewModel.currentWord.name
     }
 
     private func setupSubviews() {

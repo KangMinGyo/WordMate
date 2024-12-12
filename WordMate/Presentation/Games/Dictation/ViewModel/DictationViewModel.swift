@@ -14,4 +14,15 @@ class DictationViewModel {
     init(gameDatas: [VocabularyWord]) {
         self.gameDatas = gameDatas
     }
+    
+    var currentIndex = 0
+    var totalWords: Int {
+        get {
+            return gameDatas.count
+        }
+    }
+    
+    var currentWord: VocabularyWord {
+        gameDatas[currentIndex]
+    }
 }

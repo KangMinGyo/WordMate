@@ -116,7 +116,7 @@ final class GameSettingsPopupViewController: UIViewController {
         // dismiss 후 화면 전환
         guard let presentingVC = self.presentingViewController else { return }
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
+            self?.viewModel.goToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
         }
     }
 }
