@@ -24,12 +24,12 @@ class ResultCell: UICollectionViewCell {
     }
     
     var wordLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .black
     }
     
     var meaningLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 18)
+        $0.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .black
     }
     
@@ -100,6 +100,7 @@ class ResultCell: UICollectionViewCell {
     
     func configureUI() {
         feedbackLabel.text = viewModel?.feedback
+        feedbackLabel.textColor = viewModel?.feedback == "정답" ? .primaryOrange : .systemGray
         wordLabel.text = viewModel?.name
         meaningLabel.text = viewModel?.meaning
     }
