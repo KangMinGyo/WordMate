@@ -154,4 +154,10 @@ class GameSettingsPopupViewModel {
         multipleChoiceVC.modalPresentationStyle = .overFullScreen
         viewController.present(multipleChoiceVC, animated: animated, completion: nil)
     }
+    
+    func goToDictationVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let dictationVC = DictationViewController(viewModel: DictationViewModel(gameDatas: gameDatas))
+        dictationVC.modalPresentationStyle = .overFullScreen
+        viewController.present(dictationVC, animated: animated, completion: nil)
+    }
 }

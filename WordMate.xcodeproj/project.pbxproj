@@ -38,6 +38,7 @@
 		8C78E6AB2D087F3000757359 /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6AA2D087F3000757359 /* ResultViewModel.swift */; };
 		8C78E6B12D0B0C4E00757359 /* DictationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6B02D0B0C4E00757359 /* DictationViewController.swift */; };
 		8C78E6B32D0B0F7B00757359 /* WordLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6B22D0B0F7B00757359 /* WordLabelView.swift */; };
+		8C78E6B52D0B165B00757359 /* DictationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6B42D0B165B00757359 /* DictationViewModel.swift */; };
 		8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */; };
 		8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */; };
 		8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */; };
@@ -108,6 +109,7 @@
 		8C78E6AA2D087F3000757359 /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		8C78E6B02D0B0C4E00757359 /* DictationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationViewController.swift; sourceTree = "<group>"; };
 		8C78E6B22D0B0F7B00757359 /* WordLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordLabelView.swift; sourceTree = "<group>"; };
+		8C78E6B42D0B165B00757359 /* DictationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationViewModel.swift; sourceTree = "<group>"; };
 		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		8C78E6AE2D0B0C2000757359 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8C78E6B42D0B165B00757359 /* DictationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -707,6 +710,7 @@
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */,
 				8C78E6962D05D95E00757359 /* MultipleChoiceOption.swift in Sources */,
+				8C78E6B52D0B165B00757359 /* DictationViewModel.swift in Sources */,
 				8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */,
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */,
