@@ -12,22 +12,31 @@ class DictationViewController: UIViewController {
     private var options: [MultipleChoiceOption] = []
     
     private let gameStatusView = GameStatusView()
+    
+    private let wordLabelView = WordLabelView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupSubviews()
+        setupConstraints()
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupSubviews() {
+        view.addSubview(gameStatusView)
+        view.addSubview(wordLabelView)
     }
-    */
 
+    private func setupConstraints() {
+        gameStatusView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(60)
+        }
+        
+        wordLabelView.snp.makeConstraints {
+            $0.top.equalTo(gameStatusView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(300)
+        }
+    }
 }

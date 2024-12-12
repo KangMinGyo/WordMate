@@ -15,26 +15,7 @@ final class MultipleChoiceViewController: UIViewController {
     
     private let gameStatusView = GameStatusView()
     
-    private let wordLabelView = UIView().then {
-        $0.backgroundColor = .systemGray6
-        $0.layer.cornerRadius = 20
-    }
-    
-    private let feedbackLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-    }
-    
-    private let wordLabel = UILabel().then {
-        $0.text = "Word"
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-    }
-    
-    private lazy var speakerButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
-        $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
-        $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
-    }
+    private let wordLabelView = WordLabelView()
     
     private let choice1Button = UIButton().then {
         $0.tintColor = .white
@@ -127,7 +108,7 @@ final class MultipleChoiceViewController: UIViewController {
     }
     
     @objc func speakerButtonTapped() {
-        guard let text = wordLabel.text else { return }
+        guard let text = wordLabelView.wordLabel.text else { return }
         speechService.speak(text)
     }
     
@@ -136,7 +117,7 @@ final class MultipleChoiceViewController: UIViewController {
     }
     
     private func setupWord() {
-        wordLabel.text = viewModel.currentWord.name
+        wordLabelView.wordLabel.text = viewModel.currentWord.name
     }
     
     private func setupOptions() {
@@ -159,14 +140,14 @@ final class MultipleChoiceViewController: UIViewController {
     private func goToNextWord(isCorrect: Bool, userAnswer: String) {
         let feedbackMessage = isCorrect ? "정답 🎉" : "오답 💪"
         let feedbackColor: UIColor = isCorrect ? .systemGreen : .systemRed
-        feedbackLabel.isHidden = false
-        feedbackLabel.text = feedbackMessage
-        feedbackLabel.textColor = feedbackColor
+        wordLabelView.feedbackLabel.isHidden = false
+        wordLabelView.feedbackLabel.text = feedbackMessage
+        wordLabelView.feedbackLabel.textColor = feedbackColor
         
         viewModel.appendUserResponse(isCorrect: isCorrect, userAnswer: userAnswer)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.feedbackLabel.isHidden = true
+            self.wordLabelView.feedbackLabel.isHidden = true
             self.viewModel.currentIndex += 1
             
             // 게임 종료 여부 확인 후 진행
@@ -182,9 +163,6 @@ final class MultipleChoiceViewController: UIViewController {
     private func setupSubviews() {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
-        wordLabelView.addSubview(feedbackLabel)
-        wordLabelView.addSubview(wordLabel)
-        wordLabelView.addSubview(speakerButton)
         view.addSubview(stackView)
         view.addSubview(skipButton)
     }
@@ -200,20 +178,7 @@ final class MultipleChoiceViewController: UIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(300)
         }
-        
-        feedbackLabel.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(20)
-        }
-        
-        wordLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-        }
-        
-        speakerButton.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview().inset(20)
-        }
-        
+
         stackView.snp.makeConstraints {
             $0.top.equalTo(wordLabelView.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
