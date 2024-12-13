@@ -10,11 +10,21 @@ import UIKit
 class DictationViewController: UIViewController {
     
     let viewModel: DictationViewModel
+    let speechService = SpeechService()
     private var options: [MultipleChoiceOption] = []
     
     private let gameStatusView = GameStatusView()
     
     private let wordLabelView = WordLabelView()
+    
+    private lazy var dictationTextField = UITextField().then {
+        $0.borderStyle = .none
+        $0.backgroundColor = .systemGray6
+        $0.layer.cornerRadius = 20
+        $0.clipsToBounds = true
+        $0.addPadding()
+
+    }
     
     // MARK: - Initializers
     init(viewModel: DictationViewModel) {
@@ -38,6 +48,7 @@ class DictationViewController: UIViewController {
     private func setupGame() {
         setupIndicator()
         setupWord()
+        setupButtonActions()
     }
     
     private func setupIndicator() {
@@ -46,12 +57,27 @@ class DictationViewController: UIViewController {
     }
     
     private func setupWord() {
-        wordLabelView.wordLabel.text = viewModel.currentWord.name
+        wordLabelView.wordLabel.text = viewModel.currentWord.meaning
+    }
+    
+    private func setupButtonActions() {
+        gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        wordLabelView.speakerButton.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func speakerButtonTapped() {
+        let text = viewModel.currentWord.name
+        speechService.speak(text)
     }
 
     private func setupSubviews() {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
+        view.addSubview(dictationTextField)
     }
 
     private func setupConstraints() {
@@ -64,6 +90,12 @@ class DictationViewController: UIViewController {
             $0.top.equalTo(gameStatusView.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(300)
+        }
+        
+        dictationTextField.snp.makeConstraints {
+            $0.top.equalTo(wordLabelView.snp.bottom).offset(20)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(40)
         }
     }
 }

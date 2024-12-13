@@ -18,13 +18,13 @@ class WordLabelView: UIView {
     let wordLabel = UILabel().then {
         $0.text = "Word"
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.numberOfLines = 0
     }
     
     lazy var speakerButton = UIButton().then {
         $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
     
     override init(frame: CGRect) {
@@ -54,6 +54,7 @@ class WordLabelView: UIView {
         }
         
         wordLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }

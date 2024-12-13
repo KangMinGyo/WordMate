@@ -105,10 +105,11 @@ final class MultipleChoiceViewController: UIViewController {
         }
         
         gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        wordLabelView.speakerButton.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
     
     @objc func speakerButtonTapped() {
-        guard let text = wordLabelView.wordLabel.text else { return }
+        let text = viewModel.currentWord.name
         speechService.speak(text)
     }
     

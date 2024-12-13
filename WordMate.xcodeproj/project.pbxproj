@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E64C2CF0A96C00757359 /* WordViewModel.swift */; };
 		8C78E6522CF58E7100757359 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6512CF58E7100757359 /* SpeechService.swift */; };
 		8C78E6552CF766AA00757359 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6542CF766AA00757359 /* UIImage+Extension.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C78E64C2CF0A96C00757359 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		8C78E6512CF58E7100757359 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		8C78E6542CF766AA00757359 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				8C78E6542CF766AA00757359 /* UIImage+Extension.swift */,
+				8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				8C78E6752CFDFC4E00757359 /* GroupSelectionCell.swift in Sources */,
 				8C78E6AB2D087F3000757359 /* ResultViewModel.swift in Sources */,
 				8C78E67E2CFF0B4F00757359 /* QuestionCountViewController.swift in Sources */,
+				8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,
