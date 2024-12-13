@@ -5,7 +5,7 @@
 //  Created by KangMingyo on 12/12/24.
 //
 
-import Foundation
+import UIKit
 
 class DictationViewModel {
     private let gameDatas: [VocabularyWord]
@@ -24,5 +24,24 @@ class DictationViewModel {
     
     var currentWord: VocabularyWord {
         gameDatas[currentIndex]
+    }
+    
+    func appendUserResponse(isCorrect: Bool, userAnswer: String) {
+        userResponses.append(Question(word: currentWord, isCorrect: isCorrect, userAnswer: userAnswer))
+    }
+    
+    func printUserResponses() {
+        print("userResponses: \(userResponses)")
+    }
+    
+    func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
+        let gameResultVC = GameResultViewController(viewModel: GameResultViewModel(questions: userResponses))
+        gameResultVC.modalPresentationStyle = .overFullScreen
+        
+        // dismiss 후 화면 전환
+        guard let presentingVC = viewController.presentingViewController else { return }
+        viewController.dismiss(animated: true) {
+            presentingVC.present(gameResultVC, animated: true)
+        }
     }
 }
