@@ -83,6 +83,12 @@ class DictationViewController: UIViewController {
         wordLabelView.feedbackLabel.text = feedbackMessage
         wordLabelView.feedbackLabel.textColor = feedbackColor
         
+        // 정답이 틀린 경우 단어 보여주기
+        if !isCorrect {
+            wordLabelView.wordLabel.text = viewModel.currentWord.name
+        }
+        
+        // tf 초기화
         dictationTextField.text = ""
         
         viewModel.appendUserResponse(isCorrect: isCorrect, userAnswer: userAnswer)
