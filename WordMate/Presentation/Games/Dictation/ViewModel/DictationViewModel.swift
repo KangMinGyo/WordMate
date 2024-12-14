@@ -27,7 +27,7 @@ class DictationViewModel {
     }
     
     func appendUserResponse(isCorrect: Bool, userAnswer: String) {
-        userResponses.append(Question(word: currentWord, isCorrect: isCorrect, userAnswer: userAnswer))
+        userResponses.append(Question(word: currentWord, isCorrect: isCorrect))
     }
     
     func printUserResponses() {

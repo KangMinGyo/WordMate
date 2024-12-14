@@ -10,5 +10,4 @@ import Foundation
 struct Question {
     let word: VocabularyWord
     let isCorrect: Bool
-    let userAnswer: String
 }
