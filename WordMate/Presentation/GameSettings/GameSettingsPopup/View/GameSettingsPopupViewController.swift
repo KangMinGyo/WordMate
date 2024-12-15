@@ -15,9 +15,9 @@ final class GameSettingsPopupViewController: UIViewController {
     let viewModel: GameSettingsPopupViewModel
     
     // MARK: - Initializers
-    init(viewModel: GameSettingsPopupViewModel, title: String) {
+    init(viewModel: GameSettingsPopupViewModel) {
         self.viewModel = viewModel
-        self.popupView = GameSettingsPopupView(title: title)
+        self.popupView = GameSettingsPopupView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,6 +28,7 @@ final class GameSettingsPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        popupView.titleLabel.text = viewModel.title
         setupSubviews()
         setupConstraints()
         setupButtonActions()
@@ -116,7 +117,15 @@ final class GameSettingsPopupViewController: UIViewController {
         // dismiss 후 화면 전환
         guard let presentingVC = self.presentingViewController else { return }
         dismiss(animated: true) { [weak self] in
-            self?.viewModel.goToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
+            let title = self?.viewModel.title
+            switch title {
+            case "사지선다":
+                self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
+            case "받아쓰기":
+                self?.viewModel.goToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
+            default:
+                print("지원하지 않는 게임 모드입니다.")
+            }
         }
     }
 }

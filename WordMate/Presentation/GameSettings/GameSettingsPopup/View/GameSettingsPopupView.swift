@@ -17,7 +17,7 @@ class GameSettingsPopupView: UIView {
         $0.clipsToBounds = true
     }
     
-    private let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         $0.textColor = .black
     }
@@ -73,8 +73,7 @@ class GameSettingsPopupView: UIView {
     var cancelAction: (() -> Void)?
     var startAction: (() -> Void)?
     
-    init(title: String) {
-        titleLabel.text = title
+    init() {
         super.init(frame: .zero)
         setupSubviews()
         setupConstraints()

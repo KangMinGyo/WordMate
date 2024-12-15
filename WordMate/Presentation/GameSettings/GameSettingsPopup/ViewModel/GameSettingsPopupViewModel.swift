@@ -9,11 +9,20 @@ import UIKit
 
 class GameSettingsPopupViewModel {
     
+    private var titleLabelText: String
     private var allWords: [VocabularyWord] = []
     private var includeBookmarkWords: Bool = false
     private var questionOrder: QuestionOrder = .sequential
     private var questionCount: Int = 5
     private var gameSettings: GameSettings?
+    
+    var title: String {
+        titleLabelText
+    }
+    
+    init(titleLabelText: String) {
+        self.titleLabelText = titleLabelText
+    }
     
     func configureWords(words: [VocabularyWord]) {
         self.allWords = words

@@ -98,9 +98,19 @@ class LearningViewController: UIViewController {
         viewModel.goToGameSettingVC(from: self, title: "사지선다")
     }
     
+    @objc func dictationButtonTapped() {
+        viewModel.goToGameSettingVC(from: self, title: "받아쓰기")
+    }
+    
+    @objc func loopButtonTapped() {
+        viewModel.goToGameSettingVC(from: self, title: "반복하기")
+    }
+    
     private func addTarget() {
         flashCardButton.addTarget(self, action: #selector(flashButtonTapped), for: .touchUpInside)
         choicesButton.addTarget(self, action: #selector(choicesButtonTapped), for: .touchUpInside)
+        dictationButton.addTarget(self, action: #selector(dictationButtonTapped), for: .touchUpInside)
+        loopButton.addTarget(self, action: #selector(loopButtonTapped), for: .touchUpInside)
     }
     
     private func setupSubviews() {
