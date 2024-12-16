@@ -13,26 +13,54 @@ class RepeatViewController: UIViewController {
 
     let viewModel: RepeatViewModel
     
+    private let gameStatusView = GameStatusView()
     private let wordLabelView = WordLabelView()
     
-    private let backwardButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "backward.fill"), for: .normal)
+    private func customButton(image: UIImage?, imageSize: CGFloat, color: UIColor) -> UIButton {
+        let button = UIButton()
+        let resizedImage = image?.withConfiguration(UIImage.SymbolConfiguration(pointSize: imageSize, weight: .regular))
+        
+        var config = UIButton.Configuration.filled()
+        config.image = resizedImage
+        config.imagePadding = 10
+        config.baseForegroundColor = color
+        config.baseBackgroundColor = .systemBackground
+        
+        button.configuration = config
+        
+        return button
     }
     
-    private let pauseButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "play.fill"), for: .normal) // pause.fill
-        $0.tintColor = .primaryOrange
-    }
+    private lazy var backwardButton = customButton(
+        image: UIImage(systemName: "backward.fill"), 
+        imageSize: 20,
+        color: .systemGray
+    )
     
-    private let forwardButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "forward.fill"), for: .normal)
-    }
+    private lazy var pauseButton = customButton(
+        image: UIImage(systemName: "play.fill"),
+        imageSize: 30,
+        color: .primaryOrange
+    )
     
-    private lazy var stackView = UIStackView(arrangedSubviews: [
+    private lazy var forwardButton = customButton(
+        image: UIImage(systemName: "forward.fill"),
+        imageSize: 20,
+        color: .systemGray
+    )
+    
+    private lazy var buttonStackView = UIStackView(arrangedSubviews: [
         backwardButton, pauseButton, forwardButton]).then {
             $0.axis = .horizontal
             $0.spacing = 40
             $0.distribution = .fillEqually
+        }
+    
+    private lazy var stackView = UIStackView(arrangedSubviews: [
+        wordLabelView, buttonStackView]).then {
+            $0.axis = .vertical
+            $0.spacing = 40
+            $0.distribution = .fill
         }
     
     // MARK: - Initializers
@@ -47,26 +75,35 @@ class RepeatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .systemBackground
+        setupIndicator()
         setupSubviews()
         setupConstraints()
     }
+    
+    private func setupIndicator() {
+        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
+        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
+    }
 
     private func setupSubviews() {
-        view.addSubview(wordLabelView)
+        view.addSubview(gameStatusView)
         view.addSubview(stackView)
     }
 
     private func setupConstraints() {
-        wordLabelView.snp.makeConstraints {
+        gameStatusView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(300)
+            $0.height.equalTo(60)
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.height.equalTo(60)
         }
         
         stackView.snp.makeConstraints {
-            $0.top.equalTo(wordLabelView.snp.bottom).offset(20)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(50)
+            $0.top.equalTo(gameStatusView.snp.bottom).offset(20)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
     }
 }

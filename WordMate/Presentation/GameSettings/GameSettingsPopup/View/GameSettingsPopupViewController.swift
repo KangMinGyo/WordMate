@@ -123,6 +123,8 @@ final class GameSettingsPopupViewController: UIViewController {
                 self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "받아쓰기":
                 self?.viewModel.goToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
+            case "반복하기":
+                self?.viewModel.goToRepeatVC(from: presentingVC, gameDatas: gameData, animated: true)
             default:
                 print("지원하지 않는 게임 모드입니다.")
             }

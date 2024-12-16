@@ -169,4 +169,10 @@ class GameSettingsPopupViewModel {
         dictationVC.modalPresentationStyle = .overFullScreen
         viewController.present(dictationVC, animated: animated, completion: nil)
     }
+    
+    func goToRepeatVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let dictationVC = RepeatViewController(viewModel: RepeatViewModel(gameDatas: gameDatas))
+        dictationVC.modalPresentationStyle = .overFullScreen
+        viewController.present(dictationVC, animated: animated, completion: nil)
+    }
 }
