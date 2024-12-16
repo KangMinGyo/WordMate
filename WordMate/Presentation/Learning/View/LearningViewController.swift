@@ -51,14 +51,14 @@ class LearningViewController: UIViewController {
         image: UIImage(systemName: "square.and.pencil")
     )
     
-    private lazy var loopButton = customButton(
+    private lazy var repeatButton = customButton(
         title: "반복하기",
         subtitle: "반복하며 단어를 외워보세요!",
         image: UIImage(systemName: "repeat")
     )
 
     private lazy var stackView = UIStackView(arrangedSubviews: [
-        flashCardButton, choicesButton, dictationButton, loopButton]).then {
+        flashCardButton, choicesButton, dictationButton, repeatButton]).then {
             $0.axis = .vertical
             $0.spacing = 20
             $0.distribution = .fillEqually
@@ -110,7 +110,7 @@ class LearningViewController: UIViewController {
         flashCardButton.addTarget(self, action: #selector(flashButtonTapped), for: .touchUpInside)
         choicesButton.addTarget(self, action: #selector(choicesButtonTapped), for: .touchUpInside)
         dictationButton.addTarget(self, action: #selector(dictationButtonTapped), for: .touchUpInside)
-        loopButton.addTarget(self, action: #selector(loopButtonTapped), for: .touchUpInside)
+        repeatButton.addTarget(self, action: #selector(loopButtonTapped), for: .touchUpInside)
     }
     
     private func setupSubviews() {
