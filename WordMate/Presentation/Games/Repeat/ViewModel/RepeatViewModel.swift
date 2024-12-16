@@ -9,17 +9,19 @@ import UIKit
 
 class RepeatViewModel {
     private let gameDatas: [VocabularyWord]
-    private var userResponses = [Question]()
     
-    var currentIndex = 0
+    var wordIndex = 0
+    
+    var currentIndex: Int {
+        (wordIndex % gameDatas.count) + 1
+    }
+    
     var totalWords: Int {
-        get {
-            return gameDatas.count
-        }
+        gameDatas.count
     }
     
     var currentWord: VocabularyWord {
-        gameDatas[currentIndex]
+        gameDatas[wordIndex % gameDatas.count]
     }
 
     init(gameDatas: [VocabularyWord]) {

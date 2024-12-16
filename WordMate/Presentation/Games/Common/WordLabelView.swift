@@ -16,8 +16,15 @@ class WordLabelView: UIView {
     }
     
     let wordLabel = UILabel().then {
-        $0.text = "Word"
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+    }
+    
+    let meaningLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textColor = .primaryOrange
+        $0.textAlignment = .center
         $0.numberOfLines = 0
     }
     
@@ -45,6 +52,7 @@ class WordLabelView: UIView {
         
         addSubview(feedbackLabel)
         addSubview(wordLabel)
+        addSubview(meaningLabel)
         addSubview(speakerButton)
     }
     
@@ -54,9 +62,15 @@ class WordLabelView: UIView {
         }
         
         wordLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
+        }
+        
+        meaningLabel.snp.makeConstraints {
+            $0.top.equalTo(wordLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
         }
         
         speakerButton.snp.makeConstraints {
