@@ -25,7 +25,6 @@ class GroupSelectionViewController: UIViewController {
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
-        $0.addTarget(self, action: #selector(selectionButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Initializer
@@ -42,11 +41,16 @@ class GroupSelectionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         viewModel.fetchGroups()
-        
+        setupButtonActions()
         setupTableView()
         setupSubviews()
         setupConstraints()
     }
+    
+    private func setupButtonActions() {
+        selectionButton.addTarget(self, action: #selector(selectionButtonTapped), for: .touchUpInside)
+    }
+    
     
     @objc func selectionButtonTapped() {
         viewModel.onGroupSelected?(viewModel.selectedGroup)
