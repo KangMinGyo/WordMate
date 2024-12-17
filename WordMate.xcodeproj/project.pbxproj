@@ -10,6 +10,9 @@
 		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C6B0B0B2D1002C50055B181 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */; };
 		8C6B0B0D2D1006860055B181 /* RepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */; };
+		8C6B0B122D113AE10055B181 /* FlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B112D113AE10055B181 /* FlashCardViewController.swift */; };
+		8C6B0B142D113AED0055B181 /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B132D113AED0055B181 /* FlashCardViewModel.swift */; };
+		8C6B0B162D113BA30055B181 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B152D113BA30055B181 /* FlashCardView.swift */; };
 		8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E64C2CF0A96C00757359 /* WordViewModel.swift */; };
 		8C78E6522CF58E7100757359 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6512CF58E7100757359 /* SpeechService.swift */; };
 		8C78E6552CF766AA00757359 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C78E6542CF766AA00757359 /* UIImage+Extension.swift */; };
@@ -84,6 +87,9 @@
 		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewModel.swift; sourceTree = "<group>"; };
+		8C6B0B112D113AE10055B181 /* FlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewController.swift; sourceTree = "<group>"; };
+		8C6B0B132D113AED0055B181 /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
+		8C6B0B152D113BA30055B181 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		8C78E64C2CF0A96C00757359 /* WordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewModel.swift; sourceTree = "<group>"; };
 		8C78E6512CF58E7100757359 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		8C78E6542CF766AA00757359 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -177,6 +183,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		8C6B0B0E2D1139010055B181 /* FlashCard */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B0B102D113A280055B181 /* View */,
+				8C6B0B0F2D113A200055B181 /* ViewModel */,
+			);
+			path = FlashCard;
+			sourceTree = "<group>";
+		};
+		8C6B0B0F2D113A200055B181 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B0B132D113AED0055B181 /* FlashCardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8C6B0B102D113A280055B181 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C6B0B112D113AE10055B181 /* FlashCardViewController.swift */,
+				8C6B0B152D113BA30055B181 /* FlashCardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8C78E6502CF58E5400757359 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +266,7 @@
 		8C78E6652CF9D3AF00757359 /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				8C6B0B0E2D1139010055B181 /* FlashCard */,
 				8C78E6662CF9D3C200757359 /* MultipleChoice */,
 				8C78E6AD2D0B0C1000757359 /* Dictation */,
 				8C6B0B072D10028C0055B181 /* Repeat */,
@@ -731,6 +764,7 @@
 				8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */,
 				8C78E6A72D087ABE00757359 /* ResultCell.swift in Sources */,
 				8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */,
+				8C6B0B122D113AE10055B181 /* FlashCardViewController.swift in Sources */,
 				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,
 				8C78E66B2CFB314300757359 /* GameStatusView.swift in Sources */,
 				8CB5B47B2CE5F5C10093C6C5 /* AddWordViewController.swift in Sources */,
@@ -742,6 +776,7 @@
 				8CB5B4462CE3679D0093C6C5 /* GroupListViewController.swift in Sources */,
 				8CB5B4422CE3679D0093C6C5 /* AppDelegate.swift in Sources */,
 				8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */,
+				8C6B0B162D113BA30055B181 /* FlashCardView.swift in Sources */,
 				8C78E6962D05D95E00757359 /* MultipleChoiceOption.swift in Sources */,
 				8C78E6B52D0B165B00757359 /* DictationViewModel.swift in Sources */,
 				8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */,
@@ -753,6 +788,7 @@
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,
 				8CB5B4582CE47A290093C6C5 /* SettingsViewController.swift in Sources */,
 				8CB5B4722CE5CA920093C6C5 /* WordListViewController.swift in Sources */,
+				8C6B0B142D113AED0055B181 /* FlashCardViewModel.swift in Sources */,
 				8C78E6A12D06C46100757359 /* GameResultViewController.swift in Sources */,
 				8C78E6942D0038F600757359 /* QuestionOrderViewModel.swift in Sources */,
 				8CB5B4942CEF54BB0093C6C5 /* RealmManager.swift in Sources */,
