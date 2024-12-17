@@ -119,6 +119,8 @@ final class GameSettingsPopupViewController: UIViewController {
         dismiss(animated: true) { [weak self] in
             let title = self?.viewModel.title
             switch title {
+            case "플래시카드":
+                self?.viewModel.goToFlashCardVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "사지선다":
                 self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "받아쓰기":

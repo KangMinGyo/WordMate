@@ -158,6 +158,12 @@ class GameSettingsPopupViewModel {
         viewController.present(questionCountVC, animated: animated, completion: nil)
     }
     
+    func goToFlashCardVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let dictationVC = FlashCardViewController(viewModel: FlashCardViewModel(gameDatas: gameDatas))
+        dictationVC.modalPresentationStyle = .overFullScreen
+        viewController.present(dictationVC, animated: animated, completion: nil)
+    }
+    
     func goToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
         let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameDatas: gameDatas))
         multipleChoiceVC.modalPresentationStyle = .overFullScreen
