@@ -40,12 +40,8 @@ class MultipleChoiceViewModel {
         return options.shuffled()
     }
     
-    func appendUserResponse(isCorrect: Bool, userAnswer: String) {
+    func appendUserResponse(isCorrect: Bool) {
         userResponses.append(Question(word: currentWord, isCorrect: isCorrect))
-    }
-    
-    func printUserResponses() {
-        print("userResponses: \(userResponses)")
     }
     
     func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
