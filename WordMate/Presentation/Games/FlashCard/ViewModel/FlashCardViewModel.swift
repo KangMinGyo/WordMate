@@ -12,6 +12,9 @@ class FlashCardViewModel {
     private var userResponses = [Question]()
     
     var wordIndex = 0
+    var totalWords: Int {
+        gameDatas.count
+    }
     
     var currentIndex: Int {
         (wordIndex % gameDatas.count) + 1

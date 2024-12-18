@@ -15,6 +15,20 @@ class FlashCardView: UIView {
         $0.numberOfLines = 0
     }
     
+    let leftLabel = UILabel().then {
+        $0.text = "외웠어요😁"
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textColor = .systemGreen
+        $0.isHidden = true
+    }
+    
+    let rightLabel = UILabel().then {
+        $0.text = "모르겠어요😓"
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textColor = .systemRed
+        $0.isHidden = true
+    }
+    
     init(word: VocabularyWord) {
         super.init(frame: .zero)
         setupView()
@@ -31,9 +45,19 @@ class FlashCardView: UIView {
         layer.cornerRadius = 20
 
         addSubview(wordLabel)
+        addSubview(leftLabel)
+        addSubview(rightLabel)
     }
     
     private func setupConstraints() {
+        leftLabel.snp.makeConstraints {
+            $0.top.trailing.equalToSuperview().inset(20)
+        }
+        
+        rightLabel.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().inset(20)
+        }
+        
         wordLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.centerX.equalToSuperview()
