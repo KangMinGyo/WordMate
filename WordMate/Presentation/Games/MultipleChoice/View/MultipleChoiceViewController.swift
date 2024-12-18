@@ -16,7 +16,7 @@ final class MultipleChoiceViewController: UIViewController {
     private let gameStatusView = GameStatusView()
     
     private let wordLabelView = WordLabelView()
-    
+
     private let choice1Button = UIButton().then {
         $0.tintColor = .white
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
