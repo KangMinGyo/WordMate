@@ -15,6 +15,14 @@ class FlashCardView: UIView {
         $0.numberOfLines = 0
     }
     
+    let meaningLabel = UILabel().then {
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        $0.textColor = .primaryOrange
+        $0.textAlignment = .center
+        $0.numberOfLines = 0
+        $0.isHidden = true
+    }
+
     let leftLabel = UILabel().then {
         $0.text = "외웠어요😁"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -45,6 +53,7 @@ class FlashCardView: UIView {
         layer.cornerRadius = 20
 
         addSubview(wordLabel)
+        addSubview(meaningLabel)
         addSubview(leftLabel)
         addSubview(rightLabel)
     }
@@ -63,9 +72,20 @@ class FlashCardView: UIView {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
+        
+        meaningLabel.snp.makeConstraints {
+            $0.top.equalTo(wordLabel.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+        }
     }
     
     func configure(with word: VocabularyWord) {
         wordLabel.text = word.name
+        meaningLabel.text = word.meaning
+    }
+    
+    func toggleMeaningVisibility() {
+        meaningLabel.isHidden.toggle()
     }
 }

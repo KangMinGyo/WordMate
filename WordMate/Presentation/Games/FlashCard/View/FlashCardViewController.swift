@@ -63,6 +63,9 @@ class FlashCardViewController: UIViewController {
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
             cardView.addGestureRecognizer(panGesture)
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+            cardView.addGestureRecognizer(tapGesture)
         }
     }
     
@@ -117,6 +120,11 @@ class FlashCardViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        guard let card = gesture.view as? FlashCardView else { return }
+        card.toggleMeaningVisibility()
     }
     
     private func showSwipeMessage(on card: FlashCardView, isMemorized: Bool) {
