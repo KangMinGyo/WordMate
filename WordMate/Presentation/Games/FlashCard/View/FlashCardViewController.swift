@@ -28,15 +28,24 @@ class FlashCardViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
+        setupButtonActions()
         setupSubviews()
         setupConstraints()
         setupIndicator()
         setupCards()
     }
     
+    private func setupButtonActions() {
+        gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     private func setupIndicator() {
-        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex) / \(viewModel.totalWords)"
-        gameStatusView.progressBar.progress = Float(viewModel.currentIndex) / Float(viewModel.totalWords)
+        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
+        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
     }
     
     private func setupCards() {
@@ -81,11 +90,21 @@ class FlashCardViewController: UIViewController {
                 // 스와이프 완료 - 카드 제거
                 let direction: CGFloat = translation.x > 0 ? 1 : -1
                 
-                UIView.animate(withDuration: 0.3, animations: {
+                // 유저 응답 저장
+                saveUserResponse(isCorrect: !(direction > 0))
+                
+                UIView.animate(withDuration: 0.3) {
                     card.center.x += direction * self.view.frame.width
-                }) { _ in
-                    card.removeFromSuperview()
-                    self.cardViews.removeLast()
+                } completion: { _ in
+                    self.viewModel.currentIndex += 1
+                    // 게임 종료 여부 확인 후 진행
+                    if self.viewModel.currentIndex >= self.viewModel.totalWords {
+                        self.viewModel.goToGameResultVC(from: self, animated: true)
+                    } else {
+                        self.setupIndicator()
+                        self.cardViews.removeLast()
+                        card.removeFromSuperview()
+                    }
                 }
             } else {
                 // 원래 위치로 되돌리기
@@ -113,6 +132,10 @@ class FlashCardViewController: UIViewController {
     private func hideSwipeLabels(on card: FlashCardView) {
         card.leftLabel.isHidden = true
         card.rightLabel.isHidden = true
+    }
+    
+    private func saveUserResponse(isCorrect: Bool) {
+        viewModel.appendUserResponse(isCorrect: isCorrect)
     }
     
     private func setupSubviews() {
