@@ -135,8 +135,8 @@ class DictationViewController: UIViewController {
 
 extension DictationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let userAnswer = dictationTextField.text else { return false }
-        let isCorrect = viewModel.currentWord.name == userAnswer
+        guard let userAnswer = dictationTextField.text?.lowercased() else { return false }
+        let isCorrect = viewModel.currentWord.name.lowercased() == userAnswer
         goToNextWord(isCorrect: isCorrect, userAnswer: userAnswer)
         return true
     }
