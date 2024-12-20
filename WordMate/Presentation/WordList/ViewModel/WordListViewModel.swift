@@ -45,7 +45,7 @@ class WordListViewModel {
     func fetchWords() {
         // Realm에서 그룹 데이터가 갱신될 경우를 대비하여 최신 데이터를 가져옴
         if let updatedGroup = realmManager.fetchObject(VocabularyGroup.self, for: group.id) {
-            words = updatedGroup.words.sorted(byKeyPath: "name", ascending: true)
+            words = updatedGroup.words.sorted(byKeyPath: "createdAt", ascending: false)
         } else {
             words = nil
         }

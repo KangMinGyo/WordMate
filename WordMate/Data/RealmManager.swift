@@ -12,7 +12,6 @@ protocol RealmManagerProtocol {
     func fetchObjects<T: Object>(_ object: T.Type) -> Results<T>
     func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T?
     func addObject<T: Object>(_ object: T)
-//    func deleteObject()
     func deleteObject<T: Object>(_ object: T)
     func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
     func updateIsLiked(for word: VocabularyWord, to isLiked: Bool)
@@ -26,10 +25,12 @@ final class RealmManager: RealmManagerProtocol {
         self.realm = try! Realm()
     }
     
+    // 그룹 불러오기
     func fetchObjects<T: Object>(_ object: T.Type) -> Results<T> {
         return realm.objects(object)
     }
     
+    // 단어 불러오기
     func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T? {
         let realm = try! Realm()
         return realm.object(ofType: type, forPrimaryKey: id)

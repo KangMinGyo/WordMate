@@ -15,6 +15,7 @@ class VocabularyWord: Object {
     @Persisted var meaning: String
     @Persisted var descriptionText: String?
     @Persisted var isLiked: Bool = false
+    @Persisted var createdAt: Date = Date()
 
     override init() {
         super.init()
