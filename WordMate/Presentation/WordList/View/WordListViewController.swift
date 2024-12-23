@@ -37,6 +37,7 @@ class WordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.fetchWords()
+        collectionView.reloadData()
     }
     
     // MARK: - ViewModel Binding
@@ -111,6 +112,7 @@ extension WordListViewController: UICollectionViewDelegate {
         }
     }
 }
+
 extension WordListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cell = collectionView.cellForItem(at: indexPath) as? WordCell else {
@@ -118,10 +120,6 @@ extension WordListViewController: UICollectionViewDelegateFlowLayout {
         }
         
         var height = cell.isExpanded == true ? 120 : 100
-        
-        if let pronunciationText = cell.pronunciationLabel.text, !pronunciationText.isEmpty {
-            height += 20
-        }
         
         if !cell.descriptionLabel.isHidden {
             height += 30

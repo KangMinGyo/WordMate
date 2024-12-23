@@ -80,8 +80,8 @@ class WordCell: UICollectionViewCell {
     }
     
     private func setupCellStyle() {
-        backgroundColor = .systemGray6
-        layer.shadowColor = UIColor.systemGray.cgColor
+        backgroundColor = .systemBackground
+        layer.shadowColor = UIColor.systemGray3.cgColor
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 5
         layer.shadowOffset = CGSize(width: 1, height: 1)
