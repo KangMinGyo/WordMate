@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class AddGroupViewController: UIViewController {
+final class AddGroupViewController: UIViewController {
     
     private let viewModel = AddGroupViewModel(realmManager: RealmManager())
     
@@ -36,7 +36,7 @@ class AddGroupViewController: UIViewController {
         setupConstraints()
     }
     
-    func setupNaviBar() {
+    private func setupNaviBar() {
         title = "그룹"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .black
@@ -79,7 +79,6 @@ extension AddGroupViewController: UITextFieldDelegate {
             saveButton?.isEnabled = isTextValid
             saveButton?.tintColor = isTextValid ? .primaryOrange : .lightGray
         }
-        
         return true
     }
 }
