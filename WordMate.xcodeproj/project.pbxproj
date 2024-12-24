@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
 		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C6B0B0B2D1002C50055B181 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */; };
 		8C6B0B0D2D1006860055B181 /* RepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewModel.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			children = (
 				8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */,
 				8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */,
+				8C57F5872D1A8537005D21F1 /* SettingButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				8C78E6AB2D087F3000757359 /* ResultViewModel.swift in Sources */,
 				8C78E67E2CFF0B4F00757359 /* QuestionCountViewController.swift in Sources */,
 				8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */,
+				8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */,
 				8CB5B4562CE47A180093C6C5 /* LearningViewController.swift in Sources */,
 				8CB5B4972CEF58DD0093C6C5 /* AddGroupViewModel.swift in Sources */,
 				8CB5B4442CE3679D0093C6C5 /* SceneDelegate.swift in Sources */,

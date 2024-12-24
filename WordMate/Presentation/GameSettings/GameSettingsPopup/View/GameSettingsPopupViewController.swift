@@ -6,13 +6,15 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 final class GameSettingsPopupViewController: UIViewController {
     
-    private let popupView: GameSettingsPopupView
-    
-    //MARK: - ViewModel
+    // MARK: - ViewModel
     let viewModel: GameSettingsPopupViewModel
+    
+    private let popupView: GameSettingsPopupView
     
     // MARK: - Initializers
     init(viewModel: GameSettingsPopupViewModel) {
@@ -35,9 +37,9 @@ final class GameSettingsPopupViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-        popupView.wordSelectionTypeButton.setTitle("모든 단어", for: .normal)
-        popupView.wordOrderButton.setTitle("순서대로", for: .normal)
-        
+//        popupView.wordSelectionTypeButton.setTitle("모든 단어", for: .normal)
+//        popupView.wordOrderButton.setTitle("순서대로", for: .normal)
+//        
         popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
         popupView.wordSelectionTypeButton.addTarget(self, action: #selector(wordSelectionButtonTapped), for: .touchUpInside)
         popupView.wordOrderButton.addTarget(self, action: #selector(wordOrderButtonTapped), for: .touchUpInside)
@@ -47,12 +49,8 @@ final class GameSettingsPopupViewController: UIViewController {
     @objc func groupSelectionButtonTapped() {
         viewModel.showGroupSelectionVC(from: self, animated: true) { selectedGroup in
             if let group = selectedGroup {
-                self.popupView.groupSelectionButton.setTitle("\(group.name)", for: .normal)
-                let wordsArray = Array(group.words)
-                self.viewModel.configureWords(words: wordsArray)
-                print("선택된 그룹: \(group.name)")
-            } else {
-                print("그룹 선택 x")
+                self.popupView.groupSelectionButton.setDynamicLabelText(group.name)
+                self.viewModel.configureWords(words: Array(group.words))
             }
         }
     }
@@ -61,7 +59,7 @@ final class GameSettingsPopupViewController: UIViewController {
         viewModel.showQuestionSelectionVC(from: self, animated: true) { isFavorite in
             if let isFavorite = isFavorite {
                 let title = isFavorite ? "즐겨찾기 한 단어" : "모든 단어"
-                self.popupView.wordSelectionTypeButton.setTitle("\(title)", for: .normal)
+                self.popupView.wordSelectionTypeButton.setDynamicLabelText(title)
             }
         }
     }
@@ -70,7 +68,7 @@ final class GameSettingsPopupViewController: UIViewController {
         viewModel.showQuestionOrderVC(from: self, animated: true) { order in
             if let order = order {
                 let title = order.rawValue
-                self.popupView.wordOrderButton.setTitle("\(title)", for: .normal)
+                self.popupView.wordOrderButton.setDynamicLabelText(title)
             }
         }
     }
@@ -79,18 +77,18 @@ final class GameSettingsPopupViewController: UIViewController {
     @objc func countButtonTapped() {
         viewModel.showQuestionCountVC(from: self, animated: true) { count in
             if let count = count {
-                self.popupView.wordCountButton.setTitle("\(count)", for: .normal)
+                self.popupView.wordCountButton.setDynamicLabelText("\(count)개")
             }
         }
     }
     
     private func setupSubviews() {
-        popupView.cancelAction = { [weak self] in
-            self?.handleCancel()
+        popupView.backAction = { [weak self] in
+            self?.backButtonTapped()
         }
         
         popupView.startAction = { [weak self] in
-            self?.handleStart()
+            self?.startButtonTapped()
         }
         
         view.addSubview(popupView)
@@ -102,11 +100,11 @@ final class GameSettingsPopupViewController: UIViewController {
         }
     }
     
-    private func handleCancel() {
+    @objc private func backButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
-    private func handleStart() {
+    @objc private func startButtonTapped() {
         // GameSettings 생성
         let settings = viewModel.configureGameSettings()
         viewModel.configureGame(settings: settings)

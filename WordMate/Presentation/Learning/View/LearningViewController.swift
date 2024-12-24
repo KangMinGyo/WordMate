@@ -17,8 +17,6 @@ class LearningViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         
         // 기본 설정
-        config.title = title
-        config.subtitle = subtitle
         config.image = image
         config.imagePadding = 10
         config.baseBackgroundColor = .white
