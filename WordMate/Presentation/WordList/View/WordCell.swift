@@ -51,14 +51,14 @@ class WordCell: UICollectionViewCell {
     private lazy var bookmarkButton = UIButton().then {
         $0.setImage(UIImage(systemName: "star"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .systemGray3  // 아이콘 색상 변경
         $0.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
     private lazy var speakerButton = UIButton().then {
         $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .systemGray3  // 아이콘 색상 변경
         $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
 
@@ -83,7 +83,6 @@ class WordCell: UICollectionViewCell {
         backgroundColor = .systemBackground
         layer.shadowColor = UIColor.systemGray3.cgColor
         layer.shadowOpacity = 0.5
-        layer.shadowRadius = 5
         layer.shadowOffset = CGSize(width: 1, height: 1)
         layer.cornerRadius = 20
         contentView.clipsToBounds = true
@@ -158,7 +157,7 @@ class WordCell: UICollectionViewCell {
     
     private func updateBookmarkButtonAppearance(isLiked: Bool) {
         bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
-        bookmarkButton.tintColor = isLiked ? .primaryOrange : .gray
+        bookmarkButton.tintColor = isLiked ? .primaryOrange : .systemGray3
     }
 }
 
@@ -172,7 +171,7 @@ extension WordCell: SpeechServiceDelegate {
     
     func speechDidFinish() {
         DispatchQueue.main.async {
-            self.speakerButton.tintColor = .gray
+            self.speakerButton.tintColor = .systemGray3
         }
     }
 }
