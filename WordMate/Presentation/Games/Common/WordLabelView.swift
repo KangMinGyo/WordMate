@@ -31,7 +31,7 @@ class WordLabelView: UIView {
     lazy var speakerButton = UIButton().then {
         $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .systemGray3  // 아이콘 색상 변경
     }
     
     override init(frame: CGRect) {

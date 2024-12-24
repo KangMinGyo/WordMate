@@ -42,6 +42,7 @@ class DictationViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         dictationTextField.delegate = self
+        speechService.delegate = self
         setupGame()
         setupSubviews()
         setupConstraints()
@@ -133,11 +134,27 @@ class DictationViewController: UIViewController {
     }
 }
 
+// MARK: - Delegate Methods
+
 extension DictationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let userAnswer = dictationTextField.text?.lowercased() else { return false }
         let isCorrect = viewModel.currentWord.name.lowercased() == userAnswer
         goToNextWord(isCorrect: isCorrect, userAnswer: userAnswer)
         return true
+    }
+}
+
+extension DictationViewController: SpeechServiceDelegate {
+    func speechDidStart() {
+        DispatchQueue.main.async {
+            self.wordLabelView.speakerButton.tintColor = .primaryOrange
+        }
+    }
+    
+    func speechDidFinish() {
+        DispatchQueue.main.async {
+            self.wordLabelView.speakerButton.tintColor = .systemGray3
+        }
     }
 }

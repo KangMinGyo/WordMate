@@ -45,6 +45,7 @@ final class MultipleChoiceViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
+        speechService.delegate = self
         setupButtons()
         setupSubviews()
         setupConstraints()
@@ -165,6 +166,21 @@ final class MultipleChoiceViewController: UIViewController {
         skipButton.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(20)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
+        }
+    }
+}
+
+// MARK: - Delegate Methods
+extension MultipleChoiceViewController: SpeechServiceDelegate {
+    func speechDidStart() {
+        DispatchQueue.main.async {
+            self.wordLabelView.speakerButton.tintColor = .primaryOrange
+        }
+    }
+    
+    func speechDidFinish() {
+        DispatchQueue.main.async {
+            self.wordLabelView.speakerButton.tintColor = .systemGray3
         }
     }
 }
