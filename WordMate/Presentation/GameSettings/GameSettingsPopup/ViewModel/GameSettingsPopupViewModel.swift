@@ -81,7 +81,11 @@ class GameSettingsPopupViewModel {
         groupSelectionVC.modalPresentationStyle = .pageSheet
         
         if let sheet = groupSelectionVC.sheetPresentationController {
-            sheet.detents = [.medium()]
+            sheet.detents = [
+                .custom(resolver: { context in
+                    return 250
+                })
+            ]
         }
         
         groupSelectionViewModel.onGroupSelected = { selectedGroup in
@@ -107,7 +111,7 @@ class GameSettingsPopupViewModel {
         if let sheet = questionSelectionVC.sheetPresentationController {
             sheet.detents = [
                 .custom(resolver: { context in
-                    return 200
+                    return 220
                 })
             ]
         }

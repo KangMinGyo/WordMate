@@ -17,7 +17,6 @@ class QuestionSelectionViewController: UIViewController {
     private let titleLabel = UILabel().then {
         $0.text = "학습할 단어를 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .primaryOrange
     }
     
     private let tableView = UITableView()
@@ -83,7 +82,8 @@ class QuestionSelectionViewController: UIViewController {
         
         confirmButton.snp.makeConstraints {
             $0.top.equalTo(tableView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(40)
             $0.height.equalTo(40)
         }
     }

@@ -15,13 +15,12 @@ class GroupSelectionViewController: UIViewController {
     private let titleLabel = UILabel().then {
         $0.text = "학습할 그룹을 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .primaryOrange
     }
     
     private let tableView = UITableView()
     
     private let selectionButton = UIButton().then {
-        $0.setTitle("선택 완료", for: .normal)
+        $0.setTitle("확인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
@@ -81,8 +80,9 @@ class GroupSelectionViewController: UIViewController {
         
         selectionButton.snp.makeConstraints {
             $0.top.equalTo(tableView.snp.bottom).offset(20)
-            $0.leading.trailing.bottom.equalToSuperview().inset(20)
-            $0.height.equalTo(50)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.height.equalTo(40)
         }
     }
 }

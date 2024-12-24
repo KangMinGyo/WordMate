@@ -17,7 +17,6 @@ class QuestionCountViewController: UIViewController {
     private let titleLabel = UILabel().then {
         $0.text = "학습할 문제수를 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        $0.textColor = .primaryOrange
     }
     
     private let plusButton = UIButton().then {
@@ -118,7 +117,8 @@ class QuestionCountViewController: UIViewController {
         
         confirmButton.snp.makeConstraints {
             $0.top.equalTo(stackView.snp.bottom).offset(40)
-            $0.leading.trailing.bottom.equalToSuperview().inset(40)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(40)
             $0.height.equalTo(40)
         }
     }

@@ -25,7 +25,7 @@ class GameSettingsPopupView: UIView {
     }
     
     lazy var titleLabel = UILabel().then {
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
     
     lazy var groupSelectionButton = createSettingButton(title: "그룹 선택", dynamicText: "그룹을 선택해주세요")
@@ -42,6 +42,7 @@ class GameSettingsPopupView: UIView {
     
     private lazy var startButton = UIButton().then {
         $0.setTitle("시작하기", for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         $0.backgroundColor = .primaryOrange
         $0.layer.cornerRadius = 20
         $0.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
