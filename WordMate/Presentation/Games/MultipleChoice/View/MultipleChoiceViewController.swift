@@ -94,6 +94,7 @@ final class MultipleChoiceViewController: UIViewController {
         
         gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         wordLabelView.speakerButton.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
+        self.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -110,6 +111,10 @@ final class MultipleChoiceViewController: UIViewController {
         let selectedOption = options[sender.tag]
         optionButtons.forEach { $0.isEnabled = false }
         goToNextWord(isCorrect: selectedOption.isCorrect)
+    }
+    
+    @objc private func skipButtonTapped() {
+        goToNextWord(isCorrect: false)
     }
     
     private func goToNextWord(isCorrect: Bool) {
