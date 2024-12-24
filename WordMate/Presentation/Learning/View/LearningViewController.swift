@@ -15,21 +15,36 @@ class LearningViewController: UIViewController {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
+        
+        // 기본 설정
         config.title = title
         config.subtitle = subtitle
         config.image = image
         config.imagePadding = 10
-        config.baseForegroundColor = .primaryOrange
-        config.baseBackgroundColor = .systemGray6
+        config.baseBackgroundColor = .white
+        
+        // 이미지 색상 설정
+        config.imageColorTransformer = UIConfigurationColorTransformer { _ in
+            return .primaryOrange
+        }
+        
+        // 타이틀 & 서브타이틀 색상 설정
+        let titleAttributes = AttributedString(title, attributes: .init([
+            .foregroundColor: UIColor.black
+        ]))
+        config.attributedTitle = titleAttributes
+
+        let subtitleAttributes = AttributedString(subtitle, attributes: .init([
+            .foregroundColor: UIColor.gray
+        ]))
+        config.attributedSubtitle = subtitleAttributes
+
+        // 테두리 설정
+        config.background.strokeWidth = 1.0
+        config.background.strokeColor = .systemGray5
         config.cornerStyle = .medium
         
         button.configuration = config
-        
-        button.layer.shadowColor = UIColor.systemGray.cgColor
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowRadius = 5
-        button.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
         return button
     }
     
