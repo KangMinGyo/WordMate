@@ -20,7 +20,6 @@ class QuestionSelectionCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "circle"), for: .normal) // checkmark.circle.fill
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray  // 아이콘 색상 변경
-//        $0.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

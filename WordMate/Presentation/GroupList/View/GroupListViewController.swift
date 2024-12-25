@@ -36,10 +36,36 @@ class GroupListViewController: UIViewController {
         setupCollectionView()
         setupConstraints()
         bindViewModel()
+        
+        // Long Press Gesture 추가
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        collectionView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.fetchGroups()
+    }
+    
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        
+        switch gesture.state {
+        case .began:
+            if let indexPath = collectionView.indexPathForItem(at: point) {
+                print("Long pressed at item \(indexPath.item)")
+                let actionSheet = UIAlertController(title: "작업 선택", message: "원하는 작업을 선택하세요.", preferredStyle: .actionSheet)
+                actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: { _ in
+                print("수정")
+                }))
+                actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+                print("삭제")
+                }))
+                actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+                self.present(actionSheet, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
     }
     
     
