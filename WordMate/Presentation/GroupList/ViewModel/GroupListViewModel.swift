@@ -12,9 +12,9 @@ class GroupListViewModel {
     // MARK: - Properties
     private let realmManager: RealmManagerProtocol
     
-    var groups: Results<VocabularyGroup>? {
+    var groupList: Results<VocabularyGroup>? {
         didSet {
-            onGroupsUpdated?(groups)
+            onGroupsUpdated?(groupList)
         }
     }
     
@@ -27,22 +27,40 @@ class GroupListViewModel {
     
     // MARK: - Data Handling
     func numberOfRowsInSection(_ section: Int) -> Int {
-        return self.groups?.count ?? 0
+        return self.groupList?.count ?? 0
+    }
+    
+    // 뷰모델 생성
+    func groupViewModelAtIndex(_ index: Int) -> AddGroupViewModel {
+        let group = self.groupList?[index]
+        return AddGroupViewModel(realmManager: RealmManager(), group: group, index: index)
     }
     
     func fetchGroups() {
-        groups = realmManager.fetchObjects(VocabularyGroup.self)
+        groupList = realmManager.fetchObjects(VocabularyGroup.self)
     }
     
     func deleteGroup(at index: Int) {
-        guard let group = groups?[index] else { return }
+        guard let group = groupList?[index] else { return }
         realmManager.deleteObject(group)
         fetchGroups()
     }
 
     // MARK: - Navigation
-    func goToAddGroupVC(from viewController: UIViewController, animated: Bool) {
-        let addGroupVC = AddGroupViewController()
+    func handleNextVC(at index: Int? = nil, fromCurrentVC: UIViewController, animated: Bool) {
+        // 기존의 그룹이 있을때
+        if let index = index {
+            let groupVM = groupViewModelAtIndex(index)
+            goToAddGroupVC(with: groupVM, from: fromCurrentVC, animated: animated)
+        // 새로운 그룹 생성시
+        } else {
+            let newVM = AddGroupViewModel(realmManager: self.realmManager, group: nil, index: nil)
+            goToAddGroupVC(with: newVM, from: fromCurrentVC, animated: animated)
+        }
+    }
+    
+    func goToAddGroupVC(with groupVM: AddGroupViewModel,from viewController: UIViewController, animated: Bool) {
+        let addGroupVC = AddGroupViewController(viewModel: groupVM)
         viewController.navigationController?.pushViewController(addGroupVC, animated: animated)
     }
     

@@ -56,6 +56,7 @@ class GroupListViewController: UIViewController {
                 let actionSheet = UIAlertController(title: "작업 선택", message: "원하는 작업을 선택하세요.", preferredStyle: .actionSheet)
                 actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: { _ in
                 print("수정")
+                    self.updateActionSheetTapped(at: indexPath)
                 }))
                 actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
                     self.deleteActionSheetTapped(at: indexPath)
@@ -66,6 +67,10 @@ class GroupListViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func updateActionSheetTapped(at indexPath: IndexPath) {
+        viewModel.handleNextVC(at: indexPath.item, fromCurrentVC: self, animated: true)
     }
     
     func deleteActionSheetTapped(at indexPath: IndexPath) {
@@ -89,7 +94,7 @@ class GroupListViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        viewModel.goToAddGroupVC(from: self, animated: true)
+        viewModel.handleNextVC(fromCurrentVC: self, animated: true)
     }
     
     
@@ -132,7 +137,7 @@ extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
-        let group = viewModel.groups?[indexPath.row]
+        let group = viewModel.groupList?[indexPath.row]
         cell.group = group
         return cell
     }
@@ -141,7 +146,7 @@ extension GroupListViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension GroupListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedGroup = viewModel.groups?[indexPath.item] else { return }
+        guard let selectedGroup = viewModel.groupList?[indexPath.item] else { return }
         viewModel.goToWordListVC(from: self, group: selectedGroup, animated: true)
     }
 }

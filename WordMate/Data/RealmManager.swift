@@ -14,7 +14,8 @@ protocol RealmManagerProtocol {
     func addObject<T: Object>(_ object: T)
     func deleteObject<T: Object>(_ object: T)
     func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
-    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool)
+    func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool)
+    func updateGroupName(_ group: VocabularyGroup, to newName: String)
 }
 
 final class RealmManager: RealmManagerProtocol {
@@ -49,9 +50,20 @@ final class RealmManager: RealmManagerProtocol {
         }
     }
     
-    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool) {
+    func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool) {
         try! realm.write {
             word.isLiked = isLiked
+        }
+    }
+    
+    func updateGroupName(_ group: VocabularyGroup, to newName: String) {
+        do {
+            try realm.write {
+                group.name = newName
+            }
+            print("그룹 이름 수정 완료")
+        } catch {
+            print("그룹 이름 수정 중 에러 발생: \(error.localizedDescription)")
         }
     }
     

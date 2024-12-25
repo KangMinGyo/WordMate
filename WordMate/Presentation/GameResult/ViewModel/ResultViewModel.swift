@@ -34,7 +34,7 @@ class ResultViewModel {
     
     func updateIsLiked() {
         let newIsLiked = !isLiked
-        realmManager.updateIsLiked(for: question.word, to: newIsLiked)
+        realmManager.updateIsLiked(question.word, to: newIsLiked)
         print("newIsLiked : \(newIsLiked)")
     }
     

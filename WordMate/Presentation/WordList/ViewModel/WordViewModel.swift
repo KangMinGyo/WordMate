@@ -38,7 +38,7 @@ class WordViewModel {
     
     func updateIsLiked() {
         let newIsLiked = !isLiked
-        realmManager.updateIsLiked(for: word, to: newIsLiked)
+        realmManager.updateIsLiked(word, to: newIsLiked)
         print("newIsLiked : \(newIsLiked)")
     }
 }
