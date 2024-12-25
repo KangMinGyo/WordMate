@@ -33,6 +33,12 @@ class GroupListViewModel {
     func fetchGroups() {
         groups = realmManager.fetchObjects(VocabularyGroup.self)
     }
+    
+    func deleteGroup(at index: Int) {
+        guard let group = groups?[index] else { return }
+        realmManager.deleteObject(group)
+        fetchGroups()
+    }
 
     // MARK: - Navigation
     func goToAddGroupVC(from viewController: UIViewController, animated: Bool) {

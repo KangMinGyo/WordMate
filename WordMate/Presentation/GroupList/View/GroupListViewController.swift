@@ -58,7 +58,7 @@ class GroupListViewController: UIViewController {
                 print("수정")
                 }))
                 actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-                print("삭제")
+                    self.deleteActionSheetTapped(at: indexPath)
                 }))
                 actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
                 self.present(actionSheet, animated: true, completion: nil)
@@ -68,6 +68,9 @@ class GroupListViewController: UIViewController {
         }
     }
     
+    func deleteActionSheetTapped(at indexPath: IndexPath) {
+        viewModel.deleteGroup(at: indexPath.item)
+    }
     
     // MARK: - ViewModel Binding
     private func bindViewModel() {

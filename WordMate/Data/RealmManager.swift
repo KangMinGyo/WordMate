@@ -56,7 +56,15 @@ final class RealmManager: RealmManagerProtocol {
     }
     
     func deleteObject<T: Object>(_ object: T) {
-        print("삭제")
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(object)
+            }
+            print("삭제 완료")
+        } catch let error {
+            print("삭제 중 에러 발생: \(error.localizedDescription)")
+        }
     }
     
     func deleteObject() {
