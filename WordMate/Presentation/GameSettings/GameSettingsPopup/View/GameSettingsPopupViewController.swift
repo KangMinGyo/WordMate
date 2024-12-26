@@ -37,9 +37,6 @@ final class GameSettingsPopupViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-//        popupView.wordSelectionTypeButton.setTitle("모든 단어", for: .normal)
-//        popupView.wordOrderButton.setTitle("순서대로", for: .normal)
-//        
         popupView.groupSelectionButton.addTarget(self, action: #selector(groupSelectionButtonTapped), for: .touchUpInside)
         popupView.wordSelectionTypeButton.addTarget(self, action: #selector(wordSelectionButtonTapped), for: .touchUpInside)
         popupView.wordOrderButton.addTarget(self, action: #selector(wordOrderButtonTapped), for: .touchUpInside)
@@ -51,6 +48,8 @@ final class GameSettingsPopupViewController: UIViewController {
             if let group = selectedGroup {
                 self.popupView.groupSelectionButton.setDynamicLabelText(group.name)
                 self.viewModel.configureWords(words: Array(group.words))
+                // 그룹 선택 -> 버튼 활성화
+                self.popupView.updateStartButtonState(isEnabled: true)
             }
         }
     }

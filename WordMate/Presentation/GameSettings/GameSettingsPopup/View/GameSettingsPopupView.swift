@@ -43,9 +43,10 @@ class GameSettingsPopupView: UIView {
     private lazy var startButton = UIButton().then {
         $0.setTitle("시작하기", for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
-        $0.backgroundColor = .primaryOrange
+        $0.backgroundColor = .systemGray3
         $0.layer.cornerRadius = 20
         $0.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        $0.isEnabled = false
     }
     
     var backAction: (() -> Void)?
@@ -75,6 +76,11 @@ class GameSettingsPopupView: UIView {
         button.setStaticLabelText(title)
         button.setDynamicLabelText(dynamicText)
         return button
+    }
+    
+    func updateStartButtonState(isEnabled: Bool) {
+        startButton.isEnabled = isEnabled
+        startButton.backgroundColor = isEnabled ? .primaryOrange : .systemGray3
     }
     
     private func setupSubviews() {

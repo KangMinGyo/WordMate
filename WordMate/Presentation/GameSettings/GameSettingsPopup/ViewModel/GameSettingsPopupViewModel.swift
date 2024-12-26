@@ -13,7 +13,7 @@ class GameSettingsPopupViewModel {
     private var allWords: [VocabularyWord] = []
     private var includeBookmarkWords: Bool = false
     private var questionOrder: QuestionOrder = .sequential
-    private var questionCount: Int = 5
+    private var questionCount: Int = 20
     private var gameSettings: GameSettings?
     
     var title: String {
