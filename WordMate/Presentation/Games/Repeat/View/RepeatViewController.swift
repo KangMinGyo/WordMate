@@ -33,34 +33,15 @@ class RepeatViewController: UIViewController {
         
         return button
     }
-    
-    private lazy var backwardButton = customButton(
-        image: UIImage(systemName: "backward.fill"), 
-        imageSize: 20,
-        color: .systemGray
-    )
-    
+
     private lazy var playAndPauseButton = customButton(
         image: UIImage(systemName: "play.fill"),
         imageSize: 30,
         color: .primaryOrange
     )
-    
-    private lazy var forwardButton = customButton(
-        image: UIImage(systemName: "forward.fill"),
-        imageSize: 20,
-        color: .systemGray
-    )
-    
-    private lazy var buttonStackView = UIStackView(arrangedSubviews: [
-        backwardButton, playAndPauseButton, forwardButton]).then {
-            $0.axis = .horizontal
-            $0.spacing = 40
-            $0.distribution = .fillEqually
-        }
-    
+
     private lazy var stackView = UIStackView(arrangedSubviews: [
-        wordLabelView, buttonStackView]).then {
+        wordLabelView, playAndPauseButton]).then {
             $0.axis = .vertical
             $0.spacing = 40
             $0.distribution = .fill
@@ -79,6 +60,7 @@ class RepeatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        wordLabelView.speakerButton.isHidden = true
         setupGame()
         setupButtonActions()
         setupSubviews()
@@ -158,7 +140,7 @@ class RepeatViewController: UIViewController {
             $0.height.equalTo(60)
         }
         
-        buttonStackView.snp.makeConstraints {
+        playAndPauseButton.snp.makeConstraints {
             $0.height.equalTo(60)
         }
         
