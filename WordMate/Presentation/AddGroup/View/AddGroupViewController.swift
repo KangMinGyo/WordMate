@@ -55,8 +55,21 @@ final class AddGroupViewController: UIViewController {
     
     @objc func saveButtonTapped() {
         guard let name = groupTextField.text else { return }
+        
+        if viewModel.isDuplicateGroup(name: name) {
+            showAlert(title: "중복된 그룹", message: "이미 존재하는 그룹입니다.")
+            return
+        }
+        
         viewModel.handelButtonTapped(name: name)
         viewModel.goBackToPreviousVC(from: self, animated: true)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setupSubviews() {

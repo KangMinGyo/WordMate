@@ -17,6 +17,9 @@ protocol RealmManagerProtocol {
     func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool)
     func updateGroupName(_ group: VocabularyGroup, to newName: String)
     func updateWord(_ word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?)
+    // 중복 확인
+    func isGroupExisting(name: String) -> Bool
+    func isWordExisting(name: String, meaning: String) -> Bool
 }
 
 final class RealmManager: RealmManagerProtocol {
@@ -97,5 +100,18 @@ final class RealmManager: RealmManagerProtocol {
         } catch let error {
             print("삭제 중 에러 발생: \(error.localizedDescription)")
         }
+    }
+    
+    // MARK: - 중복 확인
+    func isGroupExisting(name: String) -> Bool {
+        let predicate = NSPredicate(format: "name == %@", name)
+        let existingGroups = realm.objects(VocabularyGroup.self).filter(predicate)
+        return !existingGroups.isEmpty
+    }
+    
+    func isWordExisting(name: String, meaning: String) -> Bool {
+        let predicate = NSPredicate(format: "name == %@ AND meaning == %@", name, meaning)
+        let existingWords = realm.objects(VocabularyWord.self).filter(predicate)
+        return !existingWords.isEmpty
     }
 }

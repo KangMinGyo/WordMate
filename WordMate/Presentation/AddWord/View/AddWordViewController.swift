@@ -80,13 +80,28 @@ class AddWordViewController: UIViewController {
         guard let meaning = meaningTextField.text else { return }
         let description = descriptionTextField.text ?? nil
         
-        viewModel.handelButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
+        if viewModel.isDuplicateWord(name: name, meaning: meaning) {
+            showAlert(title: "중복된 단어", message: "이미 저장된 단어입니다. 그래도 저장하시겠습니까?") {
+                self.viewModel.handelButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
+            }
+        }
         
         if viewModel.buttonTitle == "수정" {
             viewModel.goBackToPreviousVC(from: self, animated: true)
         } else {
             setupTextField()
         }
+    }
+    
+    private func showAlert(title: String, message: String, onConfirm: @escaping () -> Void) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default)  { _ in
+            onConfirm()
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setupTextField() {

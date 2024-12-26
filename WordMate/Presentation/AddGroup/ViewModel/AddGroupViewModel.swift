@@ -46,6 +46,10 @@ class AddGroupViewModel {
         print("Group saved successfully")
     }
     
+    func isDuplicateGroup(name: String) -> Bool {
+        return realmManager.isGroupExisting(name: name)
+    }
+
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {
         viewController.navigationController?.popViewController(animated: animated)
     }

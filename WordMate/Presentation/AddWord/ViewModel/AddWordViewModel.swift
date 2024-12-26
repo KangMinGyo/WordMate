@@ -67,6 +67,10 @@ class AddWordViewModel {
         
         realmManager.addWordToGroup(group, word: word)
     }
+    
+    func isDuplicateWord(name: String, meaning: String) -> Bool {
+        return realmManager.isWordExisting(name: name, meaning: meaning)
+    }
 
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {
         viewController.navigationController?.popViewController(animated: animated)
