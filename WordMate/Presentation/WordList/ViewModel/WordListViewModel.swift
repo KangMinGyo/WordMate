@@ -12,9 +12,9 @@ class WordListViewModel {
     private let group: VocabularyGroup
     private let realmManager: RealmManagerProtocol
     
-    var words: Results<VocabularyWord>? {
+    var wordList: Results<VocabularyWord>? {
         didSet {
-            onWordsUpdated?(words)
+            onWordsUpdated?(wordList)
         }
     }
     
@@ -34,25 +34,49 @@ class WordListViewModel {
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
-        return self.words?.count ?? 0
+        return self.wordList?.count ?? 0
     }
     
     func memberViewModelAtIndex(_ index: Int) -> WordViewModel {
-        let word = self.words?[index]
+        let word = self.wordList?[index]
         return WordViewModel(word: word!, realmManager: RealmManager())
     }
     
+    // 뷰모델 생성
+    func wordViewModelAtIndex(_ index: Int) -> AddWordViewModel {
+        let word = self.wordList?[index]
+        return AddWordViewModel(group: group, realmManager: RealmManager(), word: word, index: index)
+    }
+    
     func fetchWords() {
-        // Realm에서 그룹 데이터가 갱신될 경우를 대비하여 최신 데이터를 가져옴
         if let updatedGroup = realmManager.fetchObject(VocabularyGroup.self, for: group.id) {
-            words = updatedGroup.words.sorted(byKeyPath: "createdAt", ascending: false)
+            wordList = updatedGroup.words.sorted(byKeyPath: "createdAt", ascending: false)
         } else {
-            words = nil
+            wordList = nil
         }
     }
     
-    func goToAddWordVC(from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
-        let addWordVC = AddWordViewController(group: group, realmManager: RealmManager())
+    func deleteGroup(at index: Int) {
+        guard let word = wordList?[index] else { return }
+        realmManager.deleteObject(word)
+        fetchWords()
+    }
+    
+    // MARK: - Navigation
+    func handleNextVC(at index: Int? = nil, fromCurrentVC: UIViewController, animated: Bool) {
+        // 기존의 단어가 있을때
+        if let index = index {
+            let wordVM = wordViewModelAtIndex(index)
+            goToAddWordVC(with: wordVM, from: fromCurrentVC, group: group, animated: animated)
+        // 새로운 단어 생성시
+        } else {
+            let newVM = AddWordViewModel(group: group, realmManager: self.realmManager, word: nil, index: nil)
+            goToAddWordVC(with: newVM, from: fromCurrentVC, group: group, animated: animated)
+        }
+    }
+    
+    func goToAddWordVC(with wordVM: AddWordViewModel,from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
+        let addWordVC = AddWordViewController(viewModel: wordVM)
         viewController.navigationController?.pushViewController(addWordVC, animated: animated)
     }
 }

@@ -43,8 +43,8 @@ class AddWordViewController: UIViewController {
     
     private let textFieldHeight: CGFloat = 60
     
-    init(group: VocabularyGroup, realmManager: RealmManagerProtocol) {
-        self.viewModel = AddWordViewModel(group: group, realmManager: realmManager)
+    init(viewModel: AddWordViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,14 +58,17 @@ class AddWordViewController: UIViewController {
         view.backgroundColor = .systemBackground
         wordTextField.delegate = self
         meaningTextField.delegate = self
+        
         setupNaviBar()
+        setupTextField()
         setupSubviews()
         setupConstraints()
+        updateSaveButtonInitialState()
     }
     
     func setupNaviBar() {
         title = "단어"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.buttonTitle, style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .black
         navigationItem.rightBarButtonItem?.tintColor = .systemGray
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -77,16 +80,20 @@ class AddWordViewController: UIViewController {
         guard let meaning = meaningTextField.text else { return }
         let description = descriptionTextField.text ?? nil
         
-        viewModel.makeNewWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description, isLiked: false)
+        viewModel.handelButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
         
-        resetTextField()
+        if viewModel.buttonTitle == "수정" {
+            viewModel.goBackToPreviousVC(from: self, animated: true)
+        } else {
+            setupTextField()
+        }
     }
     
-    private func resetTextField() {
-        wordTextField.text = ""
-        pronunciationTextField.text = ""
-        meaningTextField.text = ""
-        descriptionTextField.text = ""
+    private func setupTextField() {
+        wordTextField.text = viewModel.name
+        pronunciationTextField.text = viewModel.pronunciation
+        meaningTextField.text = viewModel.meaning
+        descriptionTextField.text = viewModel.description
         updateSaveButtonState(isWordValid: false, isMeaningValid: false)
     }
     
@@ -99,6 +106,12 @@ class AddWordViewController: UIViewController {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(textFieldHeight * 4)
         }
+    }
+    
+    private func updateSaveButtonInitialState() {
+        let isWordValid = !(wordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let isMeaningValid = !(meaningTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        updateSaveButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
     }
     
     private func updateSaveButtonState(isWordValid: Bool, isMeaningValid: Bool) {

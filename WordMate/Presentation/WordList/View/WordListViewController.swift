@@ -33,11 +33,46 @@ class WordListViewController: UIViewController {
         setupCollectionView()
         setupConstraints()
         bindViewModel()
+        
+        // Long Press Gesture 추가
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        collectionView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.fetchWords()
         collectionView.reloadData()
+    }
+    
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        let point = gesture.location(in: collectionView)
+        
+        switch gesture.state {
+        case .began:
+            if let indexPath = collectionView.indexPathForItem(at: point) {
+                print("Long pressed at item \(indexPath.item)")
+                let actionSheet = UIAlertController(title: "작업 선택", message: "원하는 작업을 선택하세요.", preferredStyle: .actionSheet)
+                actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: { _ in
+                    print("수정")
+                    self.updateActionSheetTapped(at: indexPath)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+                    self.deleteActionSheetTapped(at: indexPath)
+                }))
+                actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+                self.present(actionSheet, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
+    
+    func updateActionSheetTapped(at indexPath: IndexPath) {
+        viewModel.handleNextVC(at: indexPath.item, fromCurrentVC: self, animated: true)
+    }
+    
+    func deleteActionSheetTapped(at indexPath: IndexPath) {
+        viewModel.deleteGroup(at: indexPath.item)
     }
     
     // MARK: - ViewModel Binding
@@ -57,7 +92,7 @@ class WordListViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        viewModel.goToAddWordVC(from: self, group: viewModel.currentGroup, animated: true)
+        viewModel.handleNextVC(fromCurrentVC: self, animated: true)
     }
     
     private func setupCollectionView() {

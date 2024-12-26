@@ -16,9 +16,11 @@ protocol RealmManagerProtocol {
     func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
     func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool)
     func updateGroupName(_ group: VocabularyGroup, to newName: String)
+    func updateWord(_ word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?)
 }
 
 final class RealmManager: RealmManagerProtocol {
+    
     static let shared = RealmManager()
     private let realm: Realm
     
@@ -67,6 +69,24 @@ final class RealmManager: RealmManagerProtocol {
         }
     }
     
+    func updateWord(_ word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?) {
+        do {
+            try realm.write {
+                word.name = name
+                word.meaning = meaning
+                if let pronunciation = pronunciation {
+                    word.pronunciation = pronunciation
+                }
+                if let descriptionText = descriptionText {
+                    word.descriptionText = descriptionText
+                }
+            }
+            print("단어 업데이트 완료")
+        } catch {
+            print("단어 업데이트 중 오류 발생: \(error.localizedDescription)")
+        }
+    }
+    
     func deleteObject<T: Object>(_ object: T) {
         do {
             let realm = try Realm()
@@ -78,11 +98,4 @@ final class RealmManager: RealmManagerProtocol {
             print("삭제 중 에러 발생: \(error.localizedDescription)")
         }
     }
-    
-    func deleteObject() {
-        try? realm.write {
-            realm.deleteAll()
-        }
-    }
-
 }
