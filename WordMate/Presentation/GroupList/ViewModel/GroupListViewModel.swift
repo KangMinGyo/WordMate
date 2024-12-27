@@ -8,11 +8,11 @@
 import UIKit
 import RealmSwift
 
-class GroupListViewModel {
+final class GroupListViewModel {
     // MARK: - Properties
     private let realmManager: RealmManagerProtocol
     
-    var groupList: Results<VocabularyGroup>? {
+    private(set) var groupList: Results<VocabularyGroup>? {
         didSet {
             onGroupsUpdated?(groupList)
         }
@@ -26,16 +26,6 @@ class GroupListViewModel {
     }
     
     // MARK: - Data Handling
-    func numberOfRowsInSection(_ section: Int) -> Int {
-        return self.groupList?.count ?? 0
-    }
-    
-    // 뷰모델 생성
-    func groupViewModelAtIndex(_ index: Int) -> AddGroupViewModel {
-        let group = self.groupList?[index]
-        return AddGroupViewModel(realmManager: RealmManager(), group: group, index: index)
-    }
-    
     func fetchGroups() {
         groupList = realmManager.fetchObjects(VocabularyGroup.self)
     }
@@ -45,26 +35,33 @@ class GroupListViewModel {
         realmManager.deleteObject(group)
         fetchGroups()
     }
+    
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        return self.groupList?.count ?? 0
+    }
+    
+    // 뷰모델 생성
+    func groupViewModel(at index: Int) -> AddGroupViewModel? {
+        guard let group = self.groupList?[index] else { return nil }
+        return AddGroupViewModel(realmManager: realmManager, group: group, index: index)
+    }
 
     // MARK: - Navigation
-    func handleNextVC(at index: Int? = nil, fromCurrentVC: UIViewController, animated: Bool) {
+    func navigateToAddGroupVC(from viewController: UIViewController, at index: Int? = nil, animated: Bool) {
+        let addGroupViewModel: AddGroupViewModel
         // 기존의 그룹이 있을때
-        if let index = index {
-            let groupVM = groupViewModelAtIndex(index)
-            goToAddGroupVC(with: groupVM, from: fromCurrentVC, animated: animated)
-        // 새로운 그룹 생성시
+        if let index = index, let groupVM = groupViewModel(at: index) {
+            addGroupViewModel = groupVM
+        // 새로운 그룹 생성할때
         } else {
-            let newVM = AddGroupViewModel(realmManager: self.realmManager, group: nil, index: nil)
-            goToAddGroupVC(with: newVM, from: fromCurrentVC, animated: animated)
+            addGroupViewModel = AddGroupViewModel(realmManager: realmManager, group: nil, index: nil)
         }
-    }
-    
-    func goToAddGroupVC(with groupVM: AddGroupViewModel,from viewController: UIViewController, animated: Bool) {
-        let addGroupVC = AddGroupViewController(viewModel: groupVM)
+        
+        let addGroupVC = AddGroupViewController(viewModel: addGroupViewModel)
         viewController.navigationController?.pushViewController(addGroupVC, animated: animated)
     }
-    
-    func goToWordListVC(from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
+
+    func navigateToWordListVC(from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
         let wordListViewModel = WordListViewModel(group: group, realmManager: RealmManager())
         let wordListVC = WordListViewController(viewModel: wordListViewModel)
         viewController.navigationController?.pushViewController(wordListVC, animated: animated)
