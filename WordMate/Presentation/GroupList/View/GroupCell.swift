@@ -22,7 +22,7 @@ class GroupCell: UICollectionViewCell {
     
     let groupTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
-        $0.textColor = .gray
+        $0.textColor = .black
     }
     
     // MARK: - Initializer
@@ -43,7 +43,7 @@ class GroupCell: UICollectionViewCell {
     }
     
     private func setupCellStyle() {
-        backgroundColor = .systemGray6
+        backgroundColor = .systemBackground
         layer.shadowColor = UIColor.systemGray3.cgColor
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 5
