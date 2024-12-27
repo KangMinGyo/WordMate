@@ -11,6 +11,7 @@ import SnapKit
 
 final class AddGroupViewController: UIViewController {
     
+    // MARK: - Properties
     private let viewModel: AddGroupViewModel
     
     private let groupLabel = UILabel().then {
@@ -26,6 +27,7 @@ final class AddGroupViewController: UIViewController {
         $0.addPadding()
     }
     
+    // MARK: - Initializer
     init(viewModel: AddGroupViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,11 +37,16 @@ final class AddGroupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
+        setupView()
         groupTextField.delegate = self
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
+        view.backgroundColor = .systemBackground
         setupNaviBar()
         setupSubviews()
         setupConstraints()
@@ -47,29 +54,12 @@ final class AddGroupViewController: UIViewController {
     
     private func setupNaviBar() {
         title = "그룹"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.buttonTitle, style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.buttonTitle, 
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem?.tintColor = .systemGray
-        navigationItem.rightBarButtonItem?.isEnabled = false
-    }
-    
-    @objc func saveButtonTapped() {
-        guard let name = groupTextField.text else { return }
-        
-        if viewModel.isDuplicateGroup(name: name) {
-            showAlert(title: "중복된 그룹", message: "이미 존재하는 그룹입니다.")
-            return
-        }
-        
-        viewModel.handelButtonTapped(name: name)
-        viewModel.goBackToPreviousVC(from: self, animated: true)
-    }
-    
-    private func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+        updateSaveButtonState(isEnabled: false)
     }
     
     private func setupSubviews() {
@@ -88,8 +78,34 @@ final class AddGroupViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
+    
+    // MARK: - Actions
+    @objc func saveButtonTapped() {
+        guard let name = groupTextField.text else { return }
+        
+        if viewModel.isDuplicateGroup(name: name) {
+            showAlert(title: "중복된 그룹", message: "이미 존재하는 그룹입니다.")
+            return
+        }
+        
+        viewModel.handleButtonTapped(name: name)
+        viewModel.goBackToPreviousVC(from: self, animated: true)
+    }
+    
+    private func updateSaveButtonState(isEnabled: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+        navigationItem.rightBarButtonItem?.tintColor = isEnabled ? .primaryOrange : .lightGray
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
+// MARK: - UITextFieldDelegate
 extension AddGroupViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
@@ -98,8 +114,7 @@ extension AddGroupViewController: UITextFieldDelegate {
         DispatchQueue.main.async {
             let saveButton = self.navigationItem.rightBarButtonItem
             let isTextValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            saveButton?.isEnabled = isTextValid
-            saveButton?.tintColor = isTextValid ? .primaryOrange : .lightGray
+            self.updateSaveButtonState(isEnabled: isTextValid)
         }
         return true
     }
