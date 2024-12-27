@@ -9,14 +9,13 @@ import UIKit
 import Then
 import SnapKit
 
-class GroupCell: UICollectionViewCell {
+final class GroupCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "GroupCell"
     
     var group: VocabularyGroup? {
         didSet {
-            guard let group = group else { return }
-            groupTitleLabel.text = group.name
+            updateUI()
         }
     }
     
@@ -28,15 +27,15 @@ class GroupCell: UICollectionViewCell {
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        setupUI()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    // MARK: - Setup Methods
+    private func setupView() {
         setupCellStyle()
         setupSubviews()
         setupConstraints()
@@ -58,9 +57,13 @@ class GroupCell: UICollectionViewCell {
     
     private func setupConstraints() {
         groupTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.center.equalToSuperview()
         }
+    }
+    
+    private func updateUI() {
+        guard let group = group else { return }
+        groupTitleLabel.text = group.name
     }
 }
 
