@@ -5,40 +5,45 @@
 //  Created by KangMingyo on 11/22/24.
 //
 
-import Foundation
+import UIKit
+import RealmSwift
 
-class WordViewModel {
+final class WordViewModel {
+    
+    // MARK: - Properties
     private let word: VocabularyWord
     private let realmManager: RealmManagerProtocol
     
+    // MARK: - Initializer
     init(word: VocabularyWord, realmManager: RealmManagerProtocol) {
         self.word = word
         self.realmManager = realmManager
     }
     
+    // MARK: - Computed Properties
     var name: String {
-        return word.name
+        word.name
     }
     
     var pronunciation: String {
-        return word.pronunciation ?? ""
+        word.pronunciation ?? ""
     }
     
     var meaning: String {
-        return word.meaning
+        word.meaning
     }
     
     var descriptionText: String {
-        return word.descriptionText ?? ""
+        word.descriptionText ?? ""
     }
     
     var isLiked: Bool {
-        return word.isLiked
+        word.isLiked
     }
     
+    // MARK: - Methods
     func updateIsLiked() {
         let newIsLiked = !isLiked
         realmManager.updateIsLiked(word, to: newIsLiked)
-        print("newIsLiked : \(newIsLiked)")
     }
 }

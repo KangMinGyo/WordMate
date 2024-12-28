@@ -8,11 +8,13 @@
 import UIKit
 import RealmSwift
 
-class WordListViewModel {
+final class WordListViewModel {
+    
+    // MARK: - Properties
     private let group: VocabularyGroup
     private let realmManager: RealmManagerProtocol
     
-    var wordList: Results<VocabularyWord>? {
+    private(set) var wordList: Results<VocabularyWord>? {
         didSet {
             onWordsUpdated?(wordList)
         }
@@ -20,34 +22,38 @@ class WordListViewModel {
     
     var onWordsUpdated: ((Results<VocabularyWord>?) -> Void)?
     
+    // MARK: - Initializer
     init(group: VocabularyGroup, realmManager: RealmManagerProtocol) {
         self.group = group
         self.realmManager = realmManager
     }
     
+    // MARK: - Computed Properties
     var currentGroup: VocabularyGroup {
-        return group
+        group
     }
     
     var title: String {
-        return group.name
+        group.name
     }
     
+    // MARK: - Data Source Methods
     func numberOfRowsInSection(_ section: Int) -> Int {
         return self.wordList?.count ?? 0
     }
     
-    func memberViewModelAtIndex(_ index: Int) -> WordViewModel {
+    func memberViewModel(at index: Int) -> WordViewModel {
         let word = self.wordList?[index]
-        return WordViewModel(word: word!, realmManager: RealmManager())
+        return WordViewModel(word: word!, realmManager: realmManager)
     }
     
     // 뷰모델 생성
-    func wordViewModelAtIndex(_ index: Int) -> AddWordViewModel {
+    func wordViewModel(at index: Int) -> AddWordViewModel {
         let word = self.wordList?[index]
-        return AddWordViewModel(group: group, realmManager: RealmManager(), word: word, index: index)
+        return AddWordViewModel(group: group, realmManager: realmManager, word: word, index: index)
     }
     
+    // MARK: - Data Management
     func fetchWords() {
         if let updatedGroup = realmManager.fetchObject(VocabularyGroup.self, for: group.id) {
             wordList = updatedGroup.words.sorted(byKeyPath: "createdAt", ascending: false)
@@ -63,19 +69,15 @@ class WordListViewModel {
     }
     
     // MARK: - Navigation
-    func handleNextVC(at index: Int? = nil, fromCurrentVC: UIViewController, animated: Bool) {
+    func navigateToAddWordVC(from viewController: UIViewController, at index: Int? = nil, animated: Bool) {
+        let wordVM: AddWordViewModel
         // 기존의 단어가 있을때
         if let index = index {
-            let wordVM = wordViewModelAtIndex(index)
-            goToAddWordVC(with: wordVM, from: fromCurrentVC, group: group, animated: animated)
-        // 새로운 단어 생성시
+            wordVM = wordViewModel(at: index)
+        // 새로운 단어 생성할때
         } else {
-            let newVM = AddWordViewModel(group: group, realmManager: self.realmManager, word: nil, index: nil)
-            goToAddWordVC(with: newVM, from: fromCurrentVC, group: group, animated: animated)
+            wordVM = AddWordViewModel(group: group, realmManager: self.realmManager, word: nil, index: nil)
         }
-    }
-    
-    func goToAddWordVC(with wordVM: AddWordViewModel,from viewController: UIViewController, group: VocabularyGroup, animated: Bool) {
         let addWordVC = AddWordViewController(viewModel: wordVM)
         viewController.navigationController?.pushViewController(addWordVC, animated: animated)
     }
