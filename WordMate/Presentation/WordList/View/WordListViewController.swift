@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
-class WordListViewController: UIViewController {
+final class WordListViewController: UIViewController {
 
+    // MARK: - Properties
     var collectionView: UICollectionView!
-    
-    //MARK: - ViewModel
     let viewModel: WordListViewModel
     
+    private let horizontalPadding: CGFloat = 20.0
+    private let verticalPadding: CGFloat = 20.0
+    private let itemHeight: CGFloat = 100.0
+    private let lineSpacing: CGFloat = 20.0
     
     // MARK: - Initializers
     init(viewModel: WordListViewModel) {
@@ -28,15 +33,8 @@ class WordListViewController: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-         
-        setupNaviBar()
-        setupCollectionView()
-        setupConstraints()
-        bindViewModel()
-        
-        // Long Press Gesture 추가
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        collectionView.addGestureRecognizer(longPressGesture)
+        setupView()
+        setupGestures()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,65 +42,30 @@ class WordListViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
-        let point = gesture.location(in: collectionView)
-        
-        switch gesture.state {
-        case .began:
-            if let indexPath = collectionView.indexPathForItem(at: point) {
-                print("Long pressed at item \(indexPath.item)")
-                let actionSheet = UIAlertController(title: "작업 선택", message: "원하는 작업을 선택하세요.", preferredStyle: .actionSheet)
-                actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: { _ in
-                    print("수정")
-                    self.updateActionSheetTapped(at: indexPath)
-                }))
-                actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-                    self.deleteActionSheetTapped(at: indexPath)
-                }))
-                actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-                self.present(actionSheet, animated: true, completion: nil)
-            }
-        default:
-            break
-        }
-    }
-    
-    func updateActionSheetTapped(at indexPath: IndexPath) {
-        viewModel.handleNextVC(at: indexPath.item, fromCurrentVC: self, animated: true)
-    }
-    
-    func deleteActionSheetTapped(at indexPath: IndexPath) {
-        viewModel.deleteGroup(at: indexPath.item)
-    }
-    
-    // MARK: - ViewModel Binding
-    private func bindViewModel() {
-        viewModel.onWordsUpdated = { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-    }
-    
     // MARK: - Setup Methods
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+        
+        setupNaviBar()
+        setupCollectionView()
+        setupConstraints()
+        bindViewModel()
+    }
+    
     func setupNaviBar() {
         title = viewModel.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
-    @objc func addButtonTapped() {
-        viewModel.handleNextVC(fromCurrentVC: self, animated: true)
-    }
-    
     private func setupCollectionView() {
-        let itemWidth = (view.frame.width - 40)
+        let itemWidth = (view.frame.width - horizontalPadding * 2)
         
         // 1. UICollectionViewFlowLayout 설정
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
-        layout.itemSize = CGSize(width: itemWidth, height: 100)
-        layout.minimumLineSpacing = 20  // 줄 간 간격
+        layout.sectionInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: 0, right: horizontalPadding)
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.minimumLineSpacing = lineSpacing
         
         // 2. UICollectionView 초기화
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -121,6 +84,52 @@ class WordListViewController: UIViewController {
             $0.edges.equalToSuperview()
         }
     }
+    
+    private func setupGestures() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        collectionView.addGestureRecognizer(longPressGesture)
+    }
+    
+    private func bindViewModel() {
+        viewModel.onWordsUpdated = { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
+    
+    // MARK: - Actions
+    @objc func addButtonTapped() {
+        viewModel.navigateToAddWordVC(from: self, animated: true)
+    }
+    
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        let point = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
+        
+        presentActionSheet(for: indexPath)
+    }
+    
+    private func presentActionSheet(for indexPath: IndexPath) {
+        let actionSheet = UIAlertController(title: "작업 선택", message: "원하는 작업을 선택하세요.", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "수정", style: .default, handler: { _ in
+            self.updateWord(at: indexPath)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.deleteWord(at: indexPath)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func updateWord(at indexPath: IndexPath) {
+        viewModel.navigateToAddWordVC(from: self, at: indexPath.item, animated: true)
+    }
+    
+    func deleteWord(at indexPath: IndexPath) {
+        viewModel.deleteGroup(at: indexPath.item)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -133,12 +142,13 @@ extension WordListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WordCell", for: indexPath) as! WordCell
         
-        let wordVM = viewModel.memberViewModelAtIndex(indexPath.row)
+        let wordVM = viewModel.memberViewModel(at: indexPath.row)
         cell.viewModel = wordVM
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension WordListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? WordCell {
@@ -148,6 +158,7 @@ extension WordListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension WordListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let cell = collectionView.cellForItem(at: indexPath) as? WordCell else {

@@ -9,14 +9,15 @@ import UIKit
 import Then
 import SnapKit
 
-class WordCell: UICollectionViewCell {
+final class WordCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    let speechService = SpeechService()
     
     var viewModel: WordViewModel? {
         didSet {
             configureUI()
-            if let isLiked = viewModel?.isLiked {
-                updateBookmarkButtonAppearance(isLiked: isLiked)
-            }
+            updateBookmarkButtonState()
         }
     }
     
@@ -25,8 +26,6 @@ class WordCell: UICollectionViewCell {
             updateUIForExpansion()
         }
     }
-    
-    let speechService = SpeechService()
     
     let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -51,27 +50,29 @@ class WordCell: UICollectionViewCell {
     private lazy var bookmarkButton = UIButton().then {
         $0.setImage(UIImage(systemName: "star"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .systemGray3  // 아이콘 색상 변경
+        $0.tintColor = .systemGray3
         $0.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
     private lazy var speakerButton = UIButton().then {
         $0.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .systemGray3  // 아이콘 색상 변경
+        $0.tintColor = .systemGray3
         $0.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
 
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
+    // MARK: - Setup Methods
+    private func setupView() {
         speechService.delegate = self
         setupCellStyle()
         setupSubviews()
@@ -127,6 +128,12 @@ class WordCell: UICollectionViewCell {
         }
     }
     
+    func updateUIForExpansion() {
+        meaningLabel.isHidden = !isExpanded
+        descriptionLabel.isHidden = descriptionLabel.text?.isEmpty ?? true || !isExpanded
+    }
+    
+    // MARK: - UI Update Methods
     func configureUI() {
         wordLabel.text = viewModel?.name
         pronunciationLabel.text = viewModel?.pronunciation
@@ -134,15 +141,18 @@ class WordCell: UICollectionViewCell {
         descriptionLabel.text = viewModel?.descriptionText
     }
     
-    func updateUIForExpansion() {
-        meaningLabel.isHidden = !isExpanded
-        if let descriptionText = descriptionLabel.text, descriptionText.isEmpty {
-            descriptionLabel.isHidden = true
-        } else {
-            descriptionLabel.isHidden = !isExpanded
+    private func updateBookmarkButtonState() {
+        if let isLiked = viewModel?.isLiked {
+            updateBookmarkButtonAppearance(isLiked: isLiked)
         }
     }
     
+    private func updateBookmarkButtonAppearance(isLiked: Bool) {
+        bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+        bookmarkButton.tintColor = isLiked ? .primaryOrange : .systemGray3
+    }
+    
+    // MARK: - Actions
     @objc func speakerButtonTapped() {
         guard let text = viewModel?.name else { return }
         speechService.speak(text)
@@ -154,14 +164,9 @@ class WordCell: UICollectionViewCell {
             updateBookmarkButtonAppearance(isLiked: isLiked)
         }
     }
-    
-    private func updateBookmarkButtonAppearance(isLiked: Bool) {
-        bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
-        bookmarkButton.tintColor = isLiked ? .primaryOrange : .systemGray3
-    }
 }
 
-// MARK: - Delegate Methods
+// MARK: - SpeechServiceDelegate
 extension WordCell: SpeechServiceDelegate {
     func speechDidStart() {
         DispatchQueue.main.async {
