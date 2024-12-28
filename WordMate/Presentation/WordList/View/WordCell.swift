@@ -17,9 +17,7 @@ final class WordCell: UICollectionViewCell {
     var viewModel: WordViewModel? {
         didSet {
             configureUI()
-            if let isLiked = viewModel?.isLiked {
-                updateBookmarkButtonAppearance(isLiked: isLiked)
-            }
+            updateBookmarkButtonState()
         }
     }
     
@@ -141,6 +139,12 @@ final class WordCell: UICollectionViewCell {
         pronunciationLabel.text = viewModel?.pronunciation
         meaningLabel.text = viewModel?.meaning
         descriptionLabel.text = viewModel?.descriptionText
+    }
+    
+    private func updateBookmarkButtonState() {
+        if let isLiked = viewModel?.isLiked {
+            updateBookmarkButtonAppearance(isLiked: isLiked)
+        }
     }
     
     private func updateBookmarkButtonAppearance(isLiked: Bool) {
