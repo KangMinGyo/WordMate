@@ -50,7 +50,7 @@ final class WordListViewModel {
     // 뷰모델 생성
     func wordViewModel(at index: Int) -> AddWordViewModel {
         let word = self.wordList?[index]
-        return AddWordViewModel(group: group, realmManager: realmManager, word: word, index: index)
+        return AddWordViewModel(group: group, realmManager: realmManager, word: word)
     }
     
     // MARK: - Data Management
@@ -76,7 +76,7 @@ final class WordListViewModel {
             wordVM = wordViewModel(at: index)
         // 새로운 단어 생성할때
         } else {
-            wordVM = AddWordViewModel(group: group, realmManager: self.realmManager, word: nil, index: nil)
+            wordVM = AddWordViewModel(group: group, realmManager: self.realmManager, word: nil)
         }
         let addWordVC = AddWordViewController(viewModel: wordVM)
         viewController.navigationController?.pushViewController(addWordVC, animated: animated)

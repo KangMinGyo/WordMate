@@ -9,8 +9,9 @@ import UIKit
 import Then
 import SnapKit
 
-class AddWordViewController: UIViewController {
+final class AddWordViewController: UIViewController {
     
+    // MARK: - Properties
     private let viewModel: AddWordViewModel
     
     private lazy var wordTextField = UITextField().then {
@@ -43,6 +44,7 @@ class AddWordViewController: UIViewController {
     
     private let textFieldHeight: CGFloat = 60
     
+    // MARK: - Initializer
     init(viewModel: AddWordViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -52,13 +54,15 @@ class AddWordViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
-        wordTextField.delegate = self
-        meaningTextField.delegate = self
-        
         setupNaviBar()
         setupTextField()
         setupSubviews()
@@ -66,7 +70,7 @@ class AddWordViewController: UIViewController {
         updateSaveButtonInitialState()
     }
     
-    func setupNaviBar() {
+    private func setupNaviBar() {
         title = "단어"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: viewModel.buttonTitle, style: .plain, target: self, action: #selector(saveButtonTapped))
         navigationController?.navigationBar.tintColor = .black
@@ -74,18 +78,68 @@ class AddWordViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
     
-    @objc func saveButtonTapped() {
-        guard let name = wordTextField.text else { return }
-        let pronunciation = pronunciationTextField.text ?? nil
-        guard let meaning = meaningTextField.text else { return }
-        let description = descriptionTextField.text ?? nil
+    private func setupTextField() {
+        wordTextField.text = viewModel.name
+        pronunciationTextField.text = viewModel.pronunciation
+        meaningTextField.text = viewModel.meaning
+        descriptionTextField.text = viewModel.description
         
-        if viewModel.isDuplicateWord(name: name, meaning: meaning) {
-            showAlert(title: "중복된 단어", message: "이미 저장된 단어입니다. 그래도 저장하시겠습니까?") {
-                self.viewModel.handelButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
-            }
+        wordTextField.delegate = self
+        meaningTextField.delegate = self
+        
+        updateSaveButtonState(isWordValid: false, isMeaningValid: false)
+    }
+    
+    private func setupSubviews() {
+        view.addSubview(stackView)
+    }
+    
+    private func setupConstraints() {
+        stackView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
+            $0.height.equalTo(textFieldHeight * 4)
         }
-        
+    }
+    
+    // MARK: - Save Button State
+    private func updateSaveButtonInitialState() {
+        let isWordValid = !(wordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let isMeaningValid = !(meaningTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        updateSaveButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
+    }
+    
+    private func updateSaveButtonState(isWordValid: Bool, isMeaningValid: Bool) {
+        let saveButton = navigationItem.rightBarButtonItem
+        saveButton?.isEnabled = isWordValid && isMeaningValid
+        saveButton?.tintColor = (isWordValid && isMeaningValid) ? .primaryOrange : .lightGray
+    }
+    
+    // MARK: - Actions
+    @objc private func saveButtonTapped() {
+        guard let name = wordTextField.text else { return }
+        guard let meaning = meaningTextField.text else { return }
+        let pronunciation = pronunciationTextField.text
+        let description = descriptionTextField.text
+
+        if viewModel.isDuplicateWord(name: name, meaning: meaning) {
+            handleDuplicateWord(name: name, pronunciation: pronunciation, meaning: meaning, description: description)
+        } else {
+            handleSaveOrUpdate(name: name, pronunciation: pronunciation, meaning: meaning, description: description)
+        }
+    }
+
+    private func handleDuplicateWord(name: String, pronunciation: String?, meaning: String, description: String?) {
+        showAlert(
+            title: "중복된 단어",
+            message: "이미 저장된 단어입니다. 그래도 저장하시겠습니까?"
+        ) {
+            self.viewModel.handleButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
+            self.viewModel.goBackToPreviousVC(from: self, animated: true)
+        }
+    }
+
+    private func handleSaveOrUpdate(name: String, pronunciation: String?, meaning: String, description: String?) {
+        viewModel.handleButtonTapped(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: description)
         if viewModel.buttonTitle == "수정" {
             viewModel.goBackToPreviousVC(from: self, animated: true)
         } else {
@@ -103,39 +157,9 @@ class AddWordViewController: UIViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    private func setupTextField() {
-        wordTextField.text = viewModel.name
-        pronunciationTextField.text = viewModel.pronunciation
-        meaningTextField.text = viewModel.meaning
-        descriptionTextField.text = viewModel.description
-        updateSaveButtonState(isWordValid: false, isMeaningValid: false)
-    }
-    
-    private func setupSubviews() {
-        view.addSubview(stackView)
-    }
-    
-    private func setupConstraints() {
-        stackView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
-            $0.height.equalTo(textFieldHeight * 4)
-        }
-    }
-    
-    private func updateSaveButtonInitialState() {
-        let isWordValid = !(wordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        let isMeaningValid = !(meaningTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-        updateSaveButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
-    }
-    
-    private func updateSaveButtonState(isWordValid: Bool, isMeaningValid: Bool) {
-        let saveButton = navigationItem.rightBarButtonItem
-        saveButton?.isEnabled = isWordValid && isMeaningValid
-        saveButton?.tintColor = (isWordValid && isMeaningValid) ? .primaryOrange : .lightGray
-    }
 }
 
+// MARK: - UITextFieldDelegate
 extension AddWordViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
