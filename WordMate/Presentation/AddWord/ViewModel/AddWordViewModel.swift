@@ -6,50 +6,36 @@
 //
 
 import UIKit
+import RealmSwift
 
-class AddWordViewModel {
+final class AddWordViewModel {
+    
+    // MARK: - Properties
     private let group: VocabularyGroup
     private let realmManager: RealmManagerProtocol
     private var word: VocabularyWord?
-    private var index: Int?
     
-    init(group: VocabularyGroup, realmManager: RealmManagerProtocol, word: VocabularyWord? = nil, index: Int? = nil) {
+    // MARK: - Initializer
+    init(group: VocabularyGroup, realmManager: RealmManagerProtocol, word: VocabularyWord? = nil) {
         self.group = group
         self.realmManager = realmManager
         self.word = word
-        self.index = index
     }
     
-    var currentGroup: VocabularyGroup {
-        return group
-    }
+    // MARK: - Computed Properties
+    var currentGroup: VocabularyGroup { group }
+        var name: String { word?.name ?? "" }
+        var meaning: String { word?.meaning ?? "" }
+        var pronunciation: String { word?.pronunciation ?? "" }
+        var description: String { word?.descriptionText ?? "" }
+        var buttonTitle: String { word != nil ? "수정" : "저장" }
     
-    var name: String {
-        return word?.name ?? ""
-    }
     
-    var meaning: String {
-        return word?.meaning ?? ""
-    }
-    
-    var pronunciation: String {
-        return word?.pronunciation ?? ""
-    }
-    
-    var description: String {
-        return word?.descriptionText ?? ""
-    }
-    
-    var buttonTitle: String {
-        word != nil ? "수정" : "저장"
-    }
-    
-    func handelButtonTapped(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
-        if word != nil {
-            updateWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: descriptionText)
-        } else {
-            makeNewWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: descriptionText)
-        }
+    // MARK: - Word Management
+    func handleButtonTapped(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
+        word != nil
+            ? updateWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: descriptionText)
+            : makeNewWord(name: name, pronunciation: pronunciation, meaning: meaning, descriptionText: descriptionText)
     }
     
     private func updateWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
@@ -68,10 +54,12 @@ class AddWordViewModel {
         realmManager.addWordToGroup(group, word: word)
     }
     
+    // 단어 중복 확인
     func isDuplicateWord(name: String, meaning: String) -> Bool {
         return realmManager.isWordExisting(name: name, meaning: meaning)
     }
 
+    // MARK: - Navigation
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {
         viewController.navigationController?.popViewController(animated: animated)
     }
