@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LearningViewModel {
+final class LearningViewModel {
     func goToGameSettingVC(from viewController: UIViewController, title: String) {
         let popupVC = GameSettingsPopupViewController(viewModel: GameSettingsPopupViewModel(titleLabelText: title))
         popupVC.modalPresentationStyle = .overFullScreen

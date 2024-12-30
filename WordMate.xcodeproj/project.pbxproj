@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
+		8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5902D22DF06005D21F1 /* CustomButton.swift */; };
 		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C6B0B0B2D1002C50055B181 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */; };
 		8C6B0B0D2D1006860055B181 /* RepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */; };
@@ -86,6 +87,7 @@
 
 /* Begin PBXFileReference section */
 		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
+		8C57F5902D22DF06005D21F1 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewModel.swift; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C57F58F2D22DEF7005D21F1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8C57F5902D22DF06005D21F1 /* CustomButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		8C6B0B072D10028C0055B181 /* Repeat */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,6 +510,7 @@
 				8C78E6502CF58E5400757359 /* Service */,
 				8C78E6532CF7663900757359 /* Helpers */,
 				8CB5B4682CE5C8520093C6C5 /* Presentation */,
+				8C57F58F2D22DEF7005D21F1 /* Common */,
 				8CB5B4872CE8E1090093C6C5 /* Data */,
 				8CB5B44A2CE367A10093C6C5 /* Assets.xcassets */,
 				8CB5B44F2CE367A10093C6C5 /* Info.plist */,
@@ -781,6 +792,7 @@
 				8C78E6732CFDFA0800757359 /* GroupSelectionViewController.swift in Sources */,
 				8C6B0B162D113BA30055B181 /* FlashCardView.swift in Sources */,
 				8C78E6962D05D95E00757359 /* MultipleChoiceOption.swift in Sources */,
+				8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */,
 				8C78E6B52D0B165B00757359 /* DictationViewModel.swift in Sources */,
 				8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */,
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
