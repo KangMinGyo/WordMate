@@ -6,21 +6,24 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
-class GroupSelectionCell: UITableViewCell {
+final class GroupSelectionCell: UITableViewCell {
     
+    // MARK: - Properties
     var group: VocabularyGroup? {
         didSet {
-            guard let group = group else { return }
-            groupTitleLabel.text = group.name
+            updateGroupData()
         }
     }
     
-    var groupTitleLabel = UILabel().then {
+    private var groupTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .black
     }
 
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
@@ -32,6 +35,7 @@ class GroupSelectionCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup Methods
     private func setupSubviews() {
         addSubview(groupTitleLabel)
     }
@@ -41,5 +45,10 @@ class GroupSelectionCell: UITableViewCell {
             $0.leading.equalTo(safeAreaLayoutGuide)
             $0.centerY.equalToSuperview()
         }
+    }
+    
+    // MARK: - Update Methods
+    private func updateGroupData() {
+        groupTitleLabel.text = group?.name
     }
 }

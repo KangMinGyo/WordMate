@@ -11,9 +11,8 @@ import SnapKit
 
 final class GameSettingsPopupViewController: UIViewController {
     
-    // MARK: - ViewModel
-    let viewModel: GameSettingsPopupViewModel
-    
+    // MARK: - Properties
+    private let viewModel: GameSettingsPopupViewModel
     private let popupView: GameSettingsPopupView
     
     // MARK: - Initializers
@@ -27,13 +26,31 @@ final class GameSettingsPopupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .clear
-        popupView.titleLabel.text = viewModel.title
+        popupView.updateTitle(viewModel.title)
         setupSubviews()
         setupConstraints()
         setupButtonActions()
+    }
+    
+    private func setupSubviews() {
+           popupView.backAction = { [weak self] in self?.dismiss(animated: true) }
+           popupView.startAction = { [weak self] in self?.startGame() }
+           view.addSubview(popupView)
+       }
+
+    private func setupConstraints() {
+        popupView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private func setupButtonActions() {
@@ -43,87 +60,59 @@ final class GameSettingsPopupViewController: UIViewController {
         popupView.wordCountButton.addTarget(self, action: #selector(countButtonTapped), for: .touchUpInside)
     }
     
-    @objc func groupSelectionButtonTapped() {
-        viewModel.showGroupSelectionVC(from: self, animated: true) { selectedGroup in
-            if let group = selectedGroup {
-                self.popupView.groupSelectionButton.setDynamicLabelText(group.name)
-                self.viewModel.configureWords(words: Array(group.words))
-                // 그룹 선택 -> 버튼 활성화
-                self.popupView.updateStartButtonState(isEnabled: true)
-            }
+    // MARK: - Actions
+    @objc private func groupSelectionButtonTapped() {
+        viewModel.showGroupSelectionVC(from: self, animated: true) { [weak self] selectedGroup in
+            guard let self = self, let group = selectedGroup else { return }
+            self.popupView.groupSelectionButton.setDynamicLabelText(group.name)
+            self.viewModel.configureWords(words: Array(group.words))
+            self.popupView.updateStartButtonState(isEnabled: true)
         }
     }
     
-    @objc func wordSelectionButtonTapped() {
-        viewModel.showQuestionSelectionVC(from: self, animated: true) { isFavorite in
-            if let isFavorite = isFavorite {
-                let title = isFavorite ? "즐겨찾기 한 단어" : "모든 단어"
-                self.popupView.wordSelectionTypeButton.setDynamicLabelText(title)
-            }
+    @objc private func wordSelectionButtonTapped() {
+        viewModel.showQuestionSelectionVC(from: self, animated: true) { [weak self] isFavorite in
+            guard let self = self, let isFavorite = isFavorite else { return }
+            let title = isFavorite ? "즐겨찾기 한 단어" : "모든 단어"
+            self.popupView.wordSelectionTypeButton.setDynamicLabelText(title)
         }
     }
     
-    @objc func wordOrderButtonTapped() {
-        viewModel.showQuestionOrderVC(from: self, animated: true) { order in
-            if let order = order {
-                let title = order.rawValue
-                self.popupView.wordOrderButton.setDynamicLabelText(title)
-            }
+    @objc private func wordOrderButtonTapped() {
+        viewModel.showQuestionOrderVC(from: self, animated: true) { [weak self] order in
+            guard let self = self, let order = order else { return }
+            self.popupView.wordOrderButton.setDynamicLabelText(order.rawValue)
         }
     }
     
-    
-    @objc func countButtonTapped() {
-        viewModel.showQuestionCountVC(from: self, animated: true) { count in
-            if let count = count {
-                self.popupView.wordCountButton.setDynamicLabelText("\(count)개")
-            }
+    @objc private func countButtonTapped() {
+        viewModel.showQuestionCountVC(from: self, animated: true) { [weak self] count in
+            guard let self = self, let count = count else { return }
+            self.popupView.wordCountButton.setDynamicLabelText("\(count)개")
         }
     }
     
-    private func setupSubviews() {
-        popupView.backAction = { [weak self] in
-            self?.backButtonTapped()
-        }
-        
-        popupView.startAction = { [weak self] in
-            self?.startButtonTapped()
-        }
-        
-        view.addSubview(popupView)
-    }
-
-    private func setupConstraints() {
-        popupView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
-    @objc private func backButtonTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func startButtonTapped() {
-        // GameSettings 생성
+    // MARK: - Game Logic
+    private func startGame() {
         let settings = viewModel.configureGameSettings()
         viewModel.configureGame(settings: settings)
-        
-        // 게임 데이터 구성
         let gameData = viewModel.filterWords()
-        
-        // dismiss 후 화면 전환
-        guard let presentingVC = self.presentingViewController else { return }
+        transitionToGameScreen(gameData: gameData)
+    }
+    
+    private func transitionToGameScreen(gameData: [VocabularyWord]) {
+        guard let presentingVC = presentingViewController else { return }
         dismiss(animated: true) { [weak self] in
-            let title = self?.viewModel.title
-            switch title {
+            guard let self = self else { return }
+            switch self.viewModel.title {
             case "플래시카드":
-                self?.viewModel.goToFlashCardVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToFlashCardVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "사지선다":
-                self?.viewModel.goToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "받아쓰기":
-                self?.viewModel.goToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
             case "반복하기":
-                self?.viewModel.goToRepeatVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToRepeatVC(from: presentingVC, gameDatas: gameData, animated: true)
             default:
                 print("지원하지 않는 게임 모드입니다.")
             }

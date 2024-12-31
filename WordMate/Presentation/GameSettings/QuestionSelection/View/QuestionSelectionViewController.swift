@@ -9,11 +9,11 @@ import UIKit
 import Then
 import SnapKit
 
-class QuestionSelectionViewController: UIViewController {
+final class QuestionSelectionViewController: UIViewController {
     
-    let viewModel: QuestionSelectionViewModel
-
     // MARK: - Properties
+    private let viewModel: QuestionSelectionViewModel
+
     private let titleLabel = UILabel().then {
         $0.text = "학습할 단어를 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -38,8 +38,14 @@ class QuestionSelectionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
         setupTableView()
         setupButtonActions()
@@ -56,12 +62,6 @@ class QuestionSelectionViewController: UIViewController {
     
     private func setupButtonActions() {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func confirmButtonTapped() {
-        let currentSelection = viewModel.currentSelection()
-        viewModel.onQuestionSelected?(currentSelection)
-        dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
@@ -87,28 +87,36 @@ class QuestionSelectionViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
+    
+    // MARK: - Actions
+    @objc private func confirmButtonTapped() {
+        let currentSelection = viewModel.currentSelection()
+        viewModel.onQuestionSelected?(currentSelection)
+        dismiss(animated: true, completion: nil)
+    }
 }
 
+// MARK: - UITableViewDataSource
 extension QuestionSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsInSection(section)
+        return viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionSelectionCell", for: indexPath) as! QuestionSelectionCell
+        let text = viewModel.option(at: indexPath)
+        let isSelected = viewModel.isSelected(at: indexPath)
+        cell.configure(with: text, isSelected: isSelected)
         cell.selectionStyle = .none
-        cell.selectLabel.text = viewModel.options(indexPath)
-        let isSelected = viewModel.isSelected(indexPath)
-        cell.updateSelectionState(isSelected: isSelected)
         return cell
     }
 }
 
+// MARK: - UITableViewDelegate
 extension QuestionSelectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.selectOption(indexPath)
+        viewModel.selectOption(at: indexPath)
         tableView.reloadData()
     }
 }
-

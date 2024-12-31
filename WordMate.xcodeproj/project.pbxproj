@@ -166,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				8C57F5902D22DF06005D21F1 /* CustomButton.swift */,
+				8C57F5872D1A8537005D21F1 /* SettingButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -335,7 +336,6 @@
 			children = (
 				8C78E6592CF851B800757359 /* GameSettingsPopupView.swift */,
 				8C78E65B2CF87FDE00757359 /* GameSettingsPopupViewController.swift */,
-				8C57F5872D1A8537005D21F1 /* SettingButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

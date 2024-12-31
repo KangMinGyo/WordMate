@@ -7,8 +7,9 @@
 
 import UIKit
 
-class GameSettingsPopupViewModel {
+final class GameSettingsPopupViewModel {
     
+    // MARK: - Properties
     private var titleLabelText: String
     private var allWords: [VocabularyWord] = []
     private var includeBookmarkWords: Bool = false
@@ -16,14 +17,15 @@ class GameSettingsPopupViewModel {
     private var questionCount: Int = 20
     private var gameSettings: GameSettings?
     
-    var title: String {
-        titleLabelText
-    }
+    // MARK: - Computed Properties
+    var title: String { titleLabelText }
     
+    // MARK: - Initializer
     init(titleLabelText: String) {
         self.titleLabelText = titleLabelText
     }
     
+    // MARK: - Configuration
     func configureWords(words: [VocabularyWord]) {
         self.allWords = words
     }
@@ -32,6 +34,15 @@ class GameSettingsPopupViewModel {
         self.gameSettings = settings
     }
     
+    func configureGameSettings() -> GameSettings {
+        return GameSettings(
+            includeBookmarkWords: includeBookmarkWords,
+            questionOrder: questionOrder,
+            questionCount: questionCount
+        )
+    }
+    
+    // MARK: - Update Methods
     func updateBookmarkSetting(_ isFavorite: Bool) {
         self.includeBookmarkWords = isFavorite
     }
@@ -44,59 +55,57 @@ class GameSettingsPopupViewModel {
         self.questionCount = count
     }
     
-    func configureGameSettings() -> GameSettings {
-        return GameSettings(
-            includeBookmarkWords: includeBookmarkWords,
-            questionOrder: questionOrder,
-            questionCount: questionCount
-        )
-    }
-    
+    // MARK: - Filtering
     func filterWords() -> [VocabularyWord] {
         guard let setting = gameSettings else { return [] }
-        print("ViewModel Game Setting : \(setting)")
-        var filterWords = allWords
         
+        // 북마크 여부
+        var filteredWords = allWords
         if setting.includeBookmarkWords {
-            filterWords = filterWords.filter { $0.isLiked }
+            filteredWords = filteredWords.filter { $0.isLiked }
         }
         
+        // 단어 순서
         if setting.questionOrder == .random {
-            filterWords.shuffle()
+            filteredWords.shuffle()
         } else if setting.questionOrder == .reverse {
-            filterWords.reverse()
+            filteredWords.reverse()
         }
         
-        let count = setting.questionCount
-        if filterWords.count > count {
-            filterWords = Array(filterWords.prefix(count))
-        }
+        // 단어 개수만큼 return
+        return Array(filteredWords.prefix(setting.questionCount))
+    }
+    
+    // MARK: - Sheet Presentation
+    private func presentSheet(
+        from presentingVC: UIViewController,
+        to presentedVC: UIViewController,
+        height: CGFloat,
+        animated: Bool
+    ) {
+        presentedVC.modalPresentationStyle = .pageSheet
         
-        return filterWords
+        if let sheet = presentedVC.sheetPresentationController {
+            sheet.detents = [.custom(resolver: { _ in height })]
+        }
+
+        presentingVC.present(presentedVC, animated: animated, completion: nil)
     }
     
     func showGroupSelectionVC(from viewController: UIViewController, animated: Bool, onGroupSelected: @escaping (VocabularyGroup?) -> Void) {
         let groupSelectionViewModel = GroupSelectionViewModel(realmManager: RealmManager())
         let groupSelectionVC = GroupSelectionViewController(viewModel: groupSelectionViewModel)
-        groupSelectionVC.modalPresentationStyle = .pageSheet
-        
-        if let sheet = groupSelectionVC.sheetPresentationController {
-            sheet.detents = [
-                .custom(resolver: { context in
-                    return 250
-                })
-            ]
-        }
         
         groupSelectionViewModel.onGroupSelected = { selectedGroup in
             onGroupSelected(selectedGroup)
         }
         
-        viewController.present(groupSelectionVC, animated: animated, completion: nil)
+        presentSheet(from: viewController, to: groupSelectionVC, height: 250, animated: animated)
     }
     
     func showQuestionSelectionVC(from viewController: UIViewController, animated: Bool, onQuestionSelected: @escaping(Bool?) -> Void) {
         let questionSelectionViewModel = QuestionSelectionViewModel()
+        let questionSelectionVC = QuestionSelectionViewController(viewModel: questionSelectionViewModel)
         
         questionSelectionViewModel.onQuestionSelected = { isFavorite in
             if let isFavorite = isFavorite {
@@ -105,21 +114,12 @@ class GameSettingsPopupViewModel {
             }
         }
         
-        let questionSelectionVC = QuestionSelectionViewController(viewModel: questionSelectionViewModel)
-        questionSelectionVC.modalPresentationStyle = .pageSheet
-        
-        if let sheet = questionSelectionVC.sheetPresentationController {
-            sheet.detents = [
-                .custom(resolver: { context in
-                    return 220
-                })
-            ]
-        }
-        viewController.present(questionSelectionVC, animated: animated, completion: nil)
+        presentSheet(from: viewController, to: questionSelectionVC, height: 220, animated: animated)
     }
     
     func showQuestionOrderVC(from viewController: UIViewController, animated: Bool, onQuestionOrderSelected: @escaping(QuestionOrder?) -> Void) {
         let questionOrderViewModel = QuestionOrderViewModel()
+        let questionOrderVC = QuestionOrderViewController(viewModel: questionOrderViewModel)
         
         questionOrderViewModel.onQuestionOrderSelected = { order in
             if let order = order {
@@ -128,61 +128,48 @@ class GameSettingsPopupViewModel {
             }
         }
         
-        let questionOrderVC = QuestionOrderViewController(viewModel: questionOrderViewModel)
-        questionOrderVC.modalPresentationStyle = .pageSheet
-        
-        if let sheet = questionOrderVC.sheetPresentationController {
-            sheet.detents = [
-                .custom(resolver: { context in
-                    return 250
-                })
-            ]
-        }
-        viewController.present(questionOrderVC, animated: animated, completion: nil)
+        presentSheet(from: viewController, to: questionOrderVC, height: 250, animated: true)
     }
     
     func showQuestionCountVC(from viewController: UIViewController, animated: Bool, onCountConfirmed: @escaping(Int?) -> Void) {
         let questionCountViewModel = QuestionCountViewModel()
         let questionCountVC = QuestionCountViewController(viewModel: questionCountViewModel)
-        questionCountVC.modalPresentationStyle = .pageSheet
-        
-        if let sheet = questionCountVC.sheetPresentationController {
-            sheet.detents = [
-                .custom(resolver: { context in
-                    return 220
-                })
-            ]
-        }
-        
+
         questionCountViewModel.onCountConfirmed = { count in
             onCountConfirmed(count)
             self.updateQuestionCount(count)
         }
         
-        viewController.present(questionCountVC, animated: animated, completion: nil)
+        presentSheet(from: viewController, to: questionCountVC, height: 220, animated: animated)
     }
     
-    func goToFlashCardVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let dictationVC = FlashCardViewController(viewModel: FlashCardViewModel(gameDatas: gameDatas))
-        dictationVC.modalPresentationStyle = .overFullScreen
-        viewController.present(dictationVC, animated: animated, completion: nil)
+    // MARK: - Game Navigation
+    private func presentGameViewController(
+        from presentingVC: UIViewController,
+        viewController: UIViewController,
+        animated: Bool
+    ) {
+        viewController.modalPresentationStyle = .overFullScreen
+        presentingVC.present(viewController, animated: animated, completion: nil)
     }
     
-    func goToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+    func navigateToFlashCardVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let flashCardVC = FlashCardViewController(viewModel: FlashCardViewModel(gameDatas: gameDatas))
+        presentGameViewController(from: viewController, viewController: flashCardVC, animated: animated)
+    }
+    
+    func navigateToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
         let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameDatas: gameDatas))
-        multipleChoiceVC.modalPresentationStyle = .overFullScreen
-        viewController.present(multipleChoiceVC, animated: animated, completion: nil)
+        presentGameViewController(from: viewController, viewController: multipleChoiceVC, animated: animated)
     }
-    
-    func goToDictationVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+
+    func navigateToDictationVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
         let dictationVC = DictationViewController(viewModel: DictationViewModel(gameDatas: gameDatas))
-        dictationVC.modalPresentationStyle = .overFullScreen
-        viewController.present(dictationVC, animated: animated, completion: nil)
+        presentGameViewController(from: viewController, viewController: dictationVC, animated: animated)
     }
-    
-    func goToRepeatVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let dictationVC = RepeatViewController(viewModel: RepeatViewModel(gameDatas: gameDatas))
-        dictationVC.modalPresentationStyle = .overFullScreen
-        viewController.present(dictationVC, animated: animated, completion: nil)
+
+    func navigateToRepeatVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
+        let repeatVC = RepeatViewController(viewModel: RepeatViewModel(gameDatas: gameDatas))
+        presentGameViewController(from: viewController, viewController: repeatVC, animated: animated)
     }
 }

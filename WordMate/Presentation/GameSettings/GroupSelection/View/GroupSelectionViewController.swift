@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
-class GroupSelectionViewController: UIViewController {
+final class GroupSelectionViewController: UIViewController {
     
-    let viewModel: GroupSelectionViewModel
-
     // MARK: - Properties
+    private let viewModel: GroupSelectionViewModel
+
     private let titleLabel = UILabel().then {
         $0.text = "학습할 그룹을 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -36,30 +38,30 @@ class GroupSelectionViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
-        viewModel.fetchGroups()
-        setupButtonActions()
         setupTableView()
+        setupButtonActions()
         setupSubviews()
         setupConstraints()
-    }
-    
-    private func setupButtonActions() {
-        selectionButton.addTarget(self, action: #selector(selectionButtonTapped), for: .touchUpInside)
-    }
-    
-    
-    @objc func selectionButtonTapped() {
-        viewModel.onGroupSelected?(viewModel.selectedGroup)
-        dismiss(animated: true, completion: nil)
+        viewModel.fetchGroups()
     }
     
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(GroupSelectionCell.self, forCellReuseIdentifier: "GroupSelectionCell")
+    }
+    
+    private func setupButtonActions() {
+        selectionButton.addTarget(self, action: #selector(selectionButtonTapped), for: .touchUpInside)
     }
     
     private func setupSubviews() {
@@ -85,8 +87,15 @@ class GroupSelectionViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
+    
+    // MARK: - Actions
+    @objc private func selectionButtonTapped() {
+        viewModel.onGroupSelected?(viewModel.selectedGroup)
+        dismiss(animated: true, completion: nil)
+    }
 }
 
+// MARK: - UITableViewDataSource
 extension GroupSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,15 +104,16 @@ extension GroupSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupSelectionCell", for: indexPath) as! GroupSelectionCell
-        let group = viewModel.groups?[indexPath.row]
+        let group = viewModel.group(at: indexPath.row)
         cell.group = group
         return cell
     }
  
 }
 
+// MARK: - UITableViewDelegate
 extension GroupSelectionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.selectedGroup = viewModel.groups?[indexPath.row]
+        viewModel.selectedGroup = viewModel.group(at: indexPath.row)
     }
 }

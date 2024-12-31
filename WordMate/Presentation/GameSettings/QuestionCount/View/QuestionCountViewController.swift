@@ -9,11 +9,11 @@ import UIKit
 import Then
 import SnapKit
 
-class QuestionCountViewController: UIViewController {
-    
-    let viewModel: QuestionCountViewModel
+final class QuestionCountViewController: UIViewController {
     
     // MARK: - Properties
+    private let viewModel: QuestionCountViewModel
+    
     private let titleLabel = UILabel().then {
         $0.text = "학습할 문제수를 선택해주세요"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -53,16 +53,6 @@ class QuestionCountViewController: UIViewController {
             $0.spacing = 20
             $0.distribution = .fillEqually
         }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
-        setupBinding()
-        setupButtonActions()
-        setupSubviews()
-        setupConstraints()
-    }
     
     // MARK: - Initializer
     init(viewModel: QuestionCountViewModel) {
@@ -72,6 +62,21 @@ class QuestionCountViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+        setupBinding()
+        setupButtonActions()
+        setupSubviews()
+        setupConstraints()
     }
     
     private func setupBinding() {
@@ -84,19 +89,6 @@ class QuestionCountViewController: UIViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         minusButton.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc func plusButtonTapped() {
-        viewModel.incrementCount(by: 5)
-    }
-    
-    @objc func minusButtonTapped() {
-        viewModel.decrementCount(by: 5)
-    }
-    
-    @objc private func confirmButtonTapped() {
-        viewModel.confirmCount()
-        dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
@@ -121,5 +113,19 @@ class QuestionCountViewController: UIViewController {
             $0.bottom.equalToSuperview().inset(40)
             $0.height.equalTo(40)
         }
+    }
+    
+    // MARK: - Actions
+    @objc func plusButtonTapped() {
+        viewModel.incrementCount(by: 5)
+    }
+    
+    @objc func minusButtonTapped() {
+        viewModel.decrementCount(by: 5)
+    }
+    
+    @objc private func confirmButtonTapped() {
+        viewModel.confirmCount()
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -7,25 +7,28 @@
 
 import Foundation
 
-class QuestionOrderViewModel {
+final class QuestionOrderViewModel {
+    
+    // MARK: - Properties
     private var options = ["순서대로", "랜덤", "거꾸로"]
     private var selectedIndex: Int?
     
     var onQuestionOrderSelected: ((QuestionOrder?) -> Void)?
     
-    func numberOfRowsInSection(_ section: Int) -> Int {
+    // MARK: - Public Methods
+    func numberOfRowsInSection() -> Int {
         return options.count
     }
     
-    func options(_ indexPath: IndexPath) -> String {
+    func option(at indexPath: IndexPath) -> String {
         return options[indexPath.row]
     }
     
-    func isSelected(_ indexPath: IndexPath) -> Bool {
+    func isSelected(at indexPath: IndexPath) -> Bool {
         return indexPath.row == selectedIndex
     }
     
-    func selectOption(_ indexPath: IndexPath) {
+    func selectOption(at indexPath: IndexPath) {
         selectedIndex = indexPath.row
     }
     
