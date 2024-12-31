@@ -21,12 +21,6 @@ class SettingButton: UIButton {
         $0.textColor = .gray
         $0.textAlignment = .right
     }
-    
-//    private let iconImageView = UIImageView().then {
-//        $0.image = UIImage(systemName: "greaterthan")
-//        $0.tintColor = .systemGray
-//        $0.contentMode = .scaleAspectFit
-//    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +37,6 @@ class SettingButton: UIButton {
     private func setupSubviews() {
         addSubview(staticLabel)
         addSubview(dynamicLabel)
-//        addSubview(iconImageView)
     }
 
     private func setupConstraints() {
@@ -56,10 +49,6 @@ class SettingButton: UIButton {
             $0.trailing.equalToSuperview().inset(20)
             $0.centerY.equalToSuperview()
         }
-//        
-//        iconImageView.snp.makeConstraints {
-//            $0.edges.equalTo(popupView).inset(20)
-//        }
     }
     
     func setStaticLabelText(_ text: String) {

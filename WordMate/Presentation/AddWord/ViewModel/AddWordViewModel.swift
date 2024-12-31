@@ -24,11 +24,11 @@ final class AddWordViewModel {
     
     // MARK: - Computed Properties
     var currentGroup: VocabularyGroup { group }
-        var name: String { word?.name ?? "" }
-        var meaning: String { word?.meaning ?? "" }
-        var pronunciation: String { word?.pronunciation ?? "" }
-        var description: String { word?.descriptionText ?? "" }
-        var buttonTitle: String { word != nil ? "수정" : "저장" }
+    var name: String { word?.name ?? "" }
+    var meaning: String { word?.meaning ?? "" }
+    var pronunciation: String { word?.pronunciation ?? "" }
+    var description: String { word?.descriptionText ?? "" }
+    var buttonTitle: String { word != nil ? "수정" : "저장" }
     
     
     // MARK: - Word Management

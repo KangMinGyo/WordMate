@@ -7,8 +7,9 @@
 
 import UIKit
 
-class QuestionOrderCell: UITableViewCell {
+final class QuestionOrderCell: UITableViewCell {
     
+    // MARK: - Properties
     var selectLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .black
@@ -17,9 +18,10 @@ class QuestionOrderCell: UITableViewCell {
     lazy var selectButton = UIButton().then {
         $0.setImage(UIImage(systemName: "circle"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .gray
     }
     
+    // MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
@@ -31,12 +33,7 @@ class QuestionOrderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateSelectionState(isSelected: Bool) {
-        let imageName = isSelected ? "checkmark.circle.fill" : "circle"
-        selectButton.setImage(UIImage(systemName: imageName), for: .normal)
-        selectButton.tintColor = isSelected ? .primaryOrange : .gray
-    }
-
+    // MARK: - Setup Methods
     private func setupSubviews() {
         addSubview(selectLabel)
         addSubview(selectButton)
@@ -52,5 +49,17 @@ class QuestionOrderCell: UITableViewCell {
             $0.trailing.equalTo(safeAreaLayoutGuide)
             $0.centerY.equalToSuperview()
         }
+    }
+    
+    // MARK: - Update Methods
+    func configure(with text: String, isSelected: Bool) {
+        selectLabel.text = text
+        updateSelectionState(isSelected: isSelected)
+    }
+
+    private func updateSelectionState(isSelected: Bool) {
+        let imageName = isSelected ? "checkmark.circle.fill" : "circle"
+        selectButton.setImage(UIImage(systemName: imageName), for: .normal)
+        selectButton.tintColor = isSelected ? .primaryOrange : .gray
     }
 }

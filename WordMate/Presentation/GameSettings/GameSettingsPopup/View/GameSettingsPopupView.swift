@@ -9,22 +9,26 @@ import UIKit
 import Then
 import SnapKit
 
-class GameSettingsPopupView: UIView {
+final class GameSettingsPopupView: UIView {
 
+    // MARK: - Properties
+    var backAction: (() -> Void)?
+    var startAction: (() -> Void)?
+    
     private let popupView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 20
         $0.clipsToBounds = true
     }
     
-    lazy var backButton = UIButton().then {
+    private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
         $0.tintColor = .gray
         $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    lazy var titleLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
     
@@ -49,38 +53,21 @@ class GameSettingsPopupView: UIView {
         $0.isEnabled = false
     }
     
-    var backAction: (() -> Void)?
-    var startAction: (() -> Void)?
-    
+    // MARK: - Initializer
     init() {
         super.init(frame: .zero)
-        setupSubviews()
-        setupConstraints()
-        self.backgroundColor = .black.withAlphaComponent(0.3)
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func backButtonTapped() {
-        backAction?()
-    }
-    
-    @objc private func startButtonTapped() {
-        startAction?()
-    }
-    
-    private func createSettingButton(title: String, dynamicText: String) -> SettingButton {
-        let button = SettingButton(frame: .zero)
-        button.setStaticLabelText(title)
-        button.setDynamicLabelText(dynamicText)
-        return button
-    }
-    
-    func updateStartButtonState(isEnabled: Bool) {
-        startButton.isEnabled = isEnabled
-        startButton.backgroundColor = isEnabled ? .primaryOrange : .systemGray3
+    // MARK: - Setup Methods
+    private func setupView() {
+        self.backgroundColor = .black.withAlphaComponent(0.3)
+        setupSubviews()
+        setupConstraints()
     }
     
     private func setupSubviews() {
@@ -118,5 +105,30 @@ class GameSettingsPopupView: UIView {
             $0.bottom.equalToSuperview().inset(20)
             $0.height.equalTo(40)
         }
+    }
+    
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        backAction?()
+    }
+    
+    @objc private func startButtonTapped() {
+        startAction?()
+    }
+    
+    private func createSettingButton(title: String, dynamicText: String) -> SettingButton {
+        let button = SettingButton(frame: .zero)
+        button.setStaticLabelText(title)
+        button.setDynamicLabelText(dynamicText)
+        return button
+    }
+    
+    func updateStartButtonState(isEnabled: Bool) {
+        startButton.isEnabled = isEnabled
+        startButton.backgroundColor = isEnabled ? .primaryOrange : .systemGray3
+    }
+    
+    func updateTitle(_ title: String) {
+        titleLabel.text = title
     }
 }
