@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
 final class MultipleChoiceViewController: UIViewController {
     
@@ -43,50 +45,20 @@ final class MultipleChoiceViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .systemBackground
-        speechService.delegate = self
-        setupButtons()
-        setupSubviews()
-        setupConstraints()
+        setupView()
         setupGame()
     }
     
-    // MARK: - Setup
-    private func setupGame() {
-        setupIndicator()
-        setupWord()
-        setupOptions()
+    // MARK: - Setup Methods
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+        speechService.delegate = self
+        setupButtonActions()
+        setupSubviews()
+        setupConstraints()
     }
     
-    private func setupIndicator() {
-        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
-        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
-    }
-    
-    private func setupWord() {
-        wordLabelView.wordLabel.text = viewModel.currentWord.name
-    }
-    
-    private func setupOptions() {
-        options = viewModel.generateOptions()
-        for (button, option) in zip(optionButtons, options) {
-            button.setTitle(option.meaning, for: .normal)
-        }
-    }
-    
-    private func createOptionButtons() -> [UIButton] {
-        return (1...4).map { _ in
-            let button = UIButton(type: .system)
-            button.tintColor = .white
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            button.backgroundColor = .primaryOrange
-            button.layer.cornerRadius = 20
-            return button
-        }
-    }
-    
-    private func setupButtons() {
+    private func setupButtonActions() {
         optionButtons.enumerated().forEach { index, button in
             button.tag = index
             button.addTarget(self, action: #selector(choiceButtonTapped(_:)), for: .touchUpInside)
@@ -97,53 +69,6 @@ final class MultipleChoiceViewController: UIViewController {
         self.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - Actions
-    @objc func speakerButtonTapped() {
-        let text = viewModel.currentWord.name
-        speechService.speak(text)
-    }
-    
-    @objc private func backButtonTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func choiceButtonTapped(_ sender: UIButton) {
-        let selectedOption = options[sender.tag]
-        optionButtons.forEach { $0.isEnabled = false }
-        goToNextWord(isCorrect: selectedOption.isCorrect)
-    }
-    
-    @objc private func skipButtonTapped() {
-        goToNextWord(isCorrect: false)
-    }
-    
-    private func goToNextWord(isCorrect: Bool) {
-        showFeedback(isCorrect: isCorrect)
-        viewModel.appendUserResponse(isCorrect: isCorrect)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.wordLabelView.feedbackLabel.isHidden = true
-            self.viewModel.currentIndex += 1
-            
-            // 게임 종료 여부 확인 후 진행
-            if self.viewModel.currentIndex >= self.viewModel.totalWords {
-                self.viewModel.goToGameResultVC(from: self, animated: true)
-            } else {
-                self.setupGame()
-                self.optionButtons.forEach { $0.isEnabled = true }
-            }
-        }
-    }
-    
-    private func showFeedback(isCorrect: Bool) {
-        let feedbackMessage = isCorrect ? "정답 🎉" : "오답 💪"
-        let feedbackColor = isCorrect ? UIColor.systemGreen : UIColor.systemRed
-        wordLabelView.feedbackLabel.isHidden = false
-        wordLabelView.feedbackLabel.text = feedbackMessage
-        wordLabelView.feedbackLabel.textColor = feedbackColor
-    }
-    
-    // MARK: - Layout
     private func setupSubviews() {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
@@ -173,19 +98,93 @@ final class MultipleChoiceViewController: UIViewController {
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide).inset(20)
         }
     }
-}
-
-// MARK: - Delegate Methods
-extension MultipleChoiceViewController: SpeechServiceDelegate {
-    func speechDidStart() {
-        DispatchQueue.main.async {
-            self.wordLabelView.speakerButton.tintColor = .primaryOrange
+    
+    private func setupGame() {
+        updateGameStatusIndicator()
+        updateWordLabel()
+        updateOptionButtons()
+    }
+    
+    private func updateGameStatusIndicator() {
+        gameStatusView.indicatorLabel.text = viewModel.progressText
+        gameStatusView.progressBar.progress = viewModel.progressValue
+    }
+    
+    private func updateWordLabel() {
+        wordLabelView.wordLabel.text = viewModel.currentWord.name
+    }
+    
+    private func updateOptionButtons() {
+        options = viewModel.generateOptions()
+        for (button, option) in zip(optionButtons, options) {
+            button.setTitle(option.meaning, for: .normal)
         }
     }
     
-    func speechDidFinish() {
-        DispatchQueue.main.async {
-            self.wordLabelView.speakerButton.tintColor = .systemGray3
+    // MARK: - Button Creation
+    private func createOptionButtons() -> [UIButton] {
+        return (1...4).map { _ in
+            let button = UIButton(type: .system)
+            button.tintColor = .white
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            button.backgroundColor = .primaryOrange
+            button.layer.cornerRadius = 20
+            return button
         }
+    }
+    
+    // MARK: - Actions
+    @objc func speakerButtonTapped() {
+        let text = viewModel.currentWord.name
+        speechService.speak(text)
+    }
+    
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func choiceButtonTapped(_ sender: UIButton) {
+        let selectedOption = options[sender.tag]
+        optionButtons.forEach { $0.isEnabled = false }
+        handleNextWord(isCorrect: selectedOption.isCorrect)
+    }
+    
+    @objc private func skipButtonTapped() {
+        handleNextWord(isCorrect: false)
+    }
+    
+    private func handleNextWord(isCorrect: Bool) {
+        displayFeedback(isCorrect: isCorrect)
+        viewModel.appendUserResponse(isCorrect: isCorrect)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.wordLabelView.feedbackLabel.isHidden = true
+            self.viewModel.incrementCurrentIndex()
+            
+            // 게임 종료 여부 확인 후 진행
+            if self.viewModel.isGameComplete {
+                self.viewModel.navigateToGameResultVC(from: self, animated: true)
+            } else {
+                self.setupGame()
+                self.optionButtons.forEach { $0.isEnabled = true }
+            }
+        }
+    }
+    
+    private func displayFeedback(isCorrect: Bool) {
+        wordLabelView.feedbackLabel.isHidden = false
+        wordLabelView.feedbackLabel.text = isCorrect ? "정답 🎉" : "오답 💪"
+        wordLabelView.feedbackLabel.textColor = isCorrect ? .systemGreen : .systemRed
+    }
+}
+
+// MARK: - SpeechServiceDelegate
+extension MultipleChoiceViewController: SpeechServiceDelegate {
+    func speechDidStart() {
+        wordLabelView.speakerButton.tintColor = .primaryOrange
+    }
+    
+    func speechDidFinish() {
+        wordLabelView.speakerButton.tintColor = .systemGray3
     }
 }

@@ -7,41 +7,58 @@
 
 import UIKit
 
-class DictationViewModel {
-    private let gameDatas: [VocabularyWord]
+final class DictationViewModel {
+    
+    // MARK: - Properties
+    private let gameData: [VocabularyWord]
     private var userResponses = [Question]()
-    
-    init(gameDatas: [VocabularyWord]) {
-        self.gameDatas = gameDatas
-    }
-    
-    var currentIndex = 0
-    var totalWords: Int {
-        get {
-            return gameDatas.count
-        }
-    }
+    private(set) var currentIndex = 0
     
     var currentWord: VocabularyWord {
-        gameDatas[currentIndex]
+        gameData[currentIndex]
     }
     
+    // MARK: - Game Status
+    var progressText: String {
+        return "\(currentIndex + 1) / \(gameData.count)"
+    }
+    
+    var progressValue: Float {
+        return Float(currentIndex + 1) / Float(gameData.count)
+    }
+    
+    var isGameComplete: Bool {
+        return currentIndex >= gameData.count
+    }
+
+    // MARK: - Initializer
+    init(gameData: [VocabularyWord]) {
+        self.gameData = gameData
+    }
+    
+    // MARK: - Game State Management
+    func incrementCurrentIndex() {
+        currentIndex += 1
+    }
+    
+    // MARK: - User Response Management
     func appendUserResponse(isCorrect: Bool, userAnswer: String) {
         userResponses.append(Question(word: currentWord, isCorrect: isCorrect))
     }
     
-    func printUserResponses() {
-        print("userResponses: \(userResponses)")
-    }
-    
-    func goToGameResultVC(from viewController: UIViewController, animated: Bool) {
-        let gameResultVC = GameResultViewController(viewModel: GameResultViewModel(questions: userResponses))
+    // MARK: - Navigation
+    func navigateToGameResultVC(from viewController: UIViewController, animated: Bool) {
+        let gameResultVM = GameResultViewModel(questions: userResponses)
+        let gameResultVC = GameResultViewController(viewModel: gameResultVM)
         gameResultVC.modalPresentationStyle = .overFullScreen
         
-        // dismiss 후 화면 전환
-        guard let presentingVC = viewController.presentingViewController else { return }
-        viewController.dismiss(animated: true) {
-            presentingVC.present(gameResultVC, animated: true)
+        dismissAndPresent(from: viewController, to: gameResultVC, animated: animated)
+    }
+    
+    private func dismissAndPresent(from currentVC: UIViewController, to nextVC: UIViewController, animated: Bool) {
+        guard let presentingVC = currentVC.presentingViewController else { return }
+        currentVC.dismiss(animated: animated) {
+            presentingVC.present(nextVC, animated: animated)
         }
     }
 }

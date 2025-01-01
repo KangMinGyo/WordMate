@@ -7,11 +7,11 @@
 
 import UIKit
 
-class FlashCardViewController: UIViewController {
+final class FlashCardViewController: UIViewController {
     
-    let viewModel: FlashCardViewModel
+    // MARK: - Properties
+    private let viewModel: FlashCardViewModel
     private var cardViews: [FlashCardView] = []
-    
     private let gameStatusView = GameStatusView()
     
     // MARK: - Initializers
@@ -24,126 +24,53 @@ class FlashCardViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
-        setupButtonActions()
+        setupGameStatusView()
+        setupCards()
         setupSubviews()
         setupConstraints()
-        setupIndicator()
-        setupCards()
     }
     
-    private func setupButtonActions() {
+    private func setupGameStatusView() {
         gameStatusView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func backButtonTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    private func setupIndicator() {
-        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
-        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
+        updateGameStatusIndicator()
     }
     
     private func setupCards() {
         for (index, word) in viewModel.words.enumerated() {
-            let cardView = FlashCardView(word: word)
-            let width = view.frame.width - 40
-            let height = view.frame.height * 0.6
-            cardView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-            cardView.center = view.center
-            cardView.layer.zPosition = CGFloat(-index)
-            
+            let cardView = createCardView(for: word, at: index)
+            cardViews.append(cardView)
             view.addSubview(cardView)
             view.sendSubviewToBack(cardView)
-            cardViews.append(cardView)
-            
-            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-            cardView.addGestureRecognizer(panGesture)
-            
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-            cardView.addGestureRecognizer(tapGesture)
         }
     }
     
-    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        guard let card = gesture.view as? FlashCardView else { return }
+    private func createCardView(for word: VocabularyWord, at index: Int) -> FlashCardView {
+        let cardView = FlashCardView(word: word)
+        let cardWidth = view.frame.width - FlashCardConstants.cardHorizontalMargin * 2
+        let cardHeight = view.frame.height * FlashCardConstants.cardHeightRatio
         
-        let translation = gesture.translation(in: view) // 드래그된 위치
-        let rotationAngle = translation.x / view.bounds.width * 0.4 // 회전 각도 조절
+        cardView.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+        cardView.center = view.center
+        cardView.layer.zPosition = CGFloat(-index)
         
-        switch gesture.state {
-        case .changed:
-            card.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
-            card.transform = CGAffineTransform(rotationAngle: rotationAngle)
-            
-            if translation.x > 50 {
-                // 오른쪽으로 넘겼을 때
-                showSwipeMessage(on: card, isMemorized: true)
-            } else if translation.x < -50 {
-                // 왼쪽으로 넘겼을 때
-                showSwipeMessage(on: card, isMemorized: false)
-            }
-            
-        case .ended:
-            if abs(translation.x) > 100 { // 스와이프 거리 기준
-                // 스와이프 완료 - 카드 제거
-                let direction: CGFloat = translation.x > 0 ? 1 : -1
-                
-                // 유저 응답 저장
-                saveUserResponse(isCorrect: !(direction > 0))
-                
-                UIView.animate(withDuration: 0.3) {
-                    card.center.x += direction * self.view.frame.width
-                } completion: { _ in
-                    self.viewModel.currentIndex += 1
-                    // 게임 종료 여부 확인 후 진행
-                    if self.viewModel.currentIndex >= self.viewModel.totalWords {
-                        self.viewModel.goToGameResultVC(from: self, animated: true)
-                    } else {
-                        self.setupIndicator()
-                        self.cardViews.removeLast()
-                        card.removeFromSuperview()
-                    }
-                }
-            } else {
-                // 원래 위치로 되돌리기
-                UIView.animate(withDuration: 0.3) {
-                    card.center = self.view.center
-                    card.transform = .identity
-                    self.hideSwipeLabels(on: card)
-                }
-            }
-        default:
-            break
-        }
+        addGestureRecognizers(to: cardView)
+        return cardView
     }
     
-    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-        guard let card = gesture.view as? FlashCardView else { return }
-        card.toggleMeaningVisibility()
-    }
-    
-    private func showSwipeMessage(on card: FlashCardView, isMemorized: Bool) {
-        if isMemorized {
-            card.rightLabel.isHidden = false
-            card.leftLabel.isHidden = true
-        } else {
-            card.leftLabel.isHidden = false
-            card.rightLabel.isHidden = true
-        }
-    }
-    
-    private func hideSwipeLabels(on card: FlashCardView) {
-        card.leftLabel.isHidden = true
-        card.rightLabel.isHidden = true
-    }
-    
-    private func saveUserResponse(isCorrect: Bool) {
-        viewModel.appendUserResponse(isCorrect: isCorrect)
+    private func addGestureRecognizers(to cardView: FlashCardView) {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        cardView.addGestureRecognizer(panGesture)
+        cardView.addGestureRecognizer(tapGesture)
     }
     
     private func setupSubviews() {
@@ -155,5 +82,90 @@ class FlashCardViewController: UIViewController {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.height.equalTo(60)
         }
+    }
+    
+    // MARK: - Helper Methods
+    private func updateGameStatusIndicator() {
+        gameStatusView.indicatorLabel.text = viewModel.progressText
+        gameStatusView.progressBar.progress = viewModel.progressValue
+    }
+    
+    // 카드 넘기기(제거)
+    private func handleCardSwipe(_ card: FlashCardView, translation: CGPoint) {
+        let direction: CGFloat = translation.x > 0 ? 1 : -1
+        saveUserResponse(isCorrect: !(direction > 0)) // 유저 응답 저장
+        
+        UIView.animate(withDuration: 0.3) {
+            card.center.x += direction * self.view.frame.width
+        } completion: { _ in
+            self.removeSwipedCard(card)
+        }
+    }
+
+    private func removeSwipedCard(_ card: FlashCardView) {
+        viewModel.incrementCurrentIndex()
+        cardViews.removeLast()
+        card.removeFromSuperview()
+        
+        if viewModel.isGameComplete {
+            viewModel.navigateToGameResultVC(from: self, animated: true)
+        } else {
+            updateGameStatusIndicator()
+        }
+    }
+    
+    // 카드 상태 초기화(되돌리기)
+    private func resetCardPosition(_ card: FlashCardView) {
+        UIView.animate(withDuration: 0.3) {
+            card.center = self.view.center
+            card.transform = .identity
+            self.hideSwipeLabels(on: card)
+        }
+    }
+    
+    private func showSwipeMessage(on card: FlashCardView, isMemorized: Bool) {
+        card.rightLabel.isHidden = !isMemorized
+        card.leftLabel.isHidden = isMemorized
+    }
+    
+    private func hideSwipeLabels(on card: FlashCardView) {
+        card.leftLabel.isHidden = true
+        card.rightLabel.isHidden = true
+    }
+    
+    private func saveUserResponse(isCorrect: Bool) {
+        viewModel.appendUserResponse(isCorrect: isCorrect)
+    }
+    
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        guard let card = gesture.view as? FlashCardView else { return }
+        let translation = gesture.translation(in: view) // 드래그된 위치
+        let rotationAngle = translation.x / view.bounds.width * FlashCardConstants.rotationFactor
+        
+        switch gesture.state {
+        case .changed:
+            card.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
+            card.transform = CGAffineTransform(rotationAngle: rotationAngle)
+            showSwipeMessage(on: card, isMemorized: translation.x > 0)
+            
+        case .ended:
+            if abs(translation.x) > FlashCardConstants.swipeThreshold { // 스와이프 거리 기준
+                handleCardSwipe(card, translation: translation)
+            } else {
+                resetCardPosition(card)
+            }
+        default:
+            break
+        }
+    }
+    
+    @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+        guard let card = gesture.view as? FlashCardView else { return }
+        card.toggleMeaningVisibility()
     }
 }
