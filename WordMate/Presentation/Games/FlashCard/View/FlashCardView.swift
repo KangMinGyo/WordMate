@@ -7,8 +7,9 @@
 
 import UIKit
 
-class FlashCardView: UIView {
+final class FlashCardView: UIView {
 
+    // MARK: - Properties
     let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         $0.textAlignment = .center
@@ -24,19 +25,20 @@ class FlashCardView: UIView {
     }
 
     let leftLabel = UILabel().then {
-        $0.text = "외웠어요😁"
+        $0.text = FlashCardConstants.Text.memorized
         $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         $0.textColor = .systemGreen
         $0.isHidden = true
     }
     
     let rightLabel = UILabel().then {
-        $0.text = "모르겠어요😓"
+        $0.text = FlashCardConstants.Text.notMemorized
         $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         $0.textColor = .systemRed
         $0.isHidden = true
     }
     
+    // MARK: - Initializer
     init(word: VocabularyWord) {
         super.init(frame: .zero)
         setupView()
@@ -48,6 +50,7 @@ class FlashCardView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup Methods
     private func setupView() {
         backgroundColor = .systemGray6
         layer.cornerRadius = 20
@@ -80,6 +83,7 @@ class FlashCardView: UIView {
         }
     }
     
+    // MARK: - Configuration Methods
     func configure(with word: VocabularyWord) {
         wordLabel.text = word.name
         meaningLabel.text = word.meaning

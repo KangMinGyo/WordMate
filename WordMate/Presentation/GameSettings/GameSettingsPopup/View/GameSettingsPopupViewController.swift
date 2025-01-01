@@ -106,13 +106,13 @@ final class GameSettingsPopupViewController: UIViewController {
             guard let self = self else { return }
             switch self.viewModel.title {
             case "플래시카드":
-                self.viewModel.navigateToFlashCardVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToFlashCardVC(from: presentingVC, gameData: gameData, animated: true)
             case "사지선다":
-                self.viewModel.navigateToMultipleChoiceVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToMultipleChoiceVC(from: presentingVC, gameData: gameData, animated: true)
             case "받아쓰기":
-                self.viewModel.navigateToDictationVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToDictationVC(from: presentingVC, gameData: gameData, animated: true)
             case "반복하기":
-                self.viewModel.navigateToRepeatVC(from: presentingVC, gameDatas: gameData, animated: true)
+                self.viewModel.navigateToRepeatVC(from: presentingVC, gameData: gameData, animated: true)
             default:
                 print("지원하지 않는 게임 모드입니다.")
             }

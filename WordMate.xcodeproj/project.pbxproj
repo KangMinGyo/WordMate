@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
 		8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5902D22DF06005D21F1 /* CustomButton.swift */; };
+		8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5922D24FA20005D21F1 /* Constants.swift */; };
 		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C6B0B0B2D1002C50055B181 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */; };
 		8C6B0B0D2D1006860055B181 /* RepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */; };
@@ -88,6 +89,7 @@
 /* Begin PBXFileReference section */
 		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		8C57F5902D22DF06005D21F1 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		8C57F5922D24FA20005D21F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewModel.swift; sourceTree = "<group>"; };
@@ -165,6 +167,8 @@
 		8C57F58F2D22DEF7005D21F1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8C78E66A2CFB314200757359 /* GameStatusView.swift */,
+				8C78E6B22D0B0F7B00757359 /* WordLabelView.swift */,
 				8C57F5902D22DF06005D21F1 /* CustomButton.swift */,
 				8C57F5872D1A8537005D21F1 /* SettingButton.swift */,
 			);
@@ -235,6 +239,7 @@
 			children = (
 				8C78E6542CF766AA00757359 /* UIImage+Extension.swift */,
 				8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */,
+				8C57F5922D24FA20005D21F1 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -283,7 +288,6 @@
 				8C78E6662CF9D3C200757359 /* MultipleChoice */,
 				8C78E6AD2D0B0C1000757359 /* Dictation */,
 				8C6B0B072D10028C0055B181 /* Repeat */,
-				8C78E6692CFB2E6500757359 /* Common */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -295,15 +299,6 @@
 				8C78E66C2CFD789500757359 /* ViewModel */,
 			);
 			path = MultipleChoice;
-			sourceTree = "<group>";
-		};
-		8C78E6692CFB2E6500757359 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				8C78E66A2CFB314200757359 /* GameStatusView.swift */,
-				8C78E6B22D0B0F7B00757359 /* WordLabelView.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		8C78E66C2CFD789500757359 /* ViewModel */ = {
@@ -777,6 +772,7 @@
 				8C78E6B12D0B0C4E00757359 /* DictationViewController.swift in Sources */,
 				8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */,
 				8C78E6A72D087ABE00757359 /* ResultCell.swift in Sources */,
+				8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */,
 				8C78E64D2CF0A96C00757359 /* WordViewModel.swift in Sources */,
 				8C6B0B122D113AE10055B181 /* FlashCardViewController.swift in Sources */,
 				8CB5B4892CE8E1E90093C6C5 /* VocabularyWord.swift in Sources */,

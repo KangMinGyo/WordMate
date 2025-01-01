@@ -153,23 +153,23 @@ final class GameSettingsPopupViewModel {
         presentingVC.present(viewController, animated: animated, completion: nil)
     }
     
-    func navigateToFlashCardVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let flashCardVC = FlashCardViewController(viewModel: FlashCardViewModel(gameDatas: gameDatas))
+    func navigateToFlashCardVC(from viewController: UIViewController, gameData: [VocabularyWord], animated: Bool) {
+        let flashCardVC = FlashCardViewController(viewModel: FlashCardViewModel(gameData: gameData))
         presentGameViewController(from: viewController, viewController: flashCardVC, animated: animated)
     }
     
-    func navigateToMultipleChoiceVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameDatas: gameDatas))
+    func navigateToMultipleChoiceVC(from viewController: UIViewController, gameData: [VocabularyWord], animated: Bool) {
+        let multipleChoiceVC = MultipleChoiceViewController(viewModel: MultipleChoiceViewModel(gameData: gameData))
         presentGameViewController(from: viewController, viewController: multipleChoiceVC, animated: animated)
     }
 
-    func navigateToDictationVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let dictationVC = DictationViewController(viewModel: DictationViewModel(gameDatas: gameDatas))
+    func navigateToDictationVC(from viewController: UIViewController, gameData: [VocabularyWord], animated: Bool) {
+        let dictationVC = DictationViewController(viewModel: DictationViewModel(gameData: gameData))
         presentGameViewController(from: viewController, viewController: dictationVC, animated: animated)
     }
 
-    func navigateToRepeatVC(from viewController: UIViewController, gameDatas: [VocabularyWord], animated: Bool) {
-        let repeatVC = RepeatViewController(viewModel: RepeatViewModel(gameDatas: gameDatas))
+    func navigateToRepeatVC(from viewController: UIViewController, gameData: [VocabularyWord], animated: Bool) {
+        let repeatVC = RepeatViewController(viewModel: RepeatViewModel(gameData: gameData))
         presentGameViewController(from: viewController, viewController: repeatVC, animated: animated)
     }
 }

@@ -112,7 +112,6 @@ extension AddGroupViewController: UITextFieldDelegate {
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
 
         DispatchQueue.main.async {
-            let saveButton = self.navigationItem.rightBarButtonItem
             let isTextValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             self.updateSaveButtonState(isEnabled: isTextValid)
         }

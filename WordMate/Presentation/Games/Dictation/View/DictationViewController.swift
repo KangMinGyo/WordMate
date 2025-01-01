@@ -6,15 +6,15 @@
 //
 
 import UIKit
+import SnapKit
+import Then
 
-class DictationViewController: UIViewController {
+final class DictationViewController: UIViewController {
     
-    let viewModel: DictationViewModel
-    let speechService = SpeechService()
-    private var options: [MultipleChoiceOption] = []
-    
+    // MARK: - Properties
+    private let viewModel: DictationViewModel
+    private let speechService = SpeechService()
     private let gameStatusView = GameStatusView()
-    
     private let wordLabelView = WordLabelView()
     
     private lazy var dictationTextField = UITextField().then {
@@ -37,30 +37,21 @@ class DictationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        setupGame()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
         dictationTextField.delegate = self
         speechService.delegate = self
-        setupGame()
+        setupButtonActions()
         setupSubviews()
         setupConstraints()
-    }
-    
-    private func setupGame() {
-        setupIndicator()
-        setupWord()
-        setupButtonActions()
-    }
-    
-    private func setupIndicator() {
-        gameStatusView.indicatorLabel.text = "\(viewModel.currentIndex + 1) / \(viewModel.totalWords)"
-        gameStatusView.progressBar.progress = Float(viewModel.currentIndex + 1) / Float(viewModel.totalWords)
-    }
-    
-    private func setupWord() {
-        wordLabelView.wordLabel.text = viewModel.currentWord.meaning
     }
     
     private func setupButtonActions() {
@@ -68,46 +59,6 @@ class DictationViewController: UIViewController {
         wordLabelView.speakerButton.addTarget(self, action: #selector(speakerButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func backButtonTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func speakerButtonTapped() {
-        let text = viewModel.currentWord.name
-        speechService.speak(text)
-    }
-    
-    private func goToNextWord(isCorrect: Bool, userAnswer: String) {
-        let feedbackMessage = isCorrect ? "정답 🎉" : "오답 💪"
-        let feedbackColor: UIColor = isCorrect ? .systemGreen : .systemRed
-        wordLabelView.feedbackLabel.isHidden = false
-        wordLabelView.feedbackLabel.text = feedbackMessage
-        wordLabelView.feedbackLabel.textColor = feedbackColor
-        
-        // 정답이 틀린 경우 단어 보여주기
-        if !isCorrect {
-            wordLabelView.wordLabel.text = viewModel.currentWord.name
-        }
-        
-        // tf 초기화
-        dictationTextField.text = ""
-        
-        viewModel.appendUserResponse(isCorrect: isCorrect, userAnswer: userAnswer)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.wordLabelView.feedbackLabel.isHidden = true
-            self.viewModel.currentIndex += 1
-            
-            // 게임 종료 여부 확인 후 진행
-            if self.viewModel.currentIndex >= self.viewModel.totalWords {
-                self.viewModel.printUserResponses()
-                self.viewModel.goToGameResultVC(from: self, animated: true)
-            } else {
-                self.setupGame()
-            }
-        }
-    }
-
     private func setupSubviews() {
         view.addSubview(gameStatusView)
         view.addSubview(wordLabelView)
@@ -132,29 +83,83 @@ class DictationViewController: UIViewController {
             $0.height.equalTo(40)
         }
     }
+    
+    private func setupGame() {
+        updateGameStatusIndicator()
+        updateWordLabel()
+    }
+    
+    private func updateGameStatusIndicator() {
+        gameStatusView.indicatorLabel.text = viewModel.progressText
+        gameStatusView.progressBar.progress = viewModel.progressValue
+    }
+    
+    private func updateWordLabel() {
+        wordLabelView.wordLabel.text = viewModel.currentWord.meaning
+    }
+    
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func speakerButtonTapped() {
+        let text = viewModel.currentWord.name
+        speechService.speak(text)
+    }
+    
+    private func handleNextWord(isCorrect: Bool, userAnswer: String) {
+        displayFeedback(isCorrect: isCorrect)
+        resetTextField()
+        
+        viewModel.appendUserResponse(isCorrect: isCorrect, userAnswer: userAnswer)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.wordLabelView.feedbackLabel.isHidden = true
+            self.viewModel.incrementCurrentIndex()
+            
+            // 게임 종료 여부 확인 후 진행
+            if self.viewModel.isGameComplete {
+                self.viewModel.navigateToGameResultVC(from: self, animated: true)
+            } else {
+                self.setupGame()
+            }
+        }
+    }
+    
+    private func displayFeedback(isCorrect: Bool) {
+        wordLabelView.feedbackLabel.isHidden = false
+        wordLabelView.feedbackLabel.text = isCorrect ? "정답 🎉" : "오답 💪"
+        wordLabelView.feedbackLabel.textColor = isCorrect ? .systemGreen : .systemRed
+        
+        // 정답이 틀린 경우 단어 보여주기
+        if !isCorrect {
+            wordLabelView.wordLabel.text = viewModel.currentWord.name
+        }
+    }
+    
+    private func resetTextField() {
+        dictationTextField.text = ""
+    }
 }
 
-// MARK: - Delegate Methods
-
+// MARK: - UITextFieldDelegate
 extension DictationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let userAnswer = dictationTextField.text?.lowercased() else { return false }
         let isCorrect = viewModel.currentWord.name.lowercased() == userAnswer
-        goToNextWord(isCorrect: isCorrect, userAnswer: userAnswer)
+        handleNextWord(isCorrect: isCorrect, userAnswer: userAnswer)
         return true
     }
 }
 
+// MARK: - SpeechServiceDelegate
 extension DictationViewController: SpeechServiceDelegate {
     func speechDidStart() {
-        DispatchQueue.main.async {
-            self.wordLabelView.speakerButton.tintColor = .primaryOrange
-        }
+        wordLabelView.speakerButton.tintColor = .primaryOrange
     }
     
     func speechDidFinish() {
-        DispatchQueue.main.async {
-            self.wordLabelView.speakerButton.tintColor = .systemGray3
-        }
+        wordLabelView.speakerButton.tintColor = .systemGray3
     }
 }
