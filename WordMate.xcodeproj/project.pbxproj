@@ -10,6 +10,7 @@
 		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
 		8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5902D22DF06005D21F1 /* CustomButton.swift */; };
 		8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5922D24FA20005D21F1 /* Constants.swift */; };
+		8C57F5952D26E2ED005D21F1 /* Realm+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5942D26E2ED005D21F1 /* Realm+Extension.swift */; };
 		8C6B0B062D0C62640055B181 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */; };
 		8C6B0B0B2D1002C50055B181 /* RepeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */; };
 		8C6B0B0D2D1006860055B181 /* RepeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */; };
@@ -90,6 +91,7 @@
 		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		8C57F5902D22DF06005D21F1 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C57F5922D24FA20005D21F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8C57F5942D26E2ED005D21F1 /* Realm+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		8C6B0B0A2D1002C50055B181 /* RepeatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewController.swift; sourceTree = "<group>"; };
 		8C6B0B0C2D1006860055B181 /* RepeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatViewModel.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				8C78E6542CF766AA00757359 /* UIImage+Extension.swift */,
 				8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */,
+				8C57F5942D26E2ED005D21F1 /* Realm+Extension.swift */,
 				8C57F5922D24FA20005D21F1 /* Constants.swift */,
 			);
 			path = Helpers;
@@ -794,6 +797,7 @@
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */,
 				8C78E6552CF766AA00757359 /* UIImage+Extension.swift in Sources */,
+				8C57F5952D26E2ED005D21F1 /* Realm+Extension.swift in Sources */,
 				8C78E6822CFF37A900757359 /* QuestionCountViewModel.swift in Sources */,
 				8C78E6892CFF57A700757359 /* QuestionSelectionCell.swift in Sources */,
 				8CB5B4772CE5E2600093C6C5 /* WordCell.swift in Sources */,

@@ -8,8 +8,9 @@
 import UIKit
 import RealmSwift
 
-class AddGroupViewModel {
+final class AddGroupViewModel {
     // MARK: - Properties
+    private let realm = try! Realm()
     private let realmManager: RealmManagerProtocol
     private var group: VocabularyGroup?
     private var index: Int?
@@ -32,20 +33,19 @@ class AddGroupViewModel {
     }
     
     func isDuplicateGroup(name: String) -> Bool {
-        return realmManager.isGroupExisting(name: name)
+        return realm.isGroupExisting(name: name)
     }
     
     private func updateGroup(newName: String) {
         guard let group = group else { return }
-        realmManager.updateGroupName(for: group, to: newName)
+        realmManager.updateObject(group) { $0.name = newName }
     }
     
     private func createNewGroup(name: String, language: String = "English") {
-        let group = VocabularyGroup()
-        group.name = name
-        group.language = language
-        
-        realmManager.addObject(group)
+        let group = VocabularyGroup(name: name, language: language)
+        realmManager.addObject(group) { _ in
+            print("그룹 저장 완료")
+        }
     }
     
     // MARK: - Navigation

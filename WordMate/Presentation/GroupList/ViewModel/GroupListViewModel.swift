@@ -28,7 +28,7 @@ final class GroupListViewModel {
     
     // MARK: - Data Handling
     func fetchGroups() {
-        groupList = realmManager.fetchObjects(VocabularyGroup.self)
+        groupList = realmManager.fetchObject(VocabularyGroup.self)
     }
     
     func deleteGroup(at index: Int) {

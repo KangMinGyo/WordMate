@@ -12,8 +12,9 @@ final class AddWordViewModel {
     
     // MARK: - Properties
     private let group: VocabularyGroup
-    private let realmManager: RealmManagerProtocol
     private var word: VocabularyWord?
+    private let realm = try! Realm()
+    private let realmManager: RealmManagerProtocol
     
     // MARK: - Initializer
     init(group: VocabularyGroup, realmManager: RealmManagerProtocol, word: VocabularyWord? = nil) {
@@ -40,7 +41,12 @@ final class AddWordViewModel {
     
     private func updateWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
         guard let word = word else { return }
-        realmManager.updateWord(for: word, name: name, meaning: meaning, pronunciation: pronunciation, descriptionText: descriptionText)
+        realmManager.updateObject(word) {
+            $0.name = name
+            $0.meaning = meaning
+            $0.pronunciation = pronunciation
+            $0.descriptionText = descriptionText
+        }
     }
     
     private func makeNewWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
@@ -51,12 +57,12 @@ final class AddWordViewModel {
         word.descriptionText = descriptionText
         word.isLiked = false
         
-        realmManager.addWordToGroup(group, word: word)
+        realmManager.addObject(group) { $0.words.append(word) }
     }
     
     // 단어 중복 확인
     func isDuplicateWord(name: String, meaning: String) -> Bool {
-        return realmManager.isWordExisting(name: name, meaning: meaning)
+        return realm.isWordExisting(name: name, meaning: meaning)
     }
 
     // MARK: - Navigation

@@ -27,6 +27,6 @@ final class ResultViewModel {
     // MARK: - Methods
     func toggleIsLiked() {
         let newIsLiked = !isLiked
-        realmManager.updateIsLiked(for: question.word, to: newIsLiked)
+        realmManager.updateObject(question.word) { $0.isLiked = newIsLiked }
     }
 }

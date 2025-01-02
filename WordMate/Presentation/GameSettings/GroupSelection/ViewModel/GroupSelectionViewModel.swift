@@ -33,7 +33,7 @@ final class GroupSelectionViewModel {
     }
     
     func fetchGroups() {
-        groups = realmManager.fetchObjects(VocabularyGroup.self)
+        groups = realmManager.fetchObject(VocabularyGroup.self)
     }
     
     func group(at index: Int) -> VocabularyGroup? {
