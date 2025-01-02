@@ -7,18 +7,19 @@
 
 import UIKit
 
-class GameResultViewController: UIViewController {
+final class GameResultViewController: UIViewController {
     
-    let viewModel: GameResultViewModel
+    // MARK: - Properties
+    private let viewModel: GameResultViewModel
     
-    lazy var backButton = UIButton().then {
+    private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .gray
         $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    lazy var titleLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.text = "결과"
         $0.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
@@ -56,7 +57,7 @@ class GameResultViewController: UIViewController {
         $0.backgroundColor = .systemGray6
     }
     
-    var collectionView: UICollectionView!
+    private var collectionView: UICollectionView!
     
     // MARK: - Initializers
     init(viewModel: GameResultViewModel) {
@@ -68,11 +69,15 @@ class GameResultViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
         view.backgroundColor = .systemBackground
-
         setupResult()
         setupcollectionView()
         setupSubviews()
@@ -87,9 +92,7 @@ class GameResultViewController: UIViewController {
     private func setupResult() {
         let percent = Int(Float(viewModel.correctAnswers) / Float(viewModel.totalQuestions) * 100)
         centerLabel.text = "\(percent)%"
-        
         circularProgress.progressLayer.strokeEnd = CGFloat(viewModel.correctAnswers) / CGFloat(viewModel.totalQuestions)
-        
         correctLabel.text = "✅ 정답: \(viewModel.correctAnswers)"
         wrongLabel.text = "❌ 오답: \(viewModel.wrongAnswers)"
     }
@@ -112,10 +115,6 @@ class GameResultViewController: UIViewController {
         
         // 4. UICollectionView를 뷰에 추가
         view.addSubview(collectionView)
-    }
-    
-    @objc private func backButtonTapped() {
-        dismiss(animated: true, completion: nil)
     }
     
     private func setupSubviews() {
@@ -167,8 +166,14 @@ class GameResultViewController: UIViewController {
             $0.bottom.equalToSuperview().inset(20)
         }
     }
+    
+    // MARK: - Actions
+    @objc private func backButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
+// MARK: - UICollectionViewDataSource
 extension GameResultViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -177,8 +182,7 @@ extension GameResultViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ResultCell", for: indexPath) as! ResultCell
-        let resultVM = viewModel.memberViewModelAtIndex(indexPath.row)
-        cell.viewModel = resultVM
+        cell.viewModel = viewModel.memberViewModelAtIndex(indexPath.row)
         return cell
     }
 }
