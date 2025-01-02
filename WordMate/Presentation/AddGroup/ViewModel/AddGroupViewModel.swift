@@ -37,7 +37,7 @@ class AddGroupViewModel {
     
     private func updateGroup(newName: String) {
         guard let group = group else { return }
-        realmManager.updateGroupName(group, to: newName)
+        realmManager.updateGroupName(for: group, to: newName)
     }
     
     private func createNewGroup(name: String, language: String = "English") {

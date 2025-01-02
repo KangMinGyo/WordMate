@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 final class GroupListViewModel {
+    
     // MARK: - Properties
     private let realmManager: RealmManagerProtocol
     

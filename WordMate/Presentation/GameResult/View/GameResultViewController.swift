@@ -182,7 +182,7 @@ extension GameResultViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ResultCell", for: indexPath) as! ResultCell
-        cell.viewModel = viewModel.memberViewModelAtIndex(indexPath.row)
+        cell.viewModel = viewModel.memberViewModel(at: indexPath.row)
         return cell
     }
 }

@@ -9,14 +9,22 @@ import UIKit
 import RealmSwift
 
 protocol RealmManagerProtocol {
+    // Fetch
     func fetchObjects<T: Object>(_ object: T.Type) -> Results<T>
     func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T?
+    
+    // Add
     func addObject<T: Object>(_ object: T)
-    func deleteObject<T: Object>(_ object: T)
     func addWordToGroup<T: VocabularyGroup, U: VocabularyWord>(_ group: T, word: U)
-    func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool)
-    func updateGroupName(_ group: VocabularyGroup, to newName: String)
-    func updateWord(_ word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?)
+    
+    // Delete
+    func deleteObject<T: Object>(_ object: T)
+    
+    // Update
+    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool)
+    func updateGroupName(for group: VocabularyGroup, to newName: String)
+    func updateWord(for word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?)
+    
     // 중복 확인
     func isGroupExisting(name: String) -> Bool
     func isWordExisting(name: String, meaning: String) -> Bool
@@ -31,17 +39,17 @@ final class RealmManager: RealmManagerProtocol {
         self.realm = try! Realm()
     }
     
-    // 그룹 불러오기
+    // MARK: - Fetch
     func fetchObjects<T: Object>(_ object: T.Type) -> Results<T> {
         return realm.objects(object)
     }
     
-    // 단어 불러오기
     func fetchObject<T: Object>(_ type: T.Type, for id: ObjectId) -> T? {
         let realm = try! Realm()
         return realm.object(ofType: type, forPrimaryKey: id)
     }
     
+    // MARK: - Add
     func addObject<T: Object>(_ object: T) {
         try? realm.write {
             realm.add(object)
@@ -55,50 +63,37 @@ final class RealmManager: RealmManagerProtocol {
         }
     }
     
-    func updateIsLiked(_ word: VocabularyWord, to isLiked: Bool) {
-        try! realm.write {
+    // MARK: - Delete
+    func deleteObject<T: Object>(_ object: T) {
+        let realm = try? Realm()
+        try? realm?.write {
+            realm?.delete(object)
+        }
+    }
+    
+    // MARK: - Update
+    func updateIsLiked(for word: VocabularyWord, to isLiked: Bool) {
+        try? realm.write {
             word.isLiked = isLiked
         }
     }
     
-    func updateGroupName(_ group: VocabularyGroup, to newName: String) {
-        do {
-            try realm.write {
-                group.name = newName
-            }
-            print("그룹 이름 수정 완료")
-        } catch {
-            print("그룹 이름 수정 중 에러 발생: \(error.localizedDescription)")
+    func updateGroupName(for group: VocabularyGroup, to newName: String) {
+        try? realm.write {
+            group.name = newName
         }
     }
     
-    func updateWord(_ word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?) {
-        do {
-            try realm.write {
-                word.name = name
-                word.meaning = meaning
-                if let pronunciation = pronunciation {
-                    word.pronunciation = pronunciation
-                }
-                if let descriptionText = descriptionText {
-                    word.descriptionText = descriptionText
-                }
+    func updateWord(for word: VocabularyWord, name: String, meaning: String, pronunciation: String?, descriptionText: String?) {
+        try? realm.write {
+            word.name = name
+            word.meaning = meaning
+            if let pronunciation = pronunciation {
+                word.pronunciation = pronunciation
             }
-            print("단어 업데이트 완료")
-        } catch {
-            print("단어 업데이트 중 오류 발생: \(error.localizedDescription)")
-        }
-    }
-    
-    func deleteObject<T: Object>(_ object: T) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.delete(object)
+            if let descriptionText = descriptionText {
+                word.descriptionText = descriptionText
             }
-            print("삭제 완료")
-        } catch let error {
-            print("삭제 중 에러 발생: \(error.localizedDescription)")
         }
     }
     

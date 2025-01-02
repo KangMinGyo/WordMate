@@ -40,7 +40,7 @@ final class AddWordViewModel {
     
     private func updateWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {
         guard let word = word else { return }
-        realmManager.updateWord(word, name: name, meaning: meaning, pronunciation: pronunciation, descriptionText: descriptionText)
+        realmManager.updateWord(for: word, name: name, meaning: meaning, pronunciation: pronunciation, descriptionText: descriptionText)
     }
     
     private func makeNewWord(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {

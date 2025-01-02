@@ -142,9 +142,7 @@ final class WordCell: UICollectionViewCell {
     }
     
     private func updateBookmarkButtonState() {
-        if let isLiked = viewModel?.isLiked {
-            updateBookmarkButtonAppearance()
-        }
+        updateBookmarkButtonAppearance()
     }
     
     private func updateBookmarkButtonAppearance() {
