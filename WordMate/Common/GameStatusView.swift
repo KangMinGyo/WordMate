@@ -9,11 +9,13 @@ import UIKit
 import SnapKit
 import Then
 
-class GameStatusView: UIView {
+final class GameStatusView: UIView {
+    
+    // MARK: - Properties
     lazy var backButton = UIButton().then {
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .gray
     }
     
     lazy var indicatorLabel = UILabel().then {
@@ -21,13 +23,13 @@ class GameStatusView: UIView {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     }
     
-    // 진행 바
     lazy var progressBar = UIProgressView().then {
-        $0.trackTintColor = .lightGray // 배경 색상
-        $0.progressTintColor = .primaryOrange // 진행 색상
+        $0.trackTintColor = .lightGray
+        $0.progressTintColor = .primaryOrange
         $0.progress = 0.1
     }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -40,6 +42,7 @@ class GameStatusView: UIView {
         setupConstraints()
     }
     
+    // MARK: - Setup Methods
     private func setupSubviews() {
         addSubview(backButton)
         addSubview(indicatorLabel)

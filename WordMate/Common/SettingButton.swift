@@ -9,8 +9,9 @@ import UIKit
 import Then
 import SnapKit
 
-class SettingButton: UIButton {
+final class SettingButton: UIButton {
     
+    // MARK: - Properties
     private let staticLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         $0.textColor = .black
@@ -22,6 +23,7 @@ class SettingButton: UIButton {
         $0.textAlignment = .right
     }
 
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -34,6 +36,7 @@ class SettingButton: UIButton {
         setupConstraints()
     }
     
+    // MARK: - Setup Methods
     private func setupSubviews() {
         addSubview(staticLabel)
         addSubview(dynamicLabel)
