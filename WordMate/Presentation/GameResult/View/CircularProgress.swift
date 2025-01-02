@@ -7,21 +7,12 @@
 
 import UIKit
 
-class CircularProgress: UIView {
+final class CircularProgress: UIView {
     
-    var progressLayer = CAShapeLayer()
-    var tracklayer = CAShapeLayer()
+    // MARK: - Properties
+    let progressLayer = CAShapeLayer()
+    let tracklayer = CAShapeLayer()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        createCircularPath()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        createCircularPath()
-    }
-
     var progressColor:UIColor = UIColor.red {
         didSet {
             progressLayer.strokeColor = progressColor.cgColor
@@ -34,26 +25,43 @@ class CircularProgress: UIView {
         }
     }
     
-    fileprivate func createCircularPath() {
-        self.backgroundColor = UIColor.clear
-        self.layer.cornerRadius = self.frame.size.width/2.0
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0),
-                                      radius: (frame.size.width - 1.5)/2, startAngle: CGFloat(-0.5 * Double.pi),
-                                      endAngle: CGFloat(1.5 * Double.pi), clockwise: true)
+    // MARK: - Initializer
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+    
+    // MARK: - Setup Methods
+    private func setupView() {
+        backgroundColor = .clear
+        layer.cornerRadius = frame.size.width / 2.0
+        createCircularPath()
+    }
+    
+    private func createCircularPath() {
+        let circlePath = UIBezierPath(
+            arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0),
+            radius: (frame.size.width - 1.5)/2, 
+            startAngle: CGFloat(-0.5 * Double.pi),
+            endAngle: CGFloat(1.5 * Double.pi),
+            clockwise: true
+        )
         
-        tracklayer.path = circlePath.cgPath
-        tracklayer.fillColor = UIColor.clear.cgColor
-        tracklayer.strokeColor = trackColor.cgColor
-        tracklayer.lineWidth = 10.0;
-        tracklayer.strokeEnd = 1.0
-        layer.addSublayer(tracklayer)
-        
-        progressLayer.path = circlePath.cgPath
-        progressLayer.fillColor = UIColor.clear.cgColor
-        progressLayer.strokeColor = progressColor.cgColor
-        progressLayer.lineWidth = 10.0;
-        progressLayer.strokeEnd = 0.0
-        layer.addSublayer(progressLayer)
-        
+        configureLayer(tracklayer, path: circlePath, strokeColor: trackColor, strokeEnd: 1.0)
+        configureLayer(progressLayer, path: circlePath, strokeColor: progressColor, strokeEnd: 0.0)
+    }
+    
+    private func configureLayer(_ layer: CAShapeLayer, path: UIBezierPath, strokeColor: UIColor, strokeEnd: CGFloat) {
+        layer.path = path.cgPath
+        layer.fillColor = UIColor.clear.cgColor
+        layer.strokeColor = strokeColor.cgColor
+        layer.lineWidth = 10.0
+        layer.strokeEnd = strokeEnd
+        self.layer.addSublayer(layer)
     }
 }

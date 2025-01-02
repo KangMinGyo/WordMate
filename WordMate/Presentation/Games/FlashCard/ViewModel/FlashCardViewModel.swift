@@ -52,7 +52,7 @@ final class FlashCardViewModel {
     
     // MARK: - Navigation
     func navigateToGameResultVC(from viewController: UIViewController, animated: Bool) {
-        let gameResultVM = GameResultViewModel(questions: userResponses)
+        let gameResultVM = GameResultViewModel(questions: userResponses, realmManager: RealmManager())
         let gameResultVC = GameResultViewController(viewModel: gameResultVM)
         gameResultVC.modalPresentationStyle = .overFullScreen
         

@@ -143,11 +143,12 @@ final class WordCell: UICollectionViewCell {
     
     private func updateBookmarkButtonState() {
         if let isLiked = viewModel?.isLiked {
-            updateBookmarkButtonAppearance(isLiked: isLiked)
+            updateBookmarkButtonAppearance()
         }
     }
     
-    private func updateBookmarkButtonAppearance(isLiked: Bool) {
+    private func updateBookmarkButtonAppearance() {
+        guard let isLiked = viewModel?.isLiked else { return }
         bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
         bookmarkButton.tintColor = isLiked ? .primaryOrange : .systemGray3
     }
@@ -160,9 +161,7 @@ final class WordCell: UICollectionViewCell {
     
     @objc func bookmarkButtonTapped() {
         viewModel?.updateIsLiked()
-        if let isLiked = viewModel?.isLiked {
-            updateBookmarkButtonAppearance(isLiked: isLiked)
-        }
+        updateBookmarkButtonAppearance()
     }
 }
 

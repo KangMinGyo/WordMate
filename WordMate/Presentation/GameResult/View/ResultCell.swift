@@ -7,28 +7,27 @@
 
 import UIKit
 
-class ResultCell: UICollectionViewCell {
+final class ResultCell: UICollectionViewCell {
     
+    // MARK: - Properties
     var viewModel: ResultViewModel? {
         didSet {
             configureUI()
-            if let isLiked = viewModel?.isLiked {
-                updateBookmarkButtonAppearance(isLiked: isLiked)
-            }
+            updateBookmarkButtonAppearance()
         }
     }
     
-    var feedbackLabel = UILabel().then {
+    private let feedbackLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         $0.textColor = .systemGray
     }
     
-    var wordLabel = UILabel().then {
+    private let wordLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = .black
     }
     
-    var meaningLabel = UILabel().then {
+    private let meaningLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         $0.textColor = .black
     }
@@ -43,10 +42,11 @@ class ResultCell: UICollectionViewCell {
     private lazy var bookmarkButton = UIButton().then {
         $0.setImage(UIImage(systemName: "star"), for: .normal)
         $0.frame.size = CGSize(width: 50, height: 50)
-        $0.tintColor = .gray  // 아이콘 색상 변경
+        $0.tintColor = .gray
         $0.addTarget(self, action: #selector(bookmarkButtonTapped), for: .touchUpInside)
     }
     
+    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCellStyle()
@@ -59,24 +59,13 @@ class ResultCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Setup Methods
     private func setupCellStyle() {
         backgroundColor = .systemGray6
         layer.cornerRadius = 20
         contentView.clipsToBounds = true
     }
     
-    @objc func bookmarkButtonTapped() {
-        viewModel?.updateIsLiked()
-        if let isLiked = viewModel?.isLiked {
-            updateBookmarkButtonAppearance(isLiked: isLiked)
-        }
-    }
-    
-    private func updateBookmarkButtonAppearance(isLiked: Bool) {
-        bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
-        bookmarkButton.tintColor = isLiked ? .primaryOrange : .gray
-    }
-
     private func setupSubviews() {
         addSubview(feedbackLabel)
         addSubview(stackView)
@@ -98,12 +87,27 @@ class ResultCell: UICollectionViewCell {
         }
     }
     
+    private func updateBookmarkButtonAppearance() {
+        guard let isLiked = viewModel?.isLiked else { return }
+        bookmarkButton.setImage(isLiked ? UIImage(systemName: "star.fill") : UIImage(systemName: "star"), for: .normal)
+        bookmarkButton.tintColor = isLiked ? .primaryOrange : .gray
+    }
+
+    // MARK: - UI Update Methods
     func configureUI() {
         feedbackLabel.text = viewModel?.feedback
         feedbackLabel.textColor = viewModel?.feedback == "정답" ? .systemGray : .primaryOrange
+        
         wordLabel.text = viewModel?.name
         wordLabel.textColor = viewModel?.feedback == "정답" ? .systemGray : .black
+        
         meaningLabel.text = viewModel?.meaning
         meaningLabel.textColor = viewModel?.feedback == "정답" ? .systemGray : .black
+    }
+    
+    // MARK: - Actions
+    @objc func bookmarkButtonTapped() {
+        viewModel?.toggleIsLiked()
+        updateBookmarkButtonAppearance()
     }
 }

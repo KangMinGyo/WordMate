@@ -7,11 +7,14 @@
 
 import Foundation
 
-class GameResultViewModel {
-    private let questions: [Question]
+final class GameResultViewModel {
     
-    init(questions: [Question]) {
-        self.questions = questions
+    // MARK: - Properties
+    private let questions: [Question]
+    private let realmManager: RealmManagerProtocol
+    
+    var totalQuestions: Int {
+        questions.count
     }
     
     var correctAnswers: Int {
@@ -19,19 +22,22 @@ class GameResultViewModel {
     }
     
     var wrongAnswers: Int {
-        questions.filter { !$0.isCorrect }.count
+        totalQuestions - correctAnswers
     }
     
-    var totalQuestions: Int {
-        questions.count
+    // MARK: - Initializer
+    init(questions: [Question], realmManager: RealmManagerProtocol) {
+        self.questions = questions
+        self.realmManager = realmManager
     }
     
+    // MARK: - Methods
     func numberOfRowsInSection(_ section: Int) -> Int {
         return questions.count
     }
     
-    func memberViewModelAtIndex(_ index: Int) -> ResultViewModel {
+    func memberViewModel(at index: Int) -> ResultViewModel {
         let question = questions[index]
-        return ResultViewModel(question: question, realmManager: RealmManager())
+        return ResultViewModel(question: question, realmManager: realmManager)
     }
 }
