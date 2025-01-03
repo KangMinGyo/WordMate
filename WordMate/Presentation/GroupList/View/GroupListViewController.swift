@@ -58,7 +58,7 @@ final class GroupListViewController: UIViewController {
     
     private func setupSearchBar() {
         searchBar.delegate = self
-        searchBar.placeholder = "그룹 이름을 입력해주세요."
+        searchBar.placeholder = "검색할 그룹을 입력해 주세요."
         searchBar.backgroundImage = UIImage() // border line 제거
         view.addSubview(searchBar)
     }

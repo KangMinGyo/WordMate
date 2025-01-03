@@ -12,6 +12,13 @@ public enum GroupListConstants {
     static let interItemSpacing: CGFloat = 10
 }
 
+public enum WordListConstants {
+    static let horizontalPadding: CGFloat = 20.0
+    static let verticalPadding: CGFloat = 20.0
+    static let itemHeight: CGFloat = 100.0
+    static let lineSpacing: CGFloat = 20.0
+}
+
 public enum FlashCardConstants {
     static let cardHorizontalMargin: CGFloat = 20
     static let cardHeightRatio: CGFloat = 0.6

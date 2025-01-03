@@ -62,7 +62,19 @@ final class WordListViewModel {
         }
     }
     
-    func deleteGroup(at index: Int) {
+    func searchWords(text: String) {
+        let predicate = NSPredicate(format: "name CONTAINS[c] %@", text)
+        
+        if let updatedGroup = realmManager.fetchObject(VocabularyGroup.self, for: group.id) {
+            wordList = updatedGroup.words
+                .filter(predicate)
+                .sorted(byKeyPath: "createdAt", ascending: false)
+        } else {
+            wordList = nil
+        }
+    }
+    
+    func deleteWord(at index: Int) {
         guard let word = wordList?[index] else { return }
         realmManager.deleteObject(word)
         fetchWords()

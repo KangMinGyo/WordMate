@@ -12,13 +12,9 @@ import SnapKit
 final class WordListViewController: UIViewController {
 
     // MARK: - Properties
-    var collectionView: UICollectionView!
-    let viewModel: WordListViewModel
-    
-    private let horizontalPadding: CGFloat = 20.0
-    private let verticalPadding: CGFloat = 20.0
-    private let itemHeight: CGFloat = 100.0
-    private let lineSpacing: CGFloat = 20.0
+    private let searchBar = UISearchBar()
+    private var collectionView: UICollectionView!
+    private let viewModel: WordListViewModel
     
     // MARK: - Initializers
     init(viewModel: WordListViewModel) {
@@ -47,6 +43,7 @@ final class WordListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         setupNaviBar()
+        setupSearchBar()
         setupCollectionView()
         setupConstraints()
         bindViewModel()
@@ -58,14 +55,21 @@ final class WordListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = "검색할 단어를 입력해 주세요."
+        searchBar.backgroundImage = UIImage() // border line 제거
+        view.addSubview(searchBar)
+    }
+    
     private func setupCollectionView() {
-        let itemWidth = (view.frame.width - horizontalPadding * 2)
+        let itemWidth = (view.frame.width - WordListConstants.horizontalPadding * 2)
         
         // 1. UICollectionViewFlowLayout 설정
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: 0, right: horizontalPadding)
-        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        layout.minimumLineSpacing = lineSpacing
+        layout.sectionInset = UIEdgeInsets(top: WordListConstants.verticalPadding, left: WordListConstants.horizontalPadding, bottom: 0, right: WordListConstants.horizontalPadding)
+        layout.itemSize = CGSize(width: itemWidth, height: WordListConstants.itemHeight)
+        layout.minimumLineSpacing = WordListConstants.lineSpacing
         
         // 2. UICollectionView 초기화
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -80,8 +84,14 @@ final class WordListViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+        }
+        
         collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -128,7 +138,45 @@ final class WordListViewController: UIViewController {
     }
     
     func deleteWord(at indexPath: IndexPath) {
-        viewModel.deleteGroup(at: indexPath.item)
+        viewModel.deleteWord(at: indexPath.item)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension WordListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let text = searchBar.text else { return }
+        viewModel.searchWords(text: text)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        viewModel.searchWords(text: text)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.fetchWords()
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        customizeCancelButton(searchBar)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    private func customizeCancelButton(_ searchBar: UISearchBar) {
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.setTitle("취소", for: .normal)
+            cancelButton.setTitleColor(.gray, for: .normal)
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        }
     }
 }
 
