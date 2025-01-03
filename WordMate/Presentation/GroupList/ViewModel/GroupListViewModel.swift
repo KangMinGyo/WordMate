@@ -31,6 +31,11 @@ final class GroupListViewModel {
         groupList = realmManager.fetchObject(VocabularyGroup.self)
     }
     
+    func searchGroups(text: String) {
+        let predicate = NSPredicate(format: "name CONTAINS[c] %@", text)
+        groupList = realmManager.fetchObject(VocabularyGroup.self).filter(predicate)
+    }
+    
     func deleteGroup(at index: Int) {
         guard let group = groupList?[index] else { return }
         realmManager.deleteObject(group)

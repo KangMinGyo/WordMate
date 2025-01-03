@@ -12,6 +12,7 @@ import SnapKit
 final class GroupListViewController: UIViewController {
 
     // MARK: - Properties
+    private let searchBar = UISearchBar()
     private var collectionView: UICollectionView!
     private let viewModel: GroupListViewModel
     
@@ -44,6 +45,7 @@ final class GroupListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         setupNaviBar()
+        setupSearchBar()
         setupCollectionView()
         setupConstraints()
         bindViewModel()
@@ -54,19 +56,23 @@ final class GroupListViewController: UIViewController {
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
-    private let horizontalPadding: CGFloat = 20
-    private let interItemSpacing: CGFloat = 10
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = "그룹 이름을 입력해주세요."
+        searchBar.backgroundImage = UIImage() // border line 제거
+        view.addSubview(searchBar)
+    }
     
     private func setupCollectionView() {
-        let totalSpacing = (horizontalPadding * 2) + interItemSpacing
+        let totalSpacing = (GroupListConstants.horizontalPadding * 2) + GroupListConstants.interItemSpacing
         let itemWidth = (view.frame.width - totalSpacing) / 2
         
         // 1. UICollectionViewFlowLayout 설정
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: horizontalPadding, bottom: 0, right: horizontalPadding)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: GroupListConstants.horizontalPadding, bottom: 0, right: GroupListConstants.horizontalPadding)
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        layout.minimumInteritemSpacing = interItemSpacing
-        layout.minimumLineSpacing = interItemSpacing
+        layout.minimumInteritemSpacing = GroupListConstants.interItemSpacing
+        layout.minimumLineSpacing = GroupListConstants.interItemSpacing
         
         // 2. UICollectionView 초기화
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -81,8 +87,14 @@ final class GroupListViewController: UIViewController {
     }
     
     private func setupConstraints() {
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(10)
+        }
+        
         collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -134,8 +146,47 @@ final class GroupListViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchBarDelegate
+extension GroupListViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let text = searchBar.text else { return }
+        viewModel.searchGroups(text: text)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        viewModel.searchGroups(text: text)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.fetchGroups()
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        customizeCancelButton(searchBar)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
+    
+    private func customizeCancelButton(_ searchBar: UISearchBar) {
+        if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            cancelButton.setTitle("취소", for: .normal)
+            cancelButton.setTitleColor(.gray, for: .normal)
+            cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        }
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension GroupListViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section)
     }
@@ -150,8 +201,10 @@ extension GroupListViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension GroupListViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let selectedGroup = viewModel.groupList?[indexPath.item] else { return }
         viewModel.navigateToWordListVC(from: self, group: selectedGroup, animated: true)
     }
 }
+

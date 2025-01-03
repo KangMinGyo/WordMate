@@ -7,6 +7,11 @@
 
 import UIKit
 
+public enum GroupListConstants {
+    static let horizontalPadding: CGFloat = 20
+    static let interItemSpacing: CGFloat = 10
+}
+
 public enum FlashCardConstants {
     static let cardHorizontalMargin: CGFloat = 20
     static let cardHeightRatio: CGFloat = 0.6
