@@ -64,8 +64,14 @@ final class GameSettingsPopupViewController: UIViewController {
     @objc private func groupSelectionButtonTapped() {
         viewModel.showGroupSelectionVC(from: self, animated: true) { [weak self] selectedGroup in
             guard let self = self, let group = selectedGroup else { return }
-            self.popupView.groupSelectionButton.setDynamicLabelText(group.name)
-            self.viewModel.configureWords(words: Array(group.words))
+            
+            // Realm 객체를 안전하게 복사
+            let groupName = group.name
+            let words = Array(group.words)
+            
+            // UI 업데이트
+            self.popupView.groupSelectionButton.setDynamicLabelText(groupName)
+            self.viewModel.configureWords(words: words)
             self.popupView.updateStartButtonState(isEnabled: true)
         }
     }

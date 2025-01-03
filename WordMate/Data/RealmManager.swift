@@ -18,15 +18,13 @@ protocol RealmManagerProtocol {
 
 final class RealmManager: RealmManagerProtocol {
     
-    static let shared = RealmManager()
     private let realm: Realm
-    
-    init() {
-        self.realm = try! Realm()
+
+    init(realm: Realm = try! Realm()) {
+        self.realm = realm
     }
     
     // MARK: - Add
-    
     func addObject<T: Object>(_ object: T, action: ((T) -> Void)?) {
         try? realm.write {
             action?(object)
