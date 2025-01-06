@@ -30,7 +30,7 @@ final class AddWordViewModel {
     var pronunciation: String { word?.pronunciation ?? "" }
     var description: String { word?.descriptionText ?? "" }
     var buttonTitle: String { word != nil ? "수정" : "저장" }
-    
+    var isNewWord: Bool { word == nil }
     
     // MARK: - Word Management
     func handleButtonTapped(name: String, pronunciation: String?, meaning: String, descriptionText: String?) {

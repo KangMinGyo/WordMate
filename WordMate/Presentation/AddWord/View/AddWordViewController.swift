@@ -131,7 +131,7 @@ final class AddWordViewController: UIViewController {
         let pronunciation = pronunciationTextField.text
         let description = descriptionTextField.text
 
-        if viewModel.isDuplicateWord(name: name, meaning: meaning) {
+        if viewModel.isNewWord && viewModel.isDuplicateWord(name: name, meaning: meaning) {
             handleDuplicateWord(name: name, pronunciation: pronunciation, meaning: meaning, description: description)
         } else {
             handleSaveOrUpdate(name: name, pronunciation: pronunciation, meaning: meaning, description: description)

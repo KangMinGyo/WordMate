@@ -37,6 +37,7 @@ final class WordListViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.fetchWords()
         setupView()
+        setupGestures()
     }
     
     // MARK: - Setup Methods
