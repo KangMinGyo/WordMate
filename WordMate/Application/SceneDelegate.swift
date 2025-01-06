@@ -32,6 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.tintColor = .primaryOrange
         tabBarController.tabBar.unselectedItemTintColor = .gray
         
+        tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
+        tabBarController.tabBar.layer.borderWidth = 0.5
+        tabBarController.tabBar.clipsToBounds = true
+        
+        
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
