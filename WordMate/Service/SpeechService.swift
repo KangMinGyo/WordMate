@@ -14,7 +14,7 @@ protocol SpeechServiceDelegate: AnyObject {
     func speechDidFinish()
 }
 
-class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
+class SpeechService: NSObject {
     weak var delegate: SpeechServiceDelegate?
     private let synthesizer = AVSpeechSynthesizer()
     
@@ -33,8 +33,11 @@ class SpeechService: NSObject, AVSpeechSynthesizerDelegate {
         synthesizer.speak(utterance)
         try? AVAudioSession.sharedInstance().setCategory(.playback, options: .allowBluetooth)
     }
+}
+
+// MARK: - AVSpeechSynthesizerDelegate
+extension SpeechService: AVSpeechSynthesizerDelegate {
     
-    // MARK: - AVSpeechSynthesizerDelegate
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
         delegate?.speechDidStart()
     }
