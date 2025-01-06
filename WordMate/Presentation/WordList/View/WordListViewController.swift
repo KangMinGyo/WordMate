@@ -34,8 +34,9 @@ final class WordListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.fetchWords()
-        collectionView.reloadData()
+        setupView()
     }
     
     // MARK: - Setup Methods

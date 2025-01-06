@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // UITabBarController 설정
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [groupListVC, learningVC]
+        tabBarController.tabBar.backgroundColor = .systemBackground
         tabBarController.tabBar.tintColor = .primaryOrange
         tabBarController.tabBar.unselectedItemTintColor = .gray
         
