@@ -12,6 +12,7 @@ import SnapKit
 final class AddGroupViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let viewModel: AddGroupViewModel
     
     private let groupLabel = UILabel().then {
@@ -28,6 +29,7 @@ final class AddGroupViewController: UIViewController {
     }
     
     // MARK: - Initializer
+    
     init(viewModel: AddGroupViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -37,7 +39,8 @@ final class AddGroupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -55,6 +58,7 @@ final class AddGroupViewController: UIViewController {
     }
     
     // MARK: - Setup Methods
+    
     private func setupView() {
         view.backgroundColor = .systemBackground
         setupNaviBar()
@@ -90,6 +94,7 @@ final class AddGroupViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
     @objc func saveButtonTapped() {
         guard let name = groupTextField.text else { return }
         
@@ -116,6 +121,7 @@ final class AddGroupViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
+
 extension AddGroupViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""

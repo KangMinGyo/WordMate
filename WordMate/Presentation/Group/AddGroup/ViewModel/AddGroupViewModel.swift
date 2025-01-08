@@ -11,12 +11,14 @@ import RealmSwift
 final class AddGroupViewModel {
     
     // MARK: - Properties
+    
     private let realm = try! Realm()
     private let realmManager: RealmManagerProtocol
     private var group: VocabularyGroup?
     private var index: Int?
     
     // MARK: - Initializer
+    
     init(realmManager: RealmManagerProtocol, group: VocabularyGroup? = nil, index: Int? = nil) {
         self.realmManager = realmManager
         self.group = group
@@ -24,11 +26,13 @@ final class AddGroupViewModel {
     }
     
     // MARK: - Computed Properties
+    
     var buttonTitle: String {
         group != nil ? "수정" : "저장"
     }
     
     // MARK: - Group Management
+    
     func handleButtonTapped(name: String) {
         group != nil ? updateGroup(newName: name) : createNewGroup(name: name)
     }
@@ -50,6 +54,7 @@ final class AddGroupViewModel {
     }
     
     // MARK: - Navigation
+    
     func goBackToPreviousVC(from viewController: UIViewController, animated: Bool) {
         viewController.navigationController?.popViewController(animated: animated)
     }
