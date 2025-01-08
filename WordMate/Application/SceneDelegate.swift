@@ -11,34 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let scene = (scene as? UIWindowScene) else { return }
+        guard let scene = scene as? UIWindowScene else { return }
         window = UIWindow(windowScene: scene)
-        
-        let groupListVC = UINavigationController(rootViewController: GroupListViewController(viewModel: GroupListViewModel(realmManager: RealmManager())))
-        groupListVC.tabBarItem = UITabBarItem(title: "단어장", image: UIImage(systemName: "book.fill"),tag: 0)
-        
-        let learningVC = UINavigationController(rootViewController: LearningViewController(viewModel: LearningViewModel()))
-        learningVC.tabBarItem = UITabBarItem(title: "학습", image: UIImage(systemName: "pencil.circle.fill"), tag: 1)
-        
-        let settingsVC = SettingsViewController()
-        settingsVC.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape.fill"), tag: 2)
-        
-        // UITabBarController 설정
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [groupListVC, learningVC]
-        tabBarController.tabBar.backgroundColor = .systemBackground
-        tabBarController.tabBar.tintColor = .primaryOrange
-        tabBarController.tabBar.unselectedItemTintColor = .gray
-        
-        tabBarController.tabBar.layer.borderColor = UIColor.lightGray.cgColor
-        tabBarController.tabBar.layer.borderWidth = 0.5
-        tabBarController.tabBar.clipsToBounds = true
-        
-        
-        window?.rootViewController = tabBarController
+        window?.rootViewController = MainTabBarController()
         window?.makeKeyAndVisible()
     }
 

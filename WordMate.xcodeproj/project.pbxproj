@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C3ED8832D2EA06200800D4E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3ED8822D2EA06200800D4E /* MainTabBarController.swift */; };
 		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
 		8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5902D22DF06005D21F1 /* CustomButton.swift */; };
 		8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5922D24FA20005D21F1 /* Constants.swift */; };
@@ -88,6 +89,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8C3ED8732D2E3D0B00800D4E /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3ED8822D2EA06200800D4E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		8C57F5902D22DF06005D21F1 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C57F5922D24FA20005D21F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -130,7 +133,6 @@
 		8C78E6B02D0B0C4E00757359 /* DictationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationViewController.swift; sourceTree = "<group>"; };
 		8C78E6B22D0B0F7B00757359 /* WordLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordLabelView.swift; sourceTree = "<group>"; };
 		8C78E6B42D0B165B00757359 /* DictationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictationViewModel.swift; sourceTree = "<group>"; };
-		8CB5B43E2CE3679D0093C6C5 /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CB5B4412CE3679D0093C6C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4432CE3679D0093C6C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8CB5B4452CE3679D0093C6C5 /* GroupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C3ED8812D2EA05000800D4E /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8C3ED8822D2EA06200800D4E /* MainTabBarController.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		8C57F58F2D22DEF7005D21F1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,16 +499,8 @@
 			isa = PBXGroup;
 			children = (
 				8CB5B4402CE3679D0093C6C5 /* WordMate */,
-				8CB5B43F2CE3679D0093C6C5 /* Products */,
+				8C3ED8732D2E3D0B00800D4E /* WordMate.app */,
 			);
-			sourceTree = "<group>";
-		};
-		8CB5B43F2CE3679D0093C6C5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8CB5B43E2CE3679D0093C6C5 /* WordMate.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8CB5B4402CE3679D0093C6C5 /* WordMate */ = {
@@ -528,6 +530,7 @@
 		8CB5B4682CE5C8520093C6C5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8C3ED8812D2EA05000800D4E /* Root */,
 				8CB5B4692CE5C8620093C6C5 /* GroupList */,
 				8CB5B4812CE716EE0093C6C5 /* AddGroup */,
 				8CB5B46F2CE5CA620093C6C5 /* WordList */,
@@ -713,7 +716,7 @@
 				8CDF32122CEF627200B9536D /* RealmSwift */,
 			);
 			productName = WordMate;
-			productReference = 8CB5B43E2CE3679D0093C6C5 /* WordMate.app */;
+			productReference = 8C3ED8732D2E3D0B00800D4E /* WordMate.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -745,7 +748,7 @@
 				8CB5B4622CE4D7CA0093C6C5 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				8CDF32112CEF627200B9536D /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
-			productRefGroup = 8CB5B43F2CE3679D0093C6C5 /* Products */;
+			productRefGroup = 8CB5B4352CE3679D0093C6C5;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -772,6 +775,7 @@
 			files = (
 				8C78E67B2CFDFFF100757359 /* GroupSelectionViewModel.swift in Sources */,
 				8C78E69A2D06C2CD00757359 /* Question.swift in Sources */,
+				8C3ED8832D2EA06200800D4E /* MainTabBarController.swift in Sources */,
 				8C78E6B12D0B0C4E00757359 /* DictationViewController.swift in Sources */,
 				8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */,
 				8C78E6A72D087ABE00757359 /* ResultCell.swift in Sources */,

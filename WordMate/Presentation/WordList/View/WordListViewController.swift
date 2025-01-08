@@ -224,3 +224,4 @@ extension WordListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: Int(collectionView.frame.width) - 40, height: height)
     }
 }
+

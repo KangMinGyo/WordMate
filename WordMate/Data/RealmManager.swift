@@ -50,9 +50,8 @@ final class RealmManager: RealmManagerProtocol {
     
     // MARK: - Delete
     func deleteObject<T: Object>(_ object: T) {
-        let realm = try? Realm()
-        try? realm?.write {
-            realm?.delete(object)
+        try? realm.write {
+            realm.delete(object)
         }
     }
 }
