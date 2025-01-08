@@ -242,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				8C78E6512CF58E7100757359 /* SpeechService.swift */,
+				8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -669,7 +670,6 @@
 			children = (
 				8CB5B4882CE8E1E90093C6C5 /* VocabularyWord.swift */,
 				8CB5B48A2CE8E2CE0093C6C5 /* VocabularyGroup.swift */,
-				8CB5B4932CEF54BB0093C6C5 /* RealmManager.swift */,
 				8C78E6702CFD7FAF00757359 /* GameSettings.swift */,
 				8C78E6952D05D95E00757359 /* MultipleChoiceOption.swift */,
 				8C78E6992D06C2CD00757359 /* Question.swift */,
