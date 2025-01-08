@@ -12,12 +12,14 @@ import SnapKit
 final class GroupListViewController: UIViewController {
 
     // MARK: - Properties
+    
     private let searchBar = UISearchBar()
     private var collectionView: UICollectionView!
     private let viewModel: GroupListViewModel
     
     
     // MARK: - Initializer
+    
     init(viewModel: GroupListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -28,7 +30,8 @@ final class GroupListViewController: UIViewController {
     }
     
     
-    // MARK: - Life Cycle
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -40,6 +43,7 @@ final class GroupListViewController: UIViewController {
     }
     
     // MARK: - Setup Methods
+    
     private func setupView() {
         navigationItem.title = "단어 그룹"
         view.backgroundColor = .systemBackground
@@ -80,7 +84,7 @@ final class GroupListViewController: UIViewController {
         collectionView.delegate = self
         
         // 3. 셀 등록
-        collectionView.register(GroupCell.self, forCellWithReuseIdentifier: GroupCell.identifier)
+        collectionView.register(GroupCell.self, forCellWithReuseIdentifier: Cell.groupCellIdentifier)
         
         // 4. UICollectionView를 뷰에 추가
         view.addSubview(collectionView)
@@ -112,6 +116,7 @@ final class GroupListViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
     @objc private func addButtonTapped() {
         viewModel.navigateToAddGroupVC(from: self, animated: true)
     }
@@ -147,6 +152,7 @@ final class GroupListViewController: UIViewController {
 }
 
 // MARK: - UISearchBarDelegate
+
 extension GroupListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -185,6 +191,7 @@ extension GroupListViewController: UISearchBarDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension GroupListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -192,7 +199,7 @@ extension GroupListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GroupCell", for: indexPath) as! GroupCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cell.groupCellIdentifier, for: indexPath) as! GroupCell
         let group = viewModel.groupList?[indexPath.row]
         cell.group = group
         return cell
@@ -200,6 +207,7 @@ extension GroupListViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension GroupListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

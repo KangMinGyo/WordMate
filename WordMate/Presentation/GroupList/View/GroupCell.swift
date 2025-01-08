@@ -10,21 +10,20 @@ import Then
 import SnapKit
 
 final class GroupCell: UICollectionViewCell {
+    
     // MARK: - Properties
-    static let identifier = "GroupCell"
     
     var group: VocabularyGroup? {
-        didSet {
-            updateUI()
-        }
+        didSet { updateUI() }
     }
     
-    let groupTitleLabel = UILabel().then {
+    private let groupTitleLabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 18)
         $0.textColor = .black
     }
     
     // MARK: - Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -35,6 +34,7 @@ final class GroupCell: UICollectionViewCell {
     }
     
     // MARK: - Setup Methods
+    
     private func setupView() {
         setupCellStyle()
         setupSubviews()

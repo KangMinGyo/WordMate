@@ -11,6 +11,7 @@ import RealmSwift
 final class GroupListViewModel {
     
     // MARK: - Properties
+    
     private let realmManager: RealmManagerProtocol
     
     private(set) var groupList: Results<VocabularyGroup>? {
@@ -22,11 +23,13 @@ final class GroupListViewModel {
     var onGroupsUpdated: ((Results<VocabularyGroup>?) -> Void)?
     
     // MARK: - Initializer
+    
     init(realmManager: RealmManagerProtocol) {
         self.realmManager = realmManager
     }
     
     // MARK: - Data Handling
+    
     func fetchGroups() {
         groupList = realmManager.fetchObject(VocabularyGroup.self)
     }
@@ -46,16 +49,16 @@ final class GroupListViewModel {
         return self.groupList?.count ?? 0
     }
     
-    // 뷰모델 생성
     func groupViewModel(at index: Int) -> AddGroupViewModel? {
         guard let group = self.groupList?[index] else { return nil }
         return AddGroupViewModel(realmManager: realmManager, group: group, index: index)
     }
 
     // MARK: - Navigation
+    
     func navigateToAddGroupVC(from viewController: UIViewController, at index: Int? = nil, animated: Bool) {
         let addGroupViewModel: AddGroupViewModel
-        // 기존의 그룹이 있을때
+        // 기존의 그룹이 있을때(수정)
         if let index = index, let groupVM = groupViewModel(at: index) {
             addGroupViewModel = groupVM
         // 새로운 그룹 생성할때

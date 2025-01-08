@@ -7,6 +7,11 @@
 
 import UIKit
 
+public struct Cell {
+    static let groupCellIdentifier = "GroupCell"
+    private init() {}
+}
+
 public enum GroupListConstants {
     static let horizontalPadding: CGFloat = 20
     static let interItemSpacing: CGFloat = 10
