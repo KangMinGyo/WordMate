@@ -176,6 +176,24 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		8C3ED8842D2EB19E00800D4E /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B4692CE5C8620093C6C5 /* GroupList */,
+				8CB5B4812CE716EE0093C6C5 /* AddGroup */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		8C3ED8852D2EB1AE00800D4E /* Word */ = {
+			isa = PBXGroup;
+			children = (
+				8CB5B46F2CE5CA620093C6C5 /* WordList */,
+				8CB5B4782CE5F59E0093C6C5 /* AddWord */,
+			);
+			path = Word;
+			sourceTree = "<group>";
+		};
 		8C57F58F2D22DEF7005D21F1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,10 +316,12 @@
 		8C78E6652CF9D3AF00757359 /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				8C78E6562CF8512E00757359 /* GameSettings */,
 				8C6B0B0E2D1139010055B181 /* FlashCard */,
 				8C78E6662CF9D3C200757359 /* MultipleChoice */,
 				8C78E6AD2D0B0C1000757359 /* Dictation */,
 				8C6B0B072D10028C0055B181 /* Repeat */,
+				8C78E69D2D06C40B00757359 /* GameResult */,
 			);
 			path = Games;
 			sourceTree = "<group>";
@@ -532,14 +552,10 @@
 			isa = PBXGroup;
 			children = (
 				8C3ED8812D2EA05000800D4E /* Root */,
-				8CB5B4692CE5C8620093C6C5 /* GroupList */,
-				8CB5B4812CE716EE0093C6C5 /* AddGroup */,
-				8CB5B46F2CE5CA620093C6C5 /* WordList */,
-				8CB5B4782CE5F59E0093C6C5 /* AddWord */,
+				8C3ED8842D2EB19E00800D4E /* Group */,
+				8C3ED8852D2EB1AE00800D4E /* Word */,
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
-				8C78E6562CF8512E00757359 /* GameSettings */,
 				8C78E6652CF9D3AF00757359 /* Games */,
-				8C78E69D2D06C40B00757359 /* GameResult */,
 				8CB5B46D2CE5C8980093C6C5 /* Settings */,
 			);
 			path = Presentation;
