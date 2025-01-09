@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "WordMate.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "loop.png",
+      "filename" : "WordMate@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "WordMate@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
