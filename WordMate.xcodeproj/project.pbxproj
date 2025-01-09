@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8C3ED8832D2EA06200800D4E /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3ED8822D2EA06200800D4E /* MainTabBarController.swift */; };
+		8C3ED8932D2FF6D300800D4E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3ED8922D2FF6D300800D4E /* LoginViewController.swift */; };
+		8C3ED8952D2FF7AA00800D4E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3ED8942D2FF7AA00800D4E /* Utilities.swift */; };
 		8C57F5882D1A8537005D21F1 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5872D1A8537005D21F1 /* SettingButton.swift */; };
 		8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5902D22DF06005D21F1 /* CustomButton.swift */; };
 		8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C57F5922D24FA20005D21F1 /* Constants.swift */; };
@@ -91,6 +93,8 @@
 /* Begin PBXFileReference section */
 		8C3ED8732D2E3D0B00800D4E /* WordMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C3ED8822D2EA06200800D4E /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		8C3ED8922D2FF6D300800D4E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8C3ED8942D2FF7AA00800D4E /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8C57F5872D1A8537005D21F1 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		8C57F5902D22DF06005D21F1 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C57F5922D24FA20005D21F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -201,8 +205,41 @@
 				8C6B0B052D0C62640055B181 /* UITextField+Extension.swift */,
 				8C57F5942D26E2ED005D21F1 /* Realm+Extension.swift */,
 				8C57F5922D24FA20005D21F1 /* Constants.swift */,
+				8C3ED8942D2FF7AA00800D4E /* Utilities.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		8C3ED88E2D2FF65600800D4E /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8C3ED88F2D2FF6B400800D4E /* Login */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		8C3ED88F2D2FF6B400800D4E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8C3ED8902D2FF6BB00800D4E /* View */,
+				8C3ED8912D2FF6BF00800D4E /* ViewModel */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		8C3ED8902D2FF6BB00800D4E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8C3ED8922D2FF6D300800D4E /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8C3ED8912D2FF6BF00800D4E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8C57F58F2D22DEF7005D21F1 /* Common */ = {
@@ -552,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				8C3ED8812D2EA05000800D4E /* Root */,
+				8C3ED88E2D2FF65600800D4E /* Authentication */,
 				8C3ED8842D2EB19E00800D4E /* Group */,
 				8C3ED8852D2EB1AE00800D4E /* Word */,
 				8CB5B46B2CE5C8750093C6C5 /* Learning */,
@@ -793,6 +831,7 @@
 				8C78E69A2D06C2CD00757359 /* Question.swift in Sources */,
 				8C3ED8832D2EA06200800D4E /* MainTabBarController.swift in Sources */,
 				8C78E6B12D0B0C4E00757359 /* DictationViewController.swift in Sources */,
+				8C3ED8952D2FF7AA00800D4E /* Utilities.swift in Sources */,
 				8C78E6922D0035D000757359 /* QuestionOrderViewController.swift in Sources */,
 				8C78E6A72D087ABE00757359 /* ResultCell.swift in Sources */,
 				8C57F5932D24FA20005D21F1 /* Constants.swift in Sources */,
@@ -813,6 +852,7 @@
 				8C78E6962D05D95E00757359 /* MultipleChoiceOption.swift in Sources */,
 				8C57F5912D22DF06005D21F1 /* CustomButton.swift in Sources */,
 				8C78E6B52D0B165B00757359 /* DictationViewModel.swift in Sources */,
+				8C3ED8932D2FF6D300800D4E /* LoginViewController.swift in Sources */,
 				8C78E6902D0035BD00757359 /* QuestionOrderCell.swift in Sources */,
 				8CB5B4842CE7171C0093C6C5 /* AddGroupViewController.swift in Sources */,
 				8C78E65A2CF851B800757359 /* GameSettingsPopupView.swift in Sources */,
