@@ -69,8 +69,8 @@ final class LoginViewController: UIViewController {
     }
     
     @objc func handleShowSignUp() {
-//        let controller = RegistrationController()
-//        navigationController?.pushViewController(controller, animated: true)
+        let controller = RegistrationViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: - Helpers
