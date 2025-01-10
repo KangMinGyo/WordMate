@@ -48,10 +48,12 @@ class RegistrationViewController: UIViewController {
     private let signUpButton = UIButton().then {
         $0.setTitle("Sign Up", for: .normal)
         $0.setTitleColor(.primaryOrange, for: .normal)
-        $0.backgroundColor = .white
+        $0.setTitleColor(.buttonTextEnabled, for: .disabled)
+        $0.backgroundColor = .buttonEnabled
         $0.layer.cornerRadius = 5
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         $0.snp.makeConstraints { $0.height.equalTo(50) }
+        $0.isEnabled = false
     }
     
     private let alreadyHaveAccountButton: UIButton = {
@@ -63,40 +65,35 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "회원가입"
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        configureActions()
-        configureUI()
+        setupActions()
+        setupView()
     }
     
     // MARK: - Selectors
 
-    func handleSignUp() {
+    @objc func handleSignUp() {
         print("회원가입")
     }
     
-    func handleShowLogin() {
+    @objc func handleShowLogin() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func updateSignupButtonState(isWordValid: Bool, isMeaningValid: Bool) {
+        signUpButton.isEnabled = isWordValid && isMeaningValid
+        signUpButton.backgroundColor = (isWordValid && isMeaningValid) ? .white : .buttonEnabled
     }
     
     // MARK: - Helpers
     
-    func configureActions() {
-        signUpButton.addAction(
-            UIAction { [self] _ in
-                handleSignUp()
-            },
-            for: .touchUpInside
-        )
-        
-        alreadyHaveAccountButton.addAction(
-            UIAction { [self] _ in
-                handleShowLogin()
-            },
-            for: .touchUpInside)
+    func setupActions() {
+        signUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        alreadyHaveAccountButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
     }
     
-    func configureUI() {
+    func setupView() {
+        navigationItem.title = "회원가입"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.backgroundColor = .primaryOrange
 
         let stackView = Utilities().createStackView(with: [emailContainerView, passwordContainerView, userNameContainerView, signUpButton])
@@ -110,5 +107,27 @@ class RegistrationViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(40)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension RegistrationViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        DispatchQueue.main.async { [self] in
+            if textField == emailTextField {
+                let isWordValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                let isMeaningValid = !(passwordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                updateSignupButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
+            } else if textField == passwordTextField {
+                let isWordValid = !(emailTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                let isMeaningValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                self.updateSignupButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
+            }
+        }
+        return true
     }
 }

@@ -42,10 +42,12 @@ final class LoginViewController: UIViewController {
     private let loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(.primaryOrange, for: .normal)
-        $0.backgroundColor = .white
+        $0.setTitleColor(.buttonTextEnabled, for: .disabled)
+        $0.backgroundColor = .buttonEnabled
         $0.layer.cornerRadius = 5
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         $0.snp.makeConstraints { $0.height.equalTo(50) }
+        $0.isEnabled = false
     }
     
     private let dontHaveAccountButton: UIButton = {
@@ -73,6 +75,11 @@ final class LoginViewController: UIViewController {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    private func updateLoginButtonState(isWordValid: Bool, isMeaningValid: Bool) {
+        loginButton.isEnabled = isWordValid && isMeaningValid
+        loginButton.backgroundColor = (isWordValid && isMeaningValid) ? .white : .buttonEnabled
+    }
+    
     // MARK: - Helpers
     
     private func setupActions() {
@@ -82,6 +89,8 @@ final class LoginViewController: UIViewController {
     
     func setupView() {
         view.backgroundColor = .primaryOrange
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         view.addSubview(logoImageView)
         logoImageView.snp.makeConstraints {
@@ -102,5 +111,26 @@ final class LoginViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(40)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension LoginViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        DispatchQueue.main.async { [self] in
+            if textField == emailTextField {
+                let isWordValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                let isMeaningValid = !(passwordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                updateLoginButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
+            } else if textField == passwordTextField {
+                let isWordValid = !(emailTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                let isMeaningValid = !updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                self.updateLoginButtonState(isWordValid: isWordValid, isMeaningValid: isMeaningValid)
+            }
+        }
+        return true
     }
 }
