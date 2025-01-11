@@ -73,6 +73,15 @@ final class LoginViewController: UIViewController {
         AuthService.shared.logUserIn(withEmail: email, password: password) { result in
             switch result {
             case .success(let authData):
+                let scenes = UIApplication.shared.connectedScenes
+                let windowScene = scenes.first as? UIWindowScene
+                guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else {
+                return }
+                 
+                guard let tab = window.rootViewController as? MainTabBarController else { return }
+                tab.authenticateUserAndSetupUI()
+                
+                self.dismiss(animated: true, completion: nil)
                 print("User logged in successfully! UID: \(authData.user.uid)")
             case .failure(let error):
                 print("Failed to log in user: \(error.localizedDescription)")

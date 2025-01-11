@@ -81,6 +81,15 @@ class RegistrationViewController: UIViewController {
         AuthService.shared.registerUser(credentials: credentials) { result in
             switch result {
             case .success:
+                let scenes = UIApplication.shared.connectedScenes
+                let windowScene = scenes.first as? UIWindowScene
+                guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else {
+                return }
+                 
+                guard let tab = window.rootViewController as? MainTabBarController else { return }
+                tab.authenticateUserAndSetupUI()
+                
+                self.dismiss(animated: true, completion: nil)
                 print("회원가입 완료!")
             case .failure(let error):
                 print("회원가입 실패~")
