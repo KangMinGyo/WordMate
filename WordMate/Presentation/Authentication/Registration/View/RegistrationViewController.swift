@@ -37,6 +37,7 @@ class RegistrationViewController: UIViewController {
     private let passwordTextField: UITextField = {
         let tf = Utilities().textField(withPlaceholder: "Password")
         tf.isSecureTextEntry = true
+        tf.textContentType = .oneTimeCode
         return tf
     }()
     
@@ -71,8 +72,20 @@ class RegistrationViewController: UIViewController {
     
     // MARK: - Selectors
 
-    @objc func handleSignUp() {
-        print("회원가입")
+    @objc func handleRegistration() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let userName = userNameTextField.text else { return }
+        
+        let credentials = AuthCredentials(email: email, password: password, userName: userName)
+        AuthService.shared.registerUser(credentials: credentials) { result in
+            switch result {
+            case .success:
+                print("회원가입 완료!")
+            case .failure(let error):
+                print("회원가입 실패~")
+            }
+        }
     }
     
     @objc func handleShowLogin() {
@@ -87,7 +100,7 @@ class RegistrationViewController: UIViewController {
     // MARK: - Helpers
     
     func setupActions() {
-        signUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         alreadyHaveAccountButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
     }
     
@@ -95,6 +108,9 @@ class RegistrationViewController: UIViewController {
         navigationItem.title = "회원가입"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.backgroundColor = .primaryOrange
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
 
         let stackView = Utilities().createStackView(with: [emailContainerView, passwordContainerView, userNameContainerView, signUpButton])
         view.addSubview(stackView)
