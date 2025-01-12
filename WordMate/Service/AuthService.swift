@@ -19,17 +19,12 @@ class AuthService {
     
     let db = Firestore.firestore()
     
-    func logUserIn(withEmail email: String, password: String, completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
+    func logUserIn(withEmail email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 completion(.failure(error))
-                return
-            }
-            
-            if let result = result {
-                completion(.success(result))
             } else {
-                completion(.failure(NSError(domain: "AuthService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred."])))
+                completion(.success(()))
             }
         }
     }

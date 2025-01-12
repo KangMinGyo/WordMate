@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class LoginViewController: UIViewController {
     
@@ -59,37 +60,44 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupActions()
         setupView()
     }
     
     // MARK: - Selectors
     
-    @objc func handleLogin() {
+    @objc private func handleLogin() {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
-        
+        logInUser(email: email, password: password)
+    }
+    
+    private func logInUser(email: String, password: String) {
         AuthService.shared.logUserIn(withEmail: email, password: password) { result in
             switch result {
-            case .success(let authData):
-                let scenes = UIApplication.shared.connectedScenes
-                let windowScene = scenes.first as? UIWindowScene
-                guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else {
-                return }
-                 
-                guard let tab = window.rootViewController as? MainTabBarController else { return }
-                tab.authenticateUserAndSetupUI()
-                
-                self.dismiss(animated: true, completion: nil)
-                print("User logged in successfully! UID: \(authData.user.uid)")
+            case .success:
+                self.handleLoginSuccess()
             case .failure(let error):
-                print("Failed to log in user: \(error.localizedDescription)")
+                self.handleLoginFailed(error)
             }
         }
     }
     
-    @objc func handleShowSignUp() {
+    private func handleLoginSuccess() {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else { return }
+        guard let tab = window.rootViewController as? MainTabBarController else { return }
+        
+        tab.authenticateUserAndSetupUI()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func handleLoginFailed(_ error: Error) {
+        print("Failed to log in user: \(error.localizedDescription)")
+    }
+    
+    @objc private func handleShowSignUp() {
         let controller = RegistrationViewController()
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -106,7 +114,7 @@ final class LoginViewController: UIViewController {
         dontHaveAccountButton.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
     }
     
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = .primaryOrange
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -134,6 +142,7 @@ final class LoginViewController: UIViewController {
 }
 
 // MARK: - UITextFieldDelegate
+
 extension LoginViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""

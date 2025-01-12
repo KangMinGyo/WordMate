@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegistrationViewController: UIViewController {
+final class RegistrationViewController: UIViewController {
     
     // MARK: - Properties
 
@@ -72,32 +72,40 @@ class RegistrationViewController: UIViewController {
     
     // MARK: - Selectors
 
-    @objc func handleRegistration() {
+    @objc private func handleRegistration() {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         guard let userName = userNameTextField.text else { return }
-        
         let credentials = AuthCredentials(email: email, password: password, userName: userName)
+        registrationUser(credentials: credentials)
+    }
+    
+    private func registrationUser(credentials: AuthCredentials) {
         AuthService.shared.registerUser(credentials: credentials) { result in
             switch result {
             case .success:
-                let scenes = UIApplication.shared.connectedScenes
-                let windowScene = scenes.first as? UIWindowScene
-                guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else {
-                return }
-                 
-                guard let tab = window.rootViewController as? MainTabBarController else { return }
-                tab.authenticateUserAndSetupUI()
-                
-                self.dismiss(animated: true, completion: nil)
-                print("회원가입 완료!")
+                self.handleRegistrationSuccess()
             case .failure(let error):
-                print("회원가입 실패~")
+                self.handleRegistrationFailed(error)
             }
         }
     }
     
-    @objc func handleShowLogin() {
+    private func handleRegistrationSuccess() {
+        let scenes = UIApplication.shared.connectedScenes
+        let windowScene = scenes.first as? UIWindowScene
+        guard let window = windowScene?.windows.first(where: { $0.isKeyWindow }) else { return }
+        guard let tab = window.rootViewController as? MainTabBarController else { return }
+        
+        tab.authenticateUserAndSetupUI()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func handleRegistrationFailed(_ error: Error) {
+        print("Failed to log in user: \(error.localizedDescription)")
+    }
+    
+    @objc private func handleShowLogin() {
         navigationController?.popViewController(animated: true)
     }
     
@@ -108,12 +116,12 @@ class RegistrationViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func setupActions() {
+    private func setupActions() {
         signUpButton.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         alreadyHaveAccountButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
     }
     
-    func setupView() {
+    private func setupView() {
         navigationItem.title = "회원가입"
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         view.backgroundColor = .primaryOrange
